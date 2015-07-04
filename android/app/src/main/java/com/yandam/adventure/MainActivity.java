@@ -75,7 +75,7 @@ public class MainActivity extends Activity {
 
         /*webView.loadData("", "text/html", null);*/
        // Uri path = Uri.parse("android.resource://com.androidbook.samplevideo/" + R..raw.myvideo);
-        webView.loadUrl("file:///android_asset/html/test/apiAndroid.html");
+        webView.loadUrl("file:///android_asset/www/test/apiAndroid.html");
 
         //webView.loadData(summary, "text/html", null);
     }
