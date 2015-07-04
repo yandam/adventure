@@ -2,6 +2,7 @@ package com.yandam.adventure;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -38,6 +39,10 @@ public class MainActivity extends Activity {
         jsSpeechRecognition = new JSSpeechRecognition(this, webView);
         webView.addJavascriptInterface(jsSpeechRecognition, "AndroidSpeechRecognition");
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            WebView.setWebContentsDebuggingEnabled(true);
+        }
+
         webView.setWebChromeClient(new WebChromeClient() {
 
             public static final String TAG = "WebView";
@@ -72,7 +77,8 @@ public class MainActivity extends Activity {
             }
         });
 
-        webView.loadUrl("file:///android_asset/www/test/apiAndroid.html");
+        if (savedInstanceState == null)
+            webView.loadUrl("file:///android_asset/www/index.html");
     }
 
     @Override
@@ -92,6 +98,15 @@ public class MainActivity extends Activity {
         if (id == R.id.action_reload) {
             webView.reload();
             return true;
+        } else if (id == R.id.action_index) {
+            webView.loadUrl("file:///android_asset/www/index.html");
+            return true;
+        } else if (id == R.id.action_apiAndroid) {
+            webView.loadUrl("file:///android_asset/www/test/apiAndroid.html");
+            return true;
+        } else if (id == R.id.action_mockup) {
+            webView.loadUrl("file:///android_asset/www/test/mockup.html");
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -103,5 +118,21 @@ public class MainActivity extends Activity {
         jsSpeechRecognition.destroy();
 
         super.onDestroy();
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        // Save the state of the WebView
+        webView.saveState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        // Restore the state of the WebView
+        webView.restoreState(savedInstanceState);
     }
 }
