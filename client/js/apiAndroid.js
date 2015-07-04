@@ -62,3 +62,37 @@ Text2Speech = function()  {
 }
 var Text2Speech = new Text2Speech();
 
+/*************************************************************************************
+ * SpeechRecognition
+ * Voice -> Text
+ * JS - Android interface
+ *************************************************************************************/
+SpeechRecognition = function() {
+
+	callback = undefined;
+
+	/**
+	 * Start a SpeechRecognition
+	 * @param  {Function} callback Callback method for the answer. callback(status, answerText)
+	 */
+	this.start = function(callback) {
+
+		this.callback = callback;
+		window.AndroidSpeechRecognition.start();
+
+	}
+
+	/**
+	 * Android callback
+	 * Do not call directly
+	 */
+	this.AndroidCallback = function(status, answerText)
+	{
+		if(callback != undefined)
+		{
+			callback(status, answerText);
+		}
+	}
+
+}
+var SpeechRecognition = new SpeechRecognition();

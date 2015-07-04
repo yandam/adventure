@@ -18,6 +18,7 @@ public class MainActivity extends Activity {
     private static final String TAG = "MainActivity";
     private WebView webView;
     private JSTextToSpeech jsTextToSpeech;
+    private JSSpeechRecognition jsSpeechRecognition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +33,8 @@ public class MainActivity extends Activity {
         webView.getSettings().setJavaScriptEnabled(true);
         jsTextToSpeech = new JSTextToSpeech(this, webView);
         webView.addJavascriptInterface(jsTextToSpeech, "AndroidTextToSpeech");
+        jsSpeechRecognition = new JSSpeechRecognition(this, webView);
+        webView.addJavascriptInterface(jsSpeechRecognition, "AndroidSpeechRecognition");
 
        // getWindow().requestFeature(Window.FEATURE_PROGRESS);
         webView.setWebChromeClient(new WebChromeClient() {
@@ -102,6 +105,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onDestroy() {
         jsTextToSpeech.destroy();
+        jsSpeechRecognition.destroy();
 
         super.onDestroy();
     }
