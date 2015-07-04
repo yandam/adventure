@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>API Android Tester</title>
+	<script src="../js/apiAndroid.js"></script>
+</head>
+<body>
+
+<script type="text/javascript">
+	
+function test_TextToSpeech()
+{
+	callback = function(status)  
+	{
+		document.getElementById('status').innerHTML += "<br>Text2Speech:status = "+status
+	}
+
+	Text2Speech.speak("Bonjour comment allez-vous Yandam ?", callback);
+}
+
+function test_SpeechRecognition()
+{
+	callback = function(status, answer)  
+	{
+		document.getElementById('status').innerHTML += "<br>SpeechRecognition:status = "+status+", answer = " + answer
+	}
+
+	SpeechRecognition.start(callback);
+}
+
+
+</script>
+
+
+<a href="javascript:test_TextToSpeech()">Text2Speech</a>
+<a href="javascript:test_SpeechRecognition()">SpeechRecognition</a>
+<div id="status"></div>
+
+</body>
+</html>
