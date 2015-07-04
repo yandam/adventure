@@ -5,87 +5,22 @@
  <link rel="stylesheet" href="css/normalize.css">
  <title>Adventure</title>
  <style>
-.grid {
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
+html, body { height:100%; margin:0; padding:0 }
+div {
+  width: 50%; height: 50%; float: left;
+  color: rgba(0, 0, 0, 0.2); font-size: 10em; font-weight: bold;
 }
-.grid > div {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-.grid > div > .row {
-  display: flex;
-  min-height: 100%;
-}
-.grid > div > .row > div {
-  display: flex;
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-  font-size: 10em;
-  font-weight: bold;
-  color: rgba(0, 0, 0, 0.2);
-}
-
-html, body {
-  height: 100%;
-}
-
-.A {
-  background: #79b5d2;
-}
-
-.B {
-  background: #d27979;
-}
-
-.C {
-  background: #d279d2;
-}
-
-.D {
-  background: #97d279;
-}
-
-
-html, body {
-  height: 100%;
-}
-
-.A {
-  background: #79b5d2;
-}
-
-.B {
-  background: #d27979;
-}
-
-.C {
-  background: #d279d2;
-}
-
-.D {
-  background: #97d279;
-}
+.A { background:orange  }
+.B {background:blue    }
+.C {background:green   }
+.D {background:red     } 
 
  </style>
 </head>
 <body>
-<section class="grid">
-  <div>
-    <div class="row">
-      <div class="A">A</div>
-      <div class="B">B</div>
-    </div>
-  </div>
-  <div>
-    <div class="row">
-      <div class="C">C</div>
-      <div class="D">D</div>
-    </div>
-  </div>
-</section>
+<div class="A"></div>
+<div class="B"></div>
+<div class="C"></div>
+<div class="D"></div>
 </body>
 </html>

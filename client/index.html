@@ -3,12 +3,12 @@
 <head>
  <meta charset="utf-8">
  <title>Adventure</title>
- <link rel="stylesheet" href="css/bootstrap.min.css">
+ <link rel="stylesheet" href="css/normalize.css">
  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <div id="content" class="full">Ooops, something wrong happened!</div>
-  <script src="react/build/react.js"></script>
+  <script src="react/build/react.min.js"></script>
   <script src="react/build/JSXTransformer.js"></script>
   <script src="data/story.js"></script>
   <script type="text/jsx">
@@ -26,29 +26,22 @@ var colors = {
         backgroundColor:colors[this.props.color]
       }
       return <div
+        className="box"
         style={style}
         onClick={this.props.onClick}
-        >{this.props.text}</div>
+        ><span className="text">{this.props.text}</span></div>
     }
   })
 
   var Grid = React.createClass({
   render:function(){
     var choices = this.props.choices;
-    return (<section className="grid">
-          <div>
-            <div className="row">
-              {choices.A}
-              {choices.B}
-            </div>
-          </div>
-          <div>
-            <div className="row">
-              {choices.C}
-              {choices.D}
-            </div>
-          </div>
-        </section>);
+    return (<div className="full">
+          {choices.A}
+          {choices.B}
+          {choices.C}
+          {choices.D}
+        </div>);
   }    
   })
 
