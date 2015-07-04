@@ -2,22 +2,17 @@ package com.yandam.adventure;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
-import android.speech.tts.TextToSpeech;
-import android.speech.tts.UtteranceProgressListener;
 import android.util.Log;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Locale;
 
 /**
@@ -29,7 +24,6 @@ public class JSSpeechRecognition {
     private static final String TAG = "JSSpeechRecognition";
     protected final WebView webView;
     private final SpeechRecognizer mSpeechRecognizer;
-    private final RecognitionListener speechRecognitionListener;
     private boolean mIsListening = false;
     private Activity activity;
 
@@ -40,7 +34,7 @@ public class JSSpeechRecognition {
 
         mSpeechRecognizer = SpeechRecognizer.createSpeechRecognizer(activity);
 
-        speechRecognitionListener = new RecognitionListener() {
+        mSpeechRecognizer.setRecognitionListener(new RecognitionListener() {
             @Override
             public void onBeginningOfSpeech() {
                 Log.d(TAG, "onBeginingOfSpeech");
@@ -112,9 +106,7 @@ public class JSSpeechRecognition {
             @Override
             public void onRmsChanged(float rmsdB) {
             }
-        };
-
-        mSpeechRecognizer.setRecognitionListener(speechRecognitionListener);
+        });
 
     }
 
