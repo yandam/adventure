@@ -21,20 +21,25 @@ var colors = {
   green:"#97d279",
 }
 
-  var Box = React.createClass({
-    render:function(){
-      var style={
-        backgroundColor:colors[this.props.color]
-      }
-      return <div
-        className="box"
-        style={style}
-        onClick={this.props.onClick}
-        ><span className="text">{this.props.text}</span></div>
+var Box = React.createClass({
+  render:function(){
+    var style={
+      backgroundColor:colors[this.props.color]
     }
-  })
+    return <div
+      className="box"
+      style={style}
+      onClick={this.props.onClick}
+      >
+      <span className="backtext">{this.props.backText}</span>
+      <div className="center">
+        <span className="text">{this.props.text}</span>
+      </div>
+      </div>
+  }
+})
 
-  var Grid = React.createClass({
+var Grid = React.createClass({
   render:function(){
     var choices = this.props.choices;
     return (<div className="full">
@@ -44,72 +49,73 @@ var colors = {
           {choices.D}
         </div>);
   }    
-  })
+})
 
-  var Menu = React.createClass({
-    render: function(){
-      choices = {
-        A: (<Box color="blue" text="REPEAT"/>),
-        B: (<Box color="red" text="UNDO"/>),
-        C: (<Box color="red" text="EXIT"/>),
-        D: (<Box color="blue" text="CONTINUE"
-          onClick={this.props.toogleMenu} />)
+var Menu = React.createClass({
+  render: function(){
+    choices = {
+      A: (<Box color="blue" text="REPEAT"/>),
+      B: (<Box color="red" text="UNDO"/>),
+      C: (<Box color="red" text="EXIT"/>),
+      D: (<Box color="blue" text="CONTINUE"
+        onClick={this.props.toogleMenu} />)
+    }
+    return <Grid choices={choices} />;
+  }
+})
+
+var Story = React.createClass({
+  getInitialState: function(){
+    return {showMenu:false}
+  },
+  toogleMenu: function(e){
+    responsiveVoice.cancel();
+    this.setState({showMenu:!this.state.showMenu});
+  },
+    render: function() {
+      if(this.state.showMenu){
+        return <Menu toogleMenu={this.toogleMenu}/>
+      }
+      var now = this.props.story[this.props.state];
+      document.title = now.text
+      var voice = "French Female";
+      if(now.voice != undefined){
+        voice = now.voice;
+      }
+      responsiveVoice.speak(now.text, voice);
+      var box = function(i,color, backtext){
+        if(now.choices.length > i){
+          var choice = now.choices[i];
+          return (<Box
+            color={color}
+            onClick={this.props.onStateChanged.bind(null,choice.next)}
+            text={choice.message}
+            backText={backtext}/>)
+        }
+        return <Box color={color} />
+      }.bind(this)
+      var choices = {
+        A: box(0,"red","A"),
+        B: box(1,"green","B"),
+        C: box(2,"blue","C"),
+        D: <Box color="violet" text="MENU"
+          onClick={this.toogleMenu}/>,
       }
       return <Grid choices={choices} />;
     }
   })
 
-  var Story = React.createClass({
-    getInitialState: function(){
-      return {showMenu:false}
-    },
-    toogleMenu: function(){
-      responsiveVoice.cancel();
-      this.setState({showMenu:!this.state.showMenu});
-    },
-      render: function() {
-        if(this.state.showMenu){
-          return <Menu toogleMenu={this.toogleMenu}/>
-        }
-        var now = this.props.story[this.props.state];
-        document.title = now.text
-        var voice = "French Female";
-        if(now.voice != undefined){
-          voice = now.voice;
-        }
-        responsiveVoice.speak(now.text, voice);
-        var box = function(i,color){
-          if(now.choices.length > i){
-            var choice = now.choices[i];
-            return (<Box
-              color={color}
-              onClick={this.props.onStateChanged.bind(null,choice.next)}
-              text={choice.message}/>)
-          }
-          return <Box color={color} />
-        }.bind(this)
-        var choices = {
-          A: box(0,"red"),
-          B: box(1,"green"),
-          C: box(2,"blue"),
-          D: <Box color="violet" text="MENU"
-            onClick={this.toogleMenu}/>,
-        }
-        return <Grid choices={choices} />;
-      }
-    })
-
-    var App = React.createClass({
-      changeState: function(next){
-        responsiveVoice.cancel();
-        window.location.hash = next;
-      },
-      render: function() {
-        return (<div className="full">
-          <Story story={__STORY__} state={this.props.state} onStateChanged={this.changeState}/>
-        </div>);
-      }
-    });
+var App = React.createClass({
+  changeState: function(next){
+    responsiveVoice.cancel();
+    window.location.hash = next;
+  },
+  render: function() {
+    return (<div className="full">
+      <Story story={__STORY__} state={this.props.state} onStateChanged={this.changeState}/>
+    </div>);
+  }
+});
 
 
 function render () {

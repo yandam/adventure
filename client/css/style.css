@@ -1,16 +1,30 @@
 .box {
   width: 50%; height: 50%; float: left;
+  position: relative;
+  overflow: hidden;
+}
+.box:hover {opacity: 0.9;}
 
-  /*magic centering here!*/
+.center{
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+
+  cursor: pointer;
 }
 
 .text {
   font-size: 3em;
   font-weight: bold;
   color: rgba(0, 0, 0, 0.5);    
+}
+
+.backtext {
+  font-size: 25em;
+  opacity: 0.1;
+  position: absolute;
+  bottom: -42%;
 }
 
 html, body, .full{
