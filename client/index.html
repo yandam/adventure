@@ -7,10 +7,11 @@
  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <div id="content" class="full">Ooops, something wrong happened!</div>
+  <div id="content" class="full"></div>
   <script src="react/build/react.min.js"></script>
   <script src="react/build/JSXTransformer.js"></script>
   <script src="data/story.js"></script>
+  <script src="http://code.responsivevoice.org/responsivevoice.js"></script>
   <script type="text/jsx">
 
 var colors = {
@@ -63,6 +64,7 @@ var colors = {
       return {showMenu:false}
     },
     toogleMenu: function(){
+      responsiveVoice.cancel();
       this.setState({showMenu:!this.state.showMenu});
     },
       render: function() {
@@ -71,6 +73,11 @@ var colors = {
         }
         var now = this.props.story[this.props.state];
         document.title = now.text
+        var voice = "French Female";
+        if(now.voice != undefined){
+          voice = now.voice;
+        }
+        responsiveVoice.speak(now.text, voice);
         var box = function(i,color){
           if(now.choices.length > i){
             var choice = now.choices[i];
@@ -94,6 +101,7 @@ var colors = {
 
     var App = React.createClass({
       changeState: function(next){
+        responsiveVoice.cancel();
         window.location.hash = next;
       },
       render: function() {
@@ -106,7 +114,6 @@ var colors = {
 
 function render () {
   var route = window.location.hash.substr(1);
-  console.log('route',route);
   if(route == ''){
     route = "start";
   }
@@ -117,7 +124,7 @@ function render () {
 }
 
 window.addEventListener('hashchange', render);
-render(); 
+setTimeout(render, 0); //1000 for the first speech to work, 0 if you don't care
   </script>
 </body>
 </html>

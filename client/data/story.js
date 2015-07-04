@@ -1,30 +1,30 @@
 __STORY__ = {
   start: {
-      text:'Welcome home Damien',
+      text:'Salut camille, yo!',
       choices: [
-        {next:2, message:'It feels home'},
-        {next:3, message:'Like a new'},
-        {next:4, message:'Adventure ?'}
+        {next:2, message:"Oui?"},
+        {next:2, message:"Euuh.."},
+        {next:2, message:"C'est moi!"}
       ]
   },
   2: {
-    text:'Keep doing it!',
+    text:"Mais attend, c'est qui ton ennemi juré ?",
     choices: [
-        {next:2, message:'Here again'},
-        {next:3, message:'What the hell'},
-        {next:4, message:'Here is your piqure'}
+        {next:4, message:'Melon, ce pianotateur'},
+        {next:3, message:'Carotte, cette pianiste'},
+        {next:3, message:'AHAHAHAHAHAH'}
       ]
   },
   3: {
-    text:'LOOOOL',
+    text:"Et ben c'est fini! Voila!",
     choices: [
-        {next:2, message:'What else ?'},
+        {next:"start", message:'Je veux re-essayer!'},
       ]
   },
   4: {
-    text:'LOOOOL',
+    text:"Mwahahahahahah!",
     choices: [
-        {next:"start", message:'MDR'},
+        {next:3, message:'Quoi ? Que va tu faire ?'},
       ]
-  }
+  },
 }
