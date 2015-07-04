@@ -4,77 +4,55 @@
  <meta charset="utf-8">
  <title>Adventure</title>
  <link rel="stylesheet" href="css/bootstrap.min.css">
+ <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <div class="container">
-    <div id="content">Look at your console!</div>
-  </div>
+  <div id="content" class="full">Ooops, something wrong happened!</div>
   <script src="react/build/react.min.js"></script>
   <script src="react/build/JSXTransformer.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-router/0.13.3/ReactRouter.min.js"></script>
   <script src="data/story.js"></script>
   <script type="text/jsx">
-    var Debug = React.createClass({
-      render: function(){
-        return <pre>{JSON.stringify(this.props.x, null,2)}</pre>;
-      }
-    })
-
-  var Header = React.createClass({
-    render: function() {
-      return (<div className="page-header">
-          <h1>{this.props.title} <small>{this.props.subtitle}</small></h1>
-        </div>);
-    }
-  });
-
-  var Box = React.createClass({
-    render: function() {
-      return (<div className="col-md-6">
-          {this.props.children}
-        </div>)
-    }
-  })
-
   var Story = React.createClass({
       render: function() {
         var now = this.props.story[this.props.state];
-        var choices = now.choices.map((choice,i) => {
-          return (<Box>
-            <a onClick={this.props.onStateChanged.bind(null,choice.next)}>{choice.message}</a>
-          </Box>);
+        var choices_letters = ['A','B','C']
+        var choices = {}
+        choices_letters.map((letter,i) => {
+          if(now.choices.length > i){
+            var choice = now.choices[i];
+            choices[letter] = (<div className={letter}
+              onClick={this.props.onStateChanged.bind(null,choice.next)}>
+                {choice.message}
+            </div>);
+          }else{
+            choices[letter] = <div className={letter}></div>
+          }
         })
-        return (<div>
-          <div className="well">
-            {now.text}
-          </div>
-          <div className="row">
-            {choices[0]}
-            {choices[1]}
-          </div>
-          <div className="row">
-            {choices[2]}
-          </div>
-        </div>);
+        choices.D = (<div className="D">MENU</div>)
+        return (<section className="grid">
+              <div>
+                <div className="row">
+                  {choices.A}
+                  {choices.B}
+                </div>
+              </div>
+              <div>
+                <div className="row">
+                  {choices.C}
+                  {choices.D}
+                </div>
+              </div>
+            </section>);
       }
     })
 
     var App = React.createClass({
-      getInitialState: function() {
-        var state = 'start'
-        if(this.props.route.length > 0){
-          state = this.props.route;
-        }
-        return {state: state}
-      },
       changeState: function(next){
         window.location.hash = next;
-        this.setState({state:next})
       },
       render: function() {
-        return (<div>
-          <Header title="here we go" subtitle={this.props.route} />
-          <Story story={__STORY__} state={this.state.state} onStateChanged={this.changeState}/>
+        return (<div className="full">
+          <Story story={__STORY__} state={this.props.state} onStateChanged={this.changeState}/>
         </div>);
       }
     });
@@ -82,8 +60,12 @@
 
 function render () {
   var route = window.location.hash.substr(1);
+  console.log('route',route);
+  if(route == ''){
+    route = "start";
+  }
   React.render(
-    <App route={route} />,
+    <App state={route} />,
     document.getElementById('content')
     );
 }
