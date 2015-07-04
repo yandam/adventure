@@ -2,7 +2,7 @@
 <html>
 <head>
  <meta charset="utf-8">
- <title>React</title>
+ <title>Adventure</title>
  <link rel="stylesheet" href="css/bootstrap.min.css">
 </head>
 <body>
@@ -28,20 +28,32 @@
     }
   });
 
+  var Box = React.createClass({
+    render: function() {
+      return (<div className="col-md-6">
+          {this.props.children}
+        </div>)
+    }
+  })
+
   var Story = React.createClass({
       render: function() {
         var now = this.props.story[this.props.state];
         var choices = now.choices.map((choice,i) => {
-          return (<li key={i}>
+          return (<Box>
             <a onClick={this.props.onStateChanged.bind(null,choice.next)}>{choice.message}</a>
-          </li>);
+          </Box>);
         })
         return (<div>
           <div className="well">
             {now.text}
-            <ul>
-              {choices}
-            </ul>
+          </div>
+          <div className="row">
+            {choices[0]}
+            {choices[1]}
+          </div>
+          <div className="row">
+            {choices[2]}
           </div>
         </div>);
       }
