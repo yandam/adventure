@@ -1,7 +1,7 @@
 
 SERVER (API), CATALOG, EDITOR, CLIENT, ANDROID INTEG
 
-__________
+---------
 
 July
 
@@ -23,6 +23,6 @@ August
 
 * More stories
 
-* Expand to
+* Expand to most platforms (touch, kindle, windows phone, ios, ipad, tablet)
 
 * Find partners (Coyote, Android Auto, automakers,... )

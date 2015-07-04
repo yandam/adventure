@@ -8,41 +8,94 @@
 </head>
 <body>
   <div id="content" class="full">Ooops, something wrong happened!</div>
-  <script src="react/build/react.min.js"></script>
+  <script src="react/build/react.js"></script>
   <script src="react/build/JSXTransformer.js"></script>
   <script src="data/story.js"></script>
   <script type="text/jsx">
+
+var colors = {
+  blue:"#79b5d2",
+  red:"#d27979",
+  violet:"#d279d2",
+  green:"#97d279",
+}
+
+  var Box = React.createClass({
+    render:function(){
+      var style={
+        backgroundColor:colors[this.props.color]
+      }
+      return <div
+        style={style}
+        onClick={this.props.onClick}
+        >{this.props.text}</div>
+    }
+  })
+
+  var Grid = React.createClass({
+  render:function(){
+    var choices = this.props.choices;
+    return (<section className="grid">
+          <div>
+            <div className="row">
+              {choices.A}
+              {choices.B}
+            </div>
+          </div>
+          <div>
+            <div className="row">
+              {choices.C}
+              {choices.D}
+            </div>
+          </div>
+        </section>);
+  }    
+  })
+
+  var Menu = React.createClass({
+    render: function(){
+      choices = {
+        A: (<Box color="blue" text="REPEAT"/>),
+        B: (<Box color="red" text="UNDO"/>),
+        C: (<Box color="red" text="EXIT"/>),
+        D: (<Box color="blue" text="CONTINUE"
+          onClick={this.props.toogleMenu} />)
+      }
+      return <Grid choices={choices} />;
+    }
+  })
+
   var Story = React.createClass({
+    getInitialState: function(){
+      return {showMenu:false}
+    },
+    toogleMenu: function(){
+      this.setState({showMenu:!this.state.showMenu});
+    },
       render: function() {
+        if(this.state.showMenu){
+          return <Menu toogleMenu={this.toogleMenu}/>
+        }
         var now = this.props.story[this.props.state];
-        var choices_letters = ['A','B','C']
-        var choices = {}
-        choices_letters.map((letter,i) => {
+        document.title = now.text
+        var box = function(i,color){
           if(now.choices.length > i){
             var choice = now.choices[i];
-            choices[letter] = (<div className={letter}
-              onClick={this.props.onStateChanged.bind(null,choice.next)}>
-                {choice.message}
-            </div>);
-          }else{
-            choices[letter] = <div className={letter}></div>
+            return (<Box
+              color={color}
+              onClick={this.props.onStateChanged.bind(null,choice.next)}
+              text={choice.message}/>)
           }
-        })
-        choices.D = (<div className="D">MENU</div>)
-        return (<section className="grid">
-              <div>
-                <div className="row">
-                  {choices.A}
-                  {choices.B}
-                </div>
-              </div>
-              <div>
-                <div className="row">
-                  {choices.C}
-                  {choices.D}
-                </div>
-              </div>
-            </section>);
+          return <Box color={color} />
+        }.bind(this)
+        var choices = {
+          A: box(0,"red"),
+          B: box(1,"green"),
+          C: box(2,"blue"),
+          D: <Box color="violet" text="MENU"
+            onClick={this.toogleMenu}/>,
+        }
+        return <Grid choices={choices} />;
       }
     })
 

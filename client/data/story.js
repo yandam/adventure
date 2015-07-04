@@ -9,9 +9,22 @@ __STORY__ = {
   },
   2: {
     text:'Keep doing it!',
-    choices: []
+    choices: [
+        {next:2, message:'Here again'},
+        {next:3, message:'What the hell'},
+        {next:4, message:'Here is your piqure'}
+      ]
   },
   3: {
     text:'LOOOOL',
+    choices: [
+        {next:2, message:'What else ?'},
+      ]
+  },
+  4: {
+    text:'LOOOOL',
+    choices: [
+        {next:"start", message:'MDR'},
+      ]
   }
 }
