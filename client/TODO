@@ -1,8 +1,13 @@
 
-letter backdrop
+story pagination
+story choice real
 
-story choice
+keyboard & touch navigation
 
-welcome screen
+"accessible" => blind people
 
-text2speech
+story settings: title, defaults
+
+better routing system: parameters parsing ? "setRoute"
+
+say choices too
