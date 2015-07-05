@@ -28,12 +28,43 @@ function test_SpeechRecognition()
 	SpeechRecognition.start(callback);
 }
 
+MirrorLink.onSessionState = function(status)
+{
+	document.getElementById('status').innerHTML += "<br>MirrorLink.sessionSate = "+status
+}
+MirrorLink.onNightMode = function(status)
+{
+	document.getElementById('status').innerHTML += "<br>MirrorLink.nightMode = "+status
+}
+MirrorLink.onDriveMode = function(status)
+{
+	document.getElementById('status').innerHTML += "<br>MirrorLink.driveMode = "+status
+}
+MirrorLink.onFramebufferBlocked = function(status, reason)
+{
+	document.getElementById('status').innerHTML += "<br>MirrorLink.frameBlocked = "+status+", "+reason
+}
+MirrorLink.onAudioBlocked = function(status, reason)
+{
+	document.getElementById('status').innerHTML += "<br>MirrorLink.audioBlocked = "+status+", "+reason
+}
+
+function test_MirrorLink_SessionState()
+{
+	document.getElementById('status').innerHTML += "<br>MirrorLink.sessionSate = " + MirrorLink.sessionState
+	document.getElementById('status').innerHTML += "<br>MirrorLink.nightMode = "   + MirrorLink.nightMode
+	document.getElementById('status').innerHTML += "<br>MirrorLink.driveMode = "   + MirrorLink.driveMode
+	document.getElementById('status').innerHTML += "<br>MirrorLink.audioBlocked = "   + MirrorLink.audioBlocked
+	document.getElementById('status').innerHTML += "<br>MirrorLink.frameBlocked = "   + MirrorLink.frameBlocked
+}
+
 
 </script>
 
 
 <a href="javascript:test_TextToSpeech()">Text2Speech</a>
 <a href="javascript:test_SpeechRecognition()">SpeechRecognition</a>
+<a href="javascript:test_MirrorLink_SessionState()">MirrorLink status</a>
 <div id="status"></div>
 
 </body>

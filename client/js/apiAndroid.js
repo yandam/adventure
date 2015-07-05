@@ -96,3 +96,100 @@ SpeechRecognition = function() {
 
 }
 var SpeechRecognition = new SpeechRecognition();
+
+
+/*************************************************************************************
+ * MirrorLink
+ * JS - Android interface
+ *************************************************************************************/
+MirrorLink = function() {
+
+	sessionState 	= undefined;
+	nightMode 		= undefined;
+	driveMode 		= undefined;
+	audioBlocked	= false;
+	frameBlocked	= false;
+
+
+	/**
+	 * Return if the night mode is activate
+	 * @type {Boolean}
+	 */
+	this.isNightMode = window.AndroidMirrorLink.isNightMode();
+
+	/**
+	 * Return if the vehicule is in mouvement
+	 * @type {Boolean}
+	 */
+	this.isDriveMode = window.AndroidMirrorLink.isDriveMode();
+
+	/**
+	 * Return if there is a connection with mirrorlink
+	 * @type {Boolean}
+	 */
+	this.isSessionEstablished = window.AndroidMirrorLink.isSessionEstablished();
+
+
+	/**
+	 * Android callback
+	 * Do not call directly
+	 */
+	this.AndroidSetSessionState = function(status)
+	{
+		this.sessionState = status;
+		if(this.onSessionState != undefined)
+		{
+			this.onSessionState(status);
+		}
+	}
+
+	/**
+	 * Android callback
+	 * Do not call directly
+	 */
+	this.AndroidSetNightMode = function(status)
+	{
+		this.nightMode = status;
+		if(this.onNightMode != undefined)
+		{
+			this.onNightMode(status);
+		}
+	}
+
+	/**
+	 * Android callback
+	 * Do not call directly
+	 */
+	this.AndroidSetDriveMode = function(status)
+	{
+		this.driveMode = status;
+		if(this.onDriveMode != undefined)
+		{
+			this.onDriveMode(status);
+		}
+	}
+
+	/**
+	 * Android callback
+	 * Do not call directly
+	 */
+	this.AndroidSetFramebufferBlocked = function(status, reason)
+	{
+		this.frameBlocked = status;
+		if(this.onFramebufferBlocked != undefined)
+			this.onFramebufferBlocked(status, reason);
+	}
+	/**
+	 * Android callback
+	 * Do not call directly
+	 */
+	this.AndroidSetAudioBlocked = function(status, reason)
+	{
+		this.audioBlocked = status;
+		if(this.onAudioBlocked != undefined)
+			this.onAudioBlocked(status, reason);
+	}
+
+}
+var MirrorLink = new MirrorLink();
+
