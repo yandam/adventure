@@ -15,14 +15,18 @@
   <script type="text/jsx">
 
 var colors = {
-  blue:"#79b5d2",
-  red:"#d27979",
-  violet:"#d279d2",
-  green:"#97d279",
-  yellow:"#97d279",
-  blueLight:"#33b5e5",
-  blueDark:"#0099cc",
-  blueBright:"#00ddff",
+  blue: "#33b5e5",
+  gray: "rgba(99,99,99,51)",
+  green: "#99cc00",
+  red: "#ff4444",
+  blue_dark: "#0099cc",
+  green_dark: "#669900",
+  red_dark: "#cc0000",
+  purple: "#aa66cc",
+  orange: "#ffbb33",
+  orange_dark: "#ff8800",
+  blue_bright: "#00ddff",
+  gray_bright: "rgba(204,204,204,51)",
 } //=>use this:http://www.google.fr/design/spec/style/color.html
 
 var Box = React.createClass({
@@ -65,13 +69,13 @@ var PauseMenu = React.createClass({
   },
   render: function(){
     choices = {
-      A: (<Box color="blue" text="REPEAT"
+      A: (<Box color="green" text="REPEAT"
         onClick={this.props.toogleMenu} />),
-      B: (<Box color="red" text="UNDO"
+      B: (<Box color="green_dark" text="UNDO"
         onClick={this.goBack}/>),
-      C: (<Box color="red" text="EXIT"
+      C: (<Box color="green_dark" text="EXIT"
         onClick={this.exit}/>),
-      D: (<Box color="blue" text="CONTINUE"
+      D: (<Box color="green" text="CONTINUE"
         onClick={this.props.toogleMenu} />)
     }
     return <Grid choices={choices} />;
@@ -109,10 +113,10 @@ var Story = React.createClass({
       return <Box color={color} />
     }.bind(this)
     var choices = {
-      A: box(0,"red","A"),
+      A: box(0,"blue","A"),
       B: box(1,"green","B"),
-      C: box(2,"blue","C"),
-      D: <Box color="violet" text="MENU"
+      C: box(2,"orange","C"),
+      D: <Box color="red" text="MENU"
         onClick={this.toogleMenu}/>,
     }
     return <Grid choices={choices} />;
@@ -123,11 +127,11 @@ var Story = React.createClass({
 var Menu = React.createClass({
   render: function(){
     choices = {
-      A: (<Box color="blueLight" text="Adventure"/>),
-      B: (<Box color="blueDark" text="START"
+      A: (<Box color="blue" text="Adventure"/>),
+      B: (<Box color="blue_dark" text="START"
           onClick={this.props.changeState.bind(null,'<select>')}/>),
-      C: (<Box color="blueDark" text="LIBRARY"/>),
-      D: (<Box color="blueLight" text="CONTRIBUTE"/>)
+      C: (<Box color="blue_dark" text="LIBRARY"/>),
+      D: (<Box color="blue" text="CONTRIBUTE"/>)
     };
     return <Grid choices={choices} />;
   }
@@ -136,12 +140,12 @@ var Menu = React.createClass({
 var Select = React.createClass({
   render: function(){
     choices = {
-      A: (<Box color="blueLight" text="Camille"
+      A: (<Box color="red" text="Camille"
           onClick={this.props.changeState.bind(null,'start')}/>),
-      B: (<Box color="blueDark" text="Tea time"
+      B: (<Box color="red_dark" text="Tea time"
           onClick={this.props.changeState.bind(null,'start')}/>),//lol
-      C: (<Box color="blueDark" text=""/>),
-      D: (<Box color="blueLight" text=""/>)
+      C: (<Box color="red_dark" text=""/>),
+      D: (<Box color="red" text=""/>)
     };
     return <Grid choices={choices} />;
   }
