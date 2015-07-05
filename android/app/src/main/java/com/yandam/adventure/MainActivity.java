@@ -21,6 +21,7 @@ public class MainActivity extends Activity {
     private WebView webView;
     private JSTextToSpeech jsTextToSpeech;
     private JSSpeechRecognition jsSpeechRecognition;
+    private JSMirrorLink jsMirrorLink;
 
     @SuppressLint({"SetJavaScriptEnabled", "AddJavascriptInterface"})
     @Override
@@ -38,11 +39,15 @@ public class MainActivity extends Activity {
         webView.addJavascriptInterface(jsTextToSpeech, "AndroidTextToSpeech");
         jsSpeechRecognition = new JSSpeechRecognition(this, webView);
         webView.addJavascriptInterface(jsSpeechRecognition, "AndroidSpeechRecognition");
+        jsMirrorLink = new JSMirrorLink(this, webView);
+        webView.addJavascriptInterface(jsMirrorLink, "AndroidMirrorLink");
 
+        // Debug Mode with Google Chrome Developer Tools
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             WebView.setWebContentsDebuggingEnabled(true);
         }
 
+        // Set a client
         webView.setWebChromeClient(new WebChromeClient() {
 
             public static final String TAG = "WebView";
@@ -116,6 +121,7 @@ public class MainActivity extends Activity {
     protected void onDestroy() {
         jsTextToSpeech.destroy();
         jsSpeechRecognition.destroy();
+        jsMirrorLink.destroy();
 
         super.onDestroy();
     }
