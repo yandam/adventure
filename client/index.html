@@ -35,6 +35,10 @@ var colors = {
 } //=>use this:http://www.google.fr/design/spec/style/color.html
 
 var Box = React.createClass({
+  select:function(e){
+    e.stopPropagation(); e.preventDefault();
+    this.props.onClick(e)
+  },
   render:function(){
     var style={
       backgroundColor:colors[this.props.color]
@@ -42,8 +46,8 @@ var Box = React.createClass({
     return <div
       className="box"
       style={style}
-      onClick={this.props.onClick}
-      onTouchStart={this.props.onClick}
+      onClick={this.select}
+      onTouchStart={this.select}
       >
       <span className="backtext">{this.props.backText}</span>
       <div className="center">
