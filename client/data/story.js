@@ -1,5 +1,8 @@
 __STORIES__ = {
-  'Camille':{
+  'camille':{
+    _settings: {
+      title:"Camille",
+    },
     start: {
         text:'Salut camille, yo!',
         choices: [
@@ -29,7 +32,10 @@ __STORIES__ = {
         ]
     },
   },
-  'Tea time':{
+  'tea':{
+    _settings: {
+      title:"Tea time",
+    },
     'start':{
         text:'Do you want some tea with your madeleine ?',
         voice:'UK English Male',

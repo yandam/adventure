@@ -14,6 +14,11 @@
   <script src="http://code.responsivevoice.org/responsivevoice.js"></script>
   <script type="text/jsx">
 
+changeURL = function(next){
+  responsiveVoice.cancel();
+  window.location.hash = next;
+}
+
 var colors = {
   blue: "#33b5e5",
   gray: "rgba(99,99,99,51)",
@@ -106,7 +111,8 @@ var Story = React.createClass({
         var choice = now.choices[i];
         return (<Box
           color={color}
-          onClick={this.props.onStateChanged.bind(null,choice.next)}
+          onClick={changeURL
+            .bind(null, this.props.story_key+"/"+choice.next)}
           text={choice.message}
           backText={backtext}/>)
       }
@@ -129,9 +135,9 @@ var Menu = React.createClass({
     choices = {
       A: (<Box color="blue" text="Adventure"/>),
       B: (<Box color="blue_dark" text="LIBRARY"
-          onClick={this.props.changeState.bind(null,'select')}/>),
+          onClick={changeURL.bind(null,'select')}/>),
       C: (<Box color="blue_dark" text="MAKE YOUR OWN"
-        onClick={this.props.changeState.bind(null,'editor')}/>),
+        onClick={changeURL.bind(null,'editor')}/>),
       D: (<Box color="blue" text=""/>),
     };
     return <Grid choices={choices} />;
@@ -140,14 +146,15 @@ var Menu = React.createClass({
 
 var Select = React.createClass({
   render: function(){
-    var stories = Object.keys(__STORIES__).sort()
+    var stories_keys = Object.keys(__STORIES__).sort()
     var box = function(i,color, backtext){
-      if(stories.length > i){
-        var story = stories[i];
+      if(stories_keys.length > i){
+        var key = stories_keys[i];
+        var story = __STORIES__[key];
         return (<Box
           color={color}
-          onClick={this.props.onStateChanged.bind(null,"start")}
-          text={story}
+          onClick={changeURL.bind(null,key)}
+          text={story._settings.title}
           backText={backtext}/>)
       }
       return <Box color={color} />
@@ -156,57 +163,70 @@ var Select = React.createClass({
       A: box(0,"red_dark",""),
       B: box(1,"red",""),
       C: box(2,"red",""),
-      D: box(2,"red_dark",""),
+      D: box(3,"red_dark",""),
     };
     return <Grid choices={choices} />;
   }
 })
 
+var Message = React.createClass({
+  render: function(){
+    return <pre>  <h1>  {this.props.children}</h1></pre>
+  }
+})
+
 var Editor = React.createClass({
   render: function(){
-    return <pre>  <h1>  Editor coming soon!</h1></pre>
+    return <Message>Editor coming soon!</Message>
   }
 })
 
 var App = React.createClass({
-  changeState: function(next){
-    responsiveVoice.cancel();
-    window.location.hash = next;
-  },
   render: function() {
-    if(this.props.state == 'menu'){
-      return <Menu changeState={this.changeState}/>
+    var route = this.props.route.split('/');
+    console.log('route', route)
+    if(route[0] == ''){
+      route[0] = 'menu';
     }
-    if(this.props.state == 'select'){
-      return <Select changeState={this.changeState}
-        onStateChanged={this.changeState}/>
+    if(route[0] == 'menu'){
+      return <Menu />
     }
-    var story = __STORIES__["Camille"];
-    if(this.props.state == 'editor'){
-      return <Editor story={story} />
+    if(route[0] == 'select'){
+      return <Select />
     }
-    return (<div className="full">
-      <Story story={story} state={this.props.state}
-        onStateChanged={this.changeState}/>
-    </div>);
+    if(route[0] in __STORIES__){
+      var story = __STORIES__[route[0]];
+      console.log('story',story)
+      if(route[0] == 'editor'){
+        return <Editor story={story} />
+      }
+      var state = "start"
+      if(route.length > 1 && route[1] != ''){
+        state = route[1];
+      }
+      if(state in story){
+          return (<div className="full">
+            <Story story={story} story_key={route[0]} state={state} />
+          </div>);
+      }
+      return <Message>state {state} isn't in story!</Message>
+    }
+    return <Message>URL {route} is bad!</Message>
   }
 });
 
 
 function render () {
   var route = window.location.hash.substr(1);
-  if(route == ''){
-    route = "menu";
-  }
-  console.log('route',route)
   React.render(
-    <App state={route}/>,
+    <App route={route}/>,
     document.getElementById('content')
     );
 }
 
 window.addEventListener('hashchange', render);
-setTimeout(render, 0); //1000 for the first speech to work, 0 if you don't care
+//TODO: 1000ms timeout for the first speech to work
+render();
   </script>
 </body>
 </html>
