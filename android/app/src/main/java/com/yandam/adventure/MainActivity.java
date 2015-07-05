@@ -8,11 +8,15 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
 import android.webkit.ConsoleMessage;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
+
+import static android.util.FloatMath.sqrt;
 
 
 public class MainActivity extends Activity {
@@ -32,6 +36,29 @@ public class MainActivity extends Activity {
         Log.i(TAG, "onCreate");
 
         webView = (WebView) findViewById(R.id.webView);
+
+        // Helping clicking on the screen
+        webView.setOnTouchListener(new View.OnTouchListener() {
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_MOVE) {
+                    float d;
+                    float dt = event.getEventTime() - event.getDownTime();
+                    if (event.getHistorySize() > 0) {
+                        float dx = event.getHistoricalX(0) - event.getHistoricalX(event.getHistorySize() - 1);
+                        float dy = event.getHistoricalY(0) - event.getHistoricalY(event.getHistorySize() - 1);
+                        d = sqrt(dx * dx + dy * dy);
+                    } else {
+                        d = 0;
+                    }
+                    //Log.d(TAG, "onTouch " + d + " | " + dt);
+                    return d < 10 && dt < 200;
+                }
+                return false;
+            }
+        });
+        
+        // Scroll
+        webView.setHorizontalScrollBarEnabled(false);
 
         // Enable Javascript
         webView.getSettings().setJavaScriptEnabled(true);
