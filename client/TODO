@@ -1,12 +1,8 @@
 
-story pagination
+story choice pagination
 
-keyboard & touch navigation
-
-"accessible" => blind people
-
-story settings: title, defaults
-
-better routing system: parameters parsing ? "setRoute"
+keyboard navigation
 
 say choices too
+
+white lines between tiles

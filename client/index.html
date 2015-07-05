@@ -43,6 +43,7 @@ var Box = React.createClass({
       className="box"
       style={style}
       onClick={this.props.onClick}
+      onTouchStart={this.props.onClick}
       >
       <span className="backtext">{this.props.backText}</span>
       <div className="center">
@@ -101,7 +102,7 @@ var Story = React.createClass({
     }
     var now = this.props.story[this.props.state];
     document.title = now.text
-    var voice = "French Female";
+    var voice = this.props.story._settings.voice || 'UK English Female';
     if(now.voice != undefined){
       voice = now.voice;
     }
@@ -224,6 +225,7 @@ function render () {
     );
 }
 
+React.initializeTouchEvents(true)
 window.addEventListener('hashchange', render);
 //TODO: 1000ms timeout for the first speech to work
 render();
