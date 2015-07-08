@@ -2,7 +2,7 @@ __STORIES__ = {
   'camille':{
     _settings: {
       title:"Camille",
-      vocie:"French Female"
+      voice:"French Female"
     },
     start: {
         text:'Salut camille, yo!',
@@ -40,7 +40,6 @@ __STORIES__ = {
     },
     'start':{
         text:'Do you want some tea with your madeleine ?',
-        voice:'UK English Male',
         choices: [
           {next:2, message:"Yes, sir!"},
           {next:2, message:"Do you have coffee ?"},
@@ -48,11 +47,39 @@ __STORIES__ = {
     },
     2:{
         text:'And what else ?',
-        voice:'UK English Male',
         choices: [
-          {next:1, message:"Some cookies"},
-          {next:1, message:"Biscuits!"},
+          {next:'start', message:"Some cookies"},
+          {next:'start', message:"Biscuits!"},
         ]
+    },
+  },
+  'quizz':{
+    _settings: {
+      title:"Quizz",
+      voice:"UK English Male"
+    },
+    'start':{
+        text:"What's the real name of Woody Allen ?",
+        choices: [
+          {next:2, message:"Allen Stewart Konigsberg"},
+          {next:"wrong", message:"Emmanual Goldenburg"},
+          {next:"wrong", message:"Issur Danielovitch"},
+        ]
+    },
+    'wrong':{
+      text:"wooops, wrong answer!",
+      voice:"UK English Female",
+      choices: [],
+    },
+    2:{
+      text:
+"Nice! Creating computer software is always a demanding and painstaking"
++" process -- an exercise in logic, clear expression, and almost fanatical"
++" attention to detail.  It requires intelligence, dedication, and an"
++" enormous amount of hard work.  But, a certain amount of unpredictable"
++" and often unrepeatable inspiration is what usually makes the difference"
++" between adequacy and excellence.",
+      choices: [],
     }
   }
 }

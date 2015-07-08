@@ -11,11 +11,17 @@
   <script src="react/build/react.min.js"></script>
   <script src="react/build/JSXTransformer.js"></script>
   <script src="data/story.js"></script>
-  <script src="http://code.responsivevoice.org/responsivevoice.js"></script>
+  <!--
+    <script src="http://code.responsivevoice.org/responsivevoice.js"></script>
+    SWITCH TO OFFLINE TEXT2SPEECH
+  -->
+  <script type="text/jsx" src="js/editor.js"></script>
   <script type="text/jsx">
 
+text2speech = {cancel:function(){}, speak:function(){}}
+
 changeURL = function(next){
-  responsiveVoice.cancel();
+  text2speech.cancel();
   window.location.hash = next;
 }
 
@@ -37,7 +43,9 @@ var colors = {
 var Box = React.createClass({
   select:function(e){
     e.stopPropagation(); e.preventDefault();
-    this.props.onClick(e)
+    if(this.props.onClick){
+      this.props.onClick(e)
+    }
   },
   render:function(){
     var style={
@@ -55,6 +63,15 @@ var Box = React.createClass({
       </div>
       </div>
   }
+})
+
+var EndScreen = React.createClass({
+  render:function(){
+    var choices = this.props.choices;
+    return (<div className="full">
+        THE END
+        </div>);
+  }    
 })
 
 var Grid = React.createClass({
@@ -97,7 +114,7 @@ var Story = React.createClass({
     return {showMenu:false}
   },
   toogleMenu: function(e){
-    responsiveVoice.cancel();
+    text2speech.cancel();
     this.setState({showMenu:!this.state.showMenu});
   },
   render: function() {
@@ -110,7 +127,11 @@ var Story = React.createClass({
     if(now.voice != undefined){
       voice = now.voice;
     }
-    responsiveVoice.speak(now.text, voice);
+    text2speech.speak(now.text, voice);
+
+    if(now.choices.length == 0){
+      <EndScreen />;
+    }
     var box = function(i,color, backtext){
       if(now.choices.length > i){
         var choice = now.choices[i];
@@ -180,16 +201,10 @@ var Message = React.createClass({
   }
 })
 
-var Editor = React.createClass({
-  render: function(){
-    return <Message>Editor coming soon!</Message>
-  }
-})
-
 var App = React.createClass({
   render: function() {
     var route = this.props.route.split('/');
-    console.log('route', route)
+    console.log('route parts', route.join('--'))
     if(route[0] == ''){
       route[0] = 'menu';
     }
@@ -199,12 +214,12 @@ var App = React.createClass({
     if(route[0] == 'select'){
       return <Select />
     }
+    if(route[0] == 'editor'){
+      return <Editor stories={__STORIES__} route={route} />
+    }
     if(route[0] in __STORIES__){
       var story = __STORIES__[route[0]];
       console.log('story',story)
-      if(route[0] == 'editor'){
-        return <Editor story={story} />
-      }
       var state = "start"
       if(route.length > 1 && route[1] != ''){
         state = route[1];

@@ -30,3 +30,8 @@
 html, body, .full{
   height: 100%;
 }
+
+a:hover {
+  cursor: pointer;
+  font-weight: bold;
+}
