@@ -81,5 +81,5 @@ __STORIES__ = {
 +" between adequacy and excellence.",
       choices: [],
     }
-  }
+  },
 }

@@ -11,14 +11,11 @@
   <script src="react/build/react.min.js"></script>
   <script src="react/build/JSXTransformer.js"></script>
   <script src="data/story.js"></script>
-  <!--
-    <script src="http://code.responsivevoice.org/responsivevoice.js"></script>
-    SWITCH TO OFFLINE TEXT2SPEECH
-  -->
+  <script src="http://code.responsivevoice.org/responsivevoice.js"></script>
   <script type="text/jsx" src="js/editor.js"></script>
   <script type="text/jsx">
 
-text2speech = {cancel:function(){}, speak:function(){}}
+text2speech = responsiveVoice;//{cancel:function(){}, speak:function(){}}
 
 changeURL = function(next){
   text2speech.cancel();
