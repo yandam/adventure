@@ -9,7 +9,7 @@ console.info("Mobile : "+window.mobileAndTabletcheck);
 (function() {
 
 
-    if(window.mobileAndTabletcheck) 
+    if(window.androidApp) 
     {
 
         /* Font size VMIN */

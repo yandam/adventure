@@ -1,4 +1,7 @@
 
+window.androidApp = (window.AndroidMirrorLink != undefined);
+console.info("AndroidApp : " + window.androidApp);
+
 /*************************************************************************************
  * Text2Speech
  * Text -> Voice

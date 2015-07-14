@@ -180,11 +180,17 @@ var Menu = React.createClass({
       B: (<Box color="blue_dark" text="Library"
           onClick={changeURL.bind(null,'select')}
           backText="📚" />),
-      C: (<Box color="blue_dark" text="Editor"
-        onClick={changeURL.bind(null,'editor')}
-        backText="🖋" />),
+      C: (<Box color="blue_dark" text=""/>),
       D: (<Box color="blue" text=""/>),
     };
+
+    if(!window.androidApp)
+    {
+      choices['C'] = (<Box color="blue_dark" text="Editor"
+        onClick={changeURL.bind(null,'editor')}
+        backText="🖋" />);
+    }
+    
     return <Grid choices={choices} />;
   }
 })
