@@ -1,37 +1,53 @@
 .box {
-  width: 50%; height: 50%; float: left;
+  width: 50%;
+  height: 50%;
+  float: left;
   position: relative;
   overflow: hidden;
+  cursor: pointer;
 }
-.box:hover {opacity: 0.9;}
+.box:hover {
+  opacity: 0.9;
+}
 
-.center{
+.center {
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-
   cursor: pointer;
+  text-align: center;
 }
 
 .text {
-  font-size: 2em;
+  /* See js/hacks.js for Mobile fontsize when vmin isn't implemented */
+  font-size: 6vmin;
   font-weight: bold;
-  color: rgba(0, 0, 0, 0.5);    
+  color: rgba(255, 255, 255, 1);
+  z-index: 1;
+  position: relative; /* Fix for z-index on Android 4.1.2 and browers like it */
 }
 
 .backtext {
-  font-size: 25em;
+  /* See js/hacks.js for Mobile fontsize when vmin isn't implemented */
+  font-size: 50vmin;
   opacity: 0.1;
   position: absolute;
-  bottom: -42%;
+  bottom: -33%;
+  z-index: 0;
+
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 html, body, .full{
   height: 100%;
 }
 
-a:hover {
+/*a:hover {
   cursor: pointer;
-  font-weight: bold;
-}
+}*/

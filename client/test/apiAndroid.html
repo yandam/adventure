@@ -10,12 +10,17 @@
 	
 function test_TextToSpeech()
 {
-	callback = function(status)  
-	{
-		document.getElementById('status').innerHTML += "<br>Text2Speech:status = "+status
+	callbacks = { onStart: function()
+		{
+			document.getElementById('status').innerHTML += "<br>Text2Speech:status = Start"
+		},
+		onEnd: function()
+		{
+			document.getElementById('status').innerHTML += "<br>Text2Speech:status = Fin"
+		}
 	}
 
-	Text2Speech.speak("Bonjour comment allez-vous Yandam ?", callback);
+	Text2Speech.speak("Bonjour comment allez-vous Yandam ?", callbacks);
 }
 
 function test_SpeechRecognition()

@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
- <meta charset="utf-8">
- <title>Adventure</title>
- <link rel="stylesheet" href="css/normalize.css">
- <link rel="stylesheet" href="css/style.css">
+    <meta charset="utf-8">
+    <title>Adventure</title>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <div id="content" class="full"></div>
-  <script src="react/build/react.min.js"></script>
-  <script src="react/build/JSXTransformer.js"></script>
-  <script src="data/story.js"></script>
-  <script type="text/jsx" src="js/editor.js"></script>
-  <script type="text/jsx">
+    <div id="content" class="full"></div>
+    <script type="text/javascript" src="js/vunit.js"></script>
+    <script type="text/javascript" src="js/apiAndroid.js"></script>
+    <script type="text/javascript" src="js/hacks.js"></script>
+    <script src="react/build/react.min.js"></script>
+    <script src="react/build/JSXTransformer.js"></script>
+    <script src="data/story.js"></script>
+    <!-- <script type="text/jsx" src="js/editor.js"></script> -->
+    <script type="text/jsx">
 
 text2speech = {
   cancel:function(){
@@ -63,12 +66,12 @@ var Box = React.createClass({
       className="box"
       style={style}
       onClick={this.select}
-      onTouchStart={this.select}
+      //onTouchStart={this.select}
       >
-      <span className="backtext">{this.props.backText}</span>
       <div className="center">
         <span className="text">{this.props.text}</span>
       </div>
+      <span className="backtext">{this.props.backText}</span>
       </div>
   }
 })
@@ -77,7 +80,7 @@ var EndScreen = React.createClass({
   render:function(){
     var choices = this.props.choices;
     return (<div className="full">
-        THE END
+        The End
         </div>);
   }    
 })
@@ -104,14 +107,18 @@ var PauseMenu = React.createClass({
   },
   render: function(){
     choices = {
-      A: (<Box color="green" text="REPEAT"
-        onClick={this.props.toogleMenu} />),
-      B: (<Box color="green_dark" text="UNDO"
-        onClick={this.goBack}/>),
-      C: (<Box color="green_dark" text="EXIT"
-        onClick={this.exit}/>),
-      D: (<Box color="green" text="CONTINUE"
-        onClick={this.props.toogleMenu} />)
+      A: (<Box color="green" text="Repeat"
+        onClick={this.props.toogleMenu}
+        backText="🔊" />),
+      B: (<Box color="green_dark" text="Exit"
+        onClick={this.exit}
+        backText="🏱" />),
+      C: (<Box color="green_dark" text="Undo"
+        onClick={this.goBack}
+        backText="💢" />),
+      D: (<Box color="green" text="Continue"
+        onClick={this.props.toogleMenu}
+        backText="📖" />)
     }
     return <Grid choices={choices} />;
   }
@@ -138,8 +145,9 @@ var Story = React.createClass({
     text2speech.speak(now.text, voice);
 
     if(now.choices.length == 0){
-      <EndScreen />;
+      return <EndScreen />;
     }
+
     var box = function(i,color, backtext){
       if(now.choices.length > i){
         var choice = now.choices[i];
@@ -156,8 +164,9 @@ var Story = React.createClass({
       A: box(0,"blue","A"),
       B: box(1,"green","B"),
       C: box(2,"orange","C"),
-      D: <Box color="red" text="MENU"
-        onClick={this.toogleMenu}/>,
+      D: <Box color="red" text="Menu"
+        onClick={this.toogleMenu}
+        backText="⏸"/>,
     }
     return <Grid choices={choices} />;
   }
@@ -168,10 +177,12 @@ var Menu = React.createClass({
   render: function(){
     choices = {
       A: (<Box color="blue" text="Adventure"/>),
-      B: (<Box color="blue_dark" text="LIBRARY"
-          onClick={changeURL.bind(null,'select')}/>),
-      C: (<Box color="blue_dark" text="MAKE YOUR OWN"
-        onClick={changeURL.bind(null,'editor')}/>),
+      B: (<Box color="blue_dark" text="Library"
+          onClick={changeURL.bind(null,'select')}
+          backText="📚" />),
+      C: (<Box color="blue_dark" text="Editor"
+        onClick={changeURL.bind(null,'editor')}
+        backText="🖋" />),
       D: (<Box color="blue" text=""/>),
     };
     return <Grid choices={choices} />;
@@ -189,7 +200,7 @@ var Select = React.createClass({
           color={color}
           onClick={changeURL.bind(null,key)}
           text={story._settings.title}
-          backText={backtext}/>)
+          backText={story._settings.icon}/>)
       }
       return <Box color={color} />
     }.bind(this)

@@ -2,7 +2,8 @@ __STORIES__ = {
   'camille':{
     _settings: {
       title:"Camille",
-      voice:"French Female"
+      voice:"French Female",
+      icon: "🐙"
     },
     start: {
         text:'Salut camille, yo!',
@@ -36,7 +37,8 @@ __STORIES__ = {
   'tea':{
     _settings: {
       title:"Tea time",
-      voice:"UK English Male"
+      voice:"UK English Male",
+      icon: "🍵"
     },
     'start':{
         text:'Do you want some tea with your madeleine ?',
@@ -56,7 +58,8 @@ __STORIES__ = {
   'quizz':{
     _settings: {
       title:"Quizz",
-      voice:"UK English Male"
+      voice:"UK English Male",
+      icon: "🐼"
     },
     'start':{
         text:"What's the real name of Woody Allen ?",

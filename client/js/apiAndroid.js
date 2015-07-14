@@ -13,7 +13,7 @@ Text2Speech = function()  {
 	 * @param  {String}   text     The sentence to spell
 	 * @param  {Function} callback Callback function to return status. callback(status). status = 0 when started, 1 when error occured, 2 when the sentence is finished
 	 */
-	this.speak = function(text, callback)
+	this.speak = function(text, voice, callback)
 	{
 		id = window.AndroidTextToSpeech.speak(text);
 		callbackMap[id] = callback;
@@ -55,12 +55,18 @@ Text2Speech = function()  {
 	{
 		if(callbackMap[id] != undefined)
 		{
-			callbackMap[id](status);
+			if(status == 0)
+				callbackMap[id]['onStart']();
+			else if(status == 2)
+				callbackMap[id]['onEnd']();
+			//callbackMap[id](status);
 		}
 	}
 
 }
-var Text2Speech = new Text2Speech();
+
+if(window.AndroidTextToSpeech)
+	var Text2Speech = new Text2Speech();
 
 /*************************************************************************************
  * SpeechRecognition
@@ -95,7 +101,9 @@ SpeechRecognition = function() {
 	}
 
 }
-var SpeechRecognition = new SpeechRecognition();
+
+if(window.AndroidSpeechRecognition)
+	var SpeechRecognition = new SpeechRecognition();
 
 
 /*************************************************************************************
@@ -191,5 +199,7 @@ MirrorLink = function() {
 	}
 
 }
-var MirrorLink = new MirrorLink();
+
+if(window.AndroidMirrorLink)
+	var MirrorLink = new MirrorLink();
 
