@@ -11,11 +11,22 @@
   <script src="react/build/react.min.js"></script>
   <script src="react/build/JSXTransformer.js"></script>
   <script src="data/story.js"></script>
-  <script src="http://code.responsivevoice.org/responsivevoice.js"></script>
   <script type="text/jsx" src="js/editor.js"></script>
   <script type="text/jsx">
 
-text2speech = responsiveVoice;//{cancel:function(){}, speak:function(){}}
+text2speech = {
+  cancel:function(){
+
+  },
+  speak:function(text){
+    if ('speechSynthesis' in window) {
+      var msg = new SpeechSynthesisUtterance(text);
+      window.speechSynthesis.speak(msg);
+    }else{
+      console.log('FAKE SPEAK',text);
+    }
+  },
+};
 
 changeURL = function(next){
   text2speech.cancel();
@@ -210,6 +221,9 @@ var App = React.createClass({
     }
     if(route[0] == 'select'){
       return <Select />
+    }
+    if(route[0] == 'json'){
+      return <pre>{JSON.stringify(__STORIES__,null,2)}</pre>
     }
     if(route[0] == 'editor'){
       return <Editor stories={__STORIES__} route={route} />

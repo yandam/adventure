@@ -1,5 +1,5 @@
 
-SERVER (API), CATALOG, EDITOR, CLIENT, ANDROID INTEG
+SERVER (API), CATALOG, EDITOR, CLIENT, ANDROID INTEG, STORIES
 
 ---------
 
@@ -11,12 +11,11 @@ July
    => solid base upon everyone can contribute
    => feature parity: story selection, text-to-speech, 4-boxes interface
 
-* Wed 15: Working catalog
+* Wed 15: FUCKING SAMPLE STORY + first apk
 
-* Wed 22: Integration android + mirrorlink
+* Wed 22: catalog + certif ready and apk on play store
 
 * Wed 29: 4 stories and well polished
-   => certif ready
 
 
 August
@@ -26,3 +25,7 @@ August
 * Expand to most platforms (touch, kindle, windows phone, ios, ipad, tablet)
 
 * Find partners (Coyote, Android Auto, automakers,... )
+
+* More polished
+
+* Focus on user growth
