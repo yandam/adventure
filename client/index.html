@@ -14,7 +14,6 @@
     <script src="react/build/react.min.js"></script>
     <script src="react/build/JSXTransformer.js"></script>
     <script src="data/story.js"></script>
-    <!-- <script type="text/jsx" src="js/editor.js"></script> -->
     <script type="text/jsx">
 
 text2speech = {
@@ -66,7 +65,7 @@ var Box = React.createClass({
       className="box"
       style={style}
       onClick={this.select}
-      //onTouchStart={this.select}
+      onTouchStart={this.select}
       >
       <div className="center">
         <span className="text">{this.props.text}</span>
@@ -97,45 +96,8 @@ var Grid = React.createClass({
   }    
 })
 
-var PauseMenu = React.createClass({
-  goBack:function(){
-    this.props.toogleMenu();
-    window.history.back();
-  },
-  exit:function(){
-    window.location.hash = ""
-  },
-  render: function(){
-    choices = {
-      A: (<Box color="green" text="Repeat"
-        onClick={this.props.toogleMenu}
-        backText="🔊" />),
-      B: (<Box color="green_dark" text="Exit"
-        onClick={this.exit}
-        backText="🏱" />),
-      C: (<Box color="green_dark" text="Undo"
-        onClick={this.goBack}
-        backText="💢" />),
-      D: (<Box color="green" text="Continue"
-        onClick={this.props.toogleMenu}
-        backText="📖" />)
-    }
-    return <Grid choices={choices} />;
-  }
-})
-
 var Story = React.createClass({
-  getInitialState: function(){
-    return {showMenu:false}
-  },
-  toogleMenu: function(e){
-    text2speech.cancel();
-    this.setState({showMenu:!this.state.showMenu});
-  },
   render: function() {
-    if(this.state.showMenu){
-      return <PauseMenu toogleMenu={this.toogleMenu}/>
-    }
     var now = this.props.story[this.props.state];
     document.title = now.text
     var voice = this.props.story._settings.voice || 'UK English Female';
@@ -164,9 +126,7 @@ var Story = React.createClass({
       A: box(0,"blue","A"),
       B: box(1,"green","B"),
       C: box(2,"orange","C"),
-      D: <Box color="red" text="Menu"
-        onClick={this.toogleMenu}
-        backText="⏸"/>,
+      D: box(3,"red","D"),
     }
     return <Grid choices={choices} />;
   }
@@ -183,13 +143,6 @@ var Menu = React.createClass({
       C: (<Box color="blue_dark" text=""/>),
       D: (<Box color="blue" text=""/>),
     };
-
-    if(!window.androidApp)
-    {
-      choices['C'] = (<Box color="blue_dark" text="Editor"
-        onClick={changeURL.bind(null,'editor')}
-        backText="🖋" />);
-    }
     
     return <Grid choices={choices} />;
   }
@@ -241,9 +194,6 @@ var App = React.createClass({
     }
     if(route[0] == 'json'){
       return <pre>{JSON.stringify(__STORIES__,null,2)}</pre>
-    }
-    if(route[0] == 'editor'){
-      return <Editor stories={__STORIES__} route={route} />
     }
     if(route[0] in __STORIES__){
       var story = __STORIES__[route[0]];

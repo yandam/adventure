@@ -67,6 +67,7 @@ __STORIES__ = {
           {next:2, message:"Allen Stewart Konigsberg"},
           {next:"wrong", message:"Emmanual Goldenburg"},
           {next:"wrong", message:"Issur Danielovitch"},
+          {next:"wrong", message:"Woody woodpecker"},
         ]
     },
     'wrong':{
