@@ -1,0 +1,19 @@
+
+library
+ - title
+ - select + paginate
+
+game screen
+ - title
+ - repeat button
+ - animate A, B, C, D,..
+ - icon while speaking
+ - icon while listening
+
+end game screen
+
+
+story
+ - good basic story
+
+make apk

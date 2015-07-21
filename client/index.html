@@ -15,21 +15,29 @@
     <script src="react/build/react.min.js"></script>
     <script src="react/build/JSXTransformer.js"></script>
     <script src="data/story.js"></script>
+    <script src="data/example_story.js"></script>
     <script type="text/jsx">
 
-text2speech = {
-  cancel:function(){
-
-  },
-  speak:function(text){
-    if ('speechSynthesis' in window) {
+if ('speechSynthesis' in window) {
+  text2speech = {
+    cancel:function(){
+      speechSynthesis.cancel();
+    },
+    speak:function(text){
       var msg = new SpeechSynthesisUtterance(text);
-      window.speechSynthesis.speak(msg);
-    }else{
+      speechSynthesis.speak(msg);
+    },
+  };
+} else {
+  text2speech = {
+    cancel:function(){
+
+    },
+    speak:function(text){
       console.log('FAKE SPEAK',text);
-    }
-  },
-};
+    },
+  };
+}
 
 changeURL = function(next){
   text2speech.cancel();
@@ -80,7 +88,10 @@ var EndScreen = React.createClass({
   render:function(){
     var choices = this.props.choices;
     return (<div className="full">
-        The End
+        <br/><br/>
+        <center><h1>The End.</h1>
+        {this.props.now.text}
+        </center>
         </div>);
   }    
 })
@@ -107,18 +118,20 @@ var Story = React.createClass({
     }
     text2speech.speak(now.text, voice);
 
-    if(now.choices.length == 0){
-      return <EndScreen />;
+    if(now.choices == undefined || now.choices.length == 0){
+      return <EndScreen now={now}/>;
     }
 
     var box = function(i,color, backtext){
       if(now.choices.length > i){
         var choice = now.choices[i];
+        text2speech.speak(backtext, voice);
+        text2speech.speak(choice.message, voice);
         return (<Box
           color={color}
           onClick={changeURL
             .bind(null, this.props.story_key+"/"+choice.next)}
-          text={choice.message}
+          text={choice.short ? choice.short : choice.message}
           backText={backtext}/>)
       }
       return <Box color={color} />
@@ -138,7 +151,7 @@ var Story = React.createClass({
               [repeat]
             </a>
             <a onClick={changeURL.bind(null, "")}>[📚]</a>&nbsp;
-            {now.text}
+            {now.short ? now.short: now.text}
           </h1>
           {choices.A}
           {choices.B}
@@ -171,7 +184,7 @@ var Library = React.createClass({
     };
     return (<div className="full whole">
           <h1 className="titlebar">
-            Library
+            Choose a story
           </h1>
           <Grid choices={choices}/>
         </div>);
@@ -218,6 +231,7 @@ var App = React.createClass({
 
 function render () {
   var route = window.location.hash.substr(1);
+  text2speech.cancel();
   React.render(
     <App route={route}/>,
     document.getElementById('content')
