@@ -5,6 +5,7 @@
     <title>Adventure</title>
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/style.css">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
 </head>
 <body>
     <div id="content" class="full"></div>
@@ -96,25 +97,6 @@ var Grid = React.createClass({
   }    
 })
 
-var GameGrid = React.createClass({
-  render:function(){
-    var choices = this.props.choices;
-    return (<div className="full">
-          <h1>
-            <a 
-            style={{float:'right'}}
-            onClick={changeURL
-              .bind(null, this.props.story_key+"/"+this.props.state)}>
-              [repeat]
-            </a>
-            <a onClick={changeURL.bind(null, "")}>[📚]</a>&nbsp;
-            {this.props.now.text}
-          </h1>
-          <Grid choices={this.props.choices}/>
-        </div>);
-  }    
-})
-
 var Story = React.createClass({
   render: function() {
     var now = this.props.story[this.props.state];
@@ -147,8 +129,19 @@ var Story = React.createClass({
       C: box(2,"orange","C"),
       D: box(3,"red","D"),
     }
-    return (<GameGrid choices={choices} story_key={this.props.story_key}
-      now={now} state={this.props.state} />);
+    return (<div className="full">
+          <h1>
+            <a 
+            style={{float:'right'}}
+            onClick={changeURL
+              .bind(null, this.props.story_key+"/"+this.props.state)}>
+              [repeat]
+            </a>
+            <a onClick={changeURL.bind(null, "")}>[📚]</a>&nbsp;
+            {now.text}
+          </h1>
+          <Grid choices={choices}/>
+        </div>);
   }
 })
 
@@ -173,7 +166,12 @@ var Library = React.createClass({
       C: box(2,"red",""),
       D: box(3,"red_dark",""),
     };
-    return <Grid choices={choices} />;
+    return (<div className="full">
+          <h1>
+            Library
+          </h1>
+          <Grid choices={choices}/>
+        </div>);
   }
 })
 
