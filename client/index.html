@@ -130,25 +130,9 @@ var Story = React.createClass({
     }
     return <Grid choices={choices} />;
   }
-  })
-
-
-var Menu = React.createClass({
-  render: function(){
-    choices = {
-      A: (<Box color="blue" text="Adventure"/>),
-      B: (<Box color="blue_dark" text="Library"
-          onClick={changeURL.bind(null,'select')}
-          backText="📚" />),
-      C: (<Box color="blue_dark" text=""/>),
-      D: (<Box color="blue" text=""/>),
-    };
-    
-    return <Grid choices={choices} />;
-  }
 })
 
-var Select = React.createClass({
+var Library = React.createClass({
   render: function(){
     var stories_keys = Object.keys(__STORIES__).sort()
     var box = function(i,color, backtext){
@@ -184,13 +168,10 @@ var App = React.createClass({
     var route = this.props.route.split('/');
     console.log('route parts', route.join('--'))
     if(route[0] == ''){
-      route[0] = 'menu';
+      route[0] = 'library';
     }
-    if(route[0] == 'menu'){
-      return <Menu />
-    }
-    if(route[0] == 'select'){
-      return <Select />
+    if(route[0] == 'library'){
+      return <Library />
     }
     if(route[0] == 'json'){
       return <pre>{JSON.stringify(__STORIES__,null,2)}</pre>
