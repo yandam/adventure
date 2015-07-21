@@ -129,8 +129,8 @@ var Story = React.createClass({
       C: box(2,"orange","C"),
       D: box(3,"red","D"),
     }
-    return (<div className="full">
-          <h1>
+    return (<div className="full whole">
+          <h1 className="titlebar">
             <a 
             style={{float:'right'}}
             onClick={changeURL
@@ -140,7 +140,10 @@ var Story = React.createClass({
             <a onClick={changeURL.bind(null, "")}>[📚]</a>&nbsp;
             {now.text}
           </h1>
-          <Grid choices={choices}/>
+          {choices.A}
+          {choices.B}
+          {choices.C}
+          {choices.D}
         </div>);
   }
 })
@@ -166,8 +169,8 @@ var Library = React.createClass({
       C: box(2,"red",""),
       D: box(3,"red_dark",""),
     };
-    return (<div className="full">
-          <h1>
+    return (<div className="full whole">
+          <h1 className="titlebar">
             Library
           </h1>
           <Grid choices={choices}/>
