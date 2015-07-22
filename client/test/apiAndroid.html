@@ -3,6 +3,7 @@
 <head>
 	<title>API Android Tester</title>
 	<script src="../js/apiAndroid.js"></script>
+	<script src="../js/speech.js"></script>
 </head>
 <body>
 
@@ -20,7 +21,7 @@ function test_TextToSpeech()
 		}
 	}
 
-	Text2Speech.speak("Bonjour comment allez-vous Yandam ?", callbacks);
+	Text2Speech.speak("Bonjour comment allez-vous Yandam ?", null, callbacks);
 }
 
 function test_SpeechRecognition()
@@ -33,36 +34,39 @@ function test_SpeechRecognition()
 	SpeechRecognition.start(callback);
 }
 
-MirrorLink.onSessionState = function(status)
+if(window.mirrorLink)
 {
-	document.getElementById('status').innerHTML += "<br>MirrorLink.sessionSate = "+status
-}
-MirrorLink.onNightMode = function(status)
-{
-	document.getElementById('status').innerHTML += "<br>MirrorLink.nightMode = "+status
-}
-MirrorLink.onDriveMode = function(status)
-{
-	document.getElementById('status').innerHTML += "<br>MirrorLink.driveMode = "+status
-}
-MirrorLink.onFramebufferBlocked = function(status, reason)
-{
-	document.getElementById('status').innerHTML += "<br>MirrorLink.frameBlocked = "+status+", "+reason
-}
-MirrorLink.onAudioBlocked = function(status, reason)
-{
-	document.getElementById('status').innerHTML += "<br>MirrorLink.audioBlocked = "+status+", "+reason
-}
+	mirrorLink.onSessionState = function(status)
+	{
+		document.getElementById('status').innerHTML += "<br>MirrorLink.sessionSate = "+status
+	}
+	mirrorLink.onNightMode = function(status)
+	{
+		document.getElementById('status').innerHTML += "<br>MirrorLink.nightMode = "+status
+	}
+	mirrorLink.onDriveMode = function(status)
+	{
+		document.getElementById('status').innerHTML += "<br>MirrorLink.driveMode = "+status
+	}
+	mirrorLink.onFramebufferBlocked = function(status, reason)
+	{
+		document.getElementById('status').innerHTML += "<br>MirrorLink.frameBlocked = "+status+", "+reason
+	}
+	mirrorLink.onAudioBlocked = function(status, reason)
+	{
+		document.getElementById('status').innerHTML += "<br>MirrorLink.audioBlocked = "+status+", "+reason
+	}
 
-function test_MirrorLink_SessionState()
-{
-	document.getElementById('status').innerHTML += "<br>MirrorLink.sessionSate = " + MirrorLink.sessionState
-	document.getElementById('status').innerHTML += "<br>MirrorLink.nightMode = "   + MirrorLink.nightMode
-	document.getElementById('status').innerHTML += "<br>MirrorLink.driveMode = "   + MirrorLink.driveMode
-	document.getElementById('status').innerHTML += "<br>MirrorLink.audioBlocked = "   + MirrorLink.audioBlocked
-	document.getElementById('status').innerHTML += "<br>MirrorLink.frameBlocked = "   + MirrorLink.frameBlocked
-}
 
+	function test_MirrorLink_SessionState()
+	{
+		document.getElementById('status').innerHTML += "<br>MirrorLink.sessionSate = " + mirrorLink.sessionState
+		document.getElementById('status').innerHTML += "<br>MirrorLink.nightMode = "   + mirrorLink.nightMode
+		document.getElementById('status').innerHTML += "<br>MirrorLink.driveMode = "   + mirrorLink.driveMode
+		document.getElementById('status').innerHTML += "<br>MirrorLink.audioBlocked = "   + mirrorLink.audioBlocked
+		document.getElementById('status').innerHTML += "<br>MirrorLink.frameBlocked = "   + mirrorLink.frameBlocked
+	}
+}
 
 </script>
 

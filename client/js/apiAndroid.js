@@ -7,202 +7,209 @@ console.info("AndroidApp : " + window.androidApp);
  * Text -> Voice
  * JS - Android interface
  *************************************************************************************/
-Text2Speech = function()  {
-
-	callbackMap = {};
-
-	/**
-	 * Speak a sentence
-	 * @param  {String}   text     The sentence to spell
-	 * @param  {Function} callback Callback function to return status. callback(status). status = 0 when started, 1 when error occured, 2 when the sentence is finished
-	 */
-	this.speak = function(text, voice, callback)
-	{
-		id = window.AndroidTextToSpeech.speak(text);
-		callbackMap[id] = callback;
-	}
-
-	/**
-	 * Add a silence
-	 * @param  {[type]}   time     Time in millisecond
-	 * @param  {Function} callback  Callback function to return status. callback(status). status = 0 when started, 1 when error occured, 2 when the sentence is finished
-	 */
-	this.silence = function(time, callback)
-	{
-		id = window.AndroidTextToSpeech.slience(time);
-		callbackMap[id] = callback;
-	}
-
-	/**
-	 * Stop the voice
-	 */
-	this.stop = function()
-	{
-		window.AndroidTextToSpeech.stop()
-	}
-
-	/**
-	 * Set the level of the voice pitch
-	 * @param {[float]} pitch Pitch coefficient
-	 */
-	this.setPitch = function(pitch)
-	{
-		window.AndroidTextToSpeech.setPitch(pitch)
-	}
-
-	/**
-	 * Android callback
-	 * Do not call directly
-	 */
-	this.AndroidCallback = function(id, status)
-	{
-		if(callbackMap[id] != undefined)
-		{
-			if(status == 0)
-				callbackMap[id]['onStart']();
-			else if(status == 2)
-				callbackMap[id]['onEnd']();
-			//callbackMap[id](status);
-		}
-	}
-
-}
-
 if(window.AndroidTextToSpeech)
-	var Text2Speech = new Text2Speech();
+{
+	AndroidText2Speech = function()  {
+
+		callbackMap = {};
+
+		/**
+		 * Speak a sentence
+		 * @param  {String}   text     The sentence to spell
+		 * @param  {Function} callback Callback function to return status. callback(status). status = 0 when started, 1 when error occured, 2 when the sentence is finished
+		 */
+		this.speak = function(text, voice, callback)
+		{
+			id = window.AndroidTextToSpeech.speak(text);
+			// TODO Voice
+			callbackMap[id] = callback;
+		}
+
+		/**
+		 * Add a silence
+		 * @param  {[type]}   time     Time in millisecond
+		 * @param  {Function} callback  Callback function to return status. callback(status). status = 0 when started, 1 when error occured, 2 when the sentence is finished
+		 */
+		this.silence = function(time, callback)
+		{
+			id = window.AndroidTextToSpeech.slience(time);
+			callbackMap[id] = callback;
+		}
+
+		/**
+		 * Stop the voice
+		 */
+		this.stop = function()
+		{
+			window.AndroidTextToSpeech.stop()
+		}
+
+		/**
+		 * Set the level of the voice pitch
+		 * @param {[float]} pitch Pitch coefficient
+		 */
+		this.setPitch = function(pitch)
+		{
+			window.AndroidTextToSpeech.setPitch(pitch)
+		}
+
+		/**
+		 * Android callback
+		 * Do not call directly
+		 */
+		this.AndroidCallback = function(id, status)
+		{
+			if(callbackMap[id] != undefined)
+			{
+				if(status == 0 && callbackMap[id]['onStart'] != undefined)
+					callbackMap[id]['onStart']();
+				else if(status == 2 && callbackMap[id]['onEnd'] != undefined)
+					callbackMap[id]['onEnd']();
+				//callbackMap[id](status);
+			}
+		}
+
+	}
+
+	androidText2Speech = new AndroidText2Speech();
+}
 
 /*************************************************************************************
  * SpeechRecognition
  * Voice -> Text
  * JS - Android interface
  *************************************************************************************/
-SpeechRecognition = function() {
+if(window.AndroidSpeechRecognition) {
 
-	callback = undefined;
+	AndroidSpeechRecognition = function() {
 
-	/**
-	 * Start a SpeechRecognition
-	 * @param  {Function} callback Callback method for the answer. callback(status, answerText)
-	 */
-	this.start = function(callback) {
+		callback = undefined;
 
-		this.callback = callback;
-		window.AndroidSpeechRecognition.start();
+		/**
+		 * Start a SpeechRecognition
+		 * @param  {Function} callback Callback method for the answer. callback(status, answerText)
+		 */
+		this.start = function(callback) {
 
-	}
+			this.callback = callback;
+			window.AndroidSpeechRecognition.start();
 
-	/**
-	 * Android callback
-	 * Do not call directly
-	 */
-	this.AndroidCallback = function(status, answerText)
-	{
-		if(callback != undefined)
-		{
-			callback(status, answerText);
 		}
+
+		/**
+		 * Android callback
+		 * Do not call directly
+		 */
+		this.AndroidCallback = function(status, answerText)
+		{
+			if(callback != undefined)
+			{
+				callback(status, answerText);
+			}
+		}
+
 	}
 
+	SpeechRecognition = new AndroidSpeechRecognition();
 }
-
-if(window.AndroidSpeechRecognition)
-	var SpeechRecognition = new SpeechRecognition();
 
 
 /*************************************************************************************
  * MirrorLink
  * JS - Android interface
  *************************************************************************************/
-MirrorLink = function() {
+if(window.AndroidMirrorLink)
+{
+	MirrorLink = function() {
 
-	sessionState 	= undefined;
-	nightMode 		= undefined;
-	driveMode 		= undefined;
-	audioBlocked	= false;
-	frameBlocked	= false;
-
-
-	/**
-	 * Return if the night mode is activate
-	 * @type {Boolean}
-	 */
-	this.isNightMode = window.AndroidMirrorLink.isNightMode();
-
-	/**
-	 * Return if the vehicule is in mouvement
-	 * @type {Boolean}
-	 */
-	this.isDriveMode = window.AndroidMirrorLink.isDriveMode();
-
-	/**
-	 * Return if there is a connection with mirrorlink
-	 * @type {Boolean}
-	 */
-	this.isSessionEstablished = window.AndroidMirrorLink.isSessionEstablished();
+		sessionState 	= undefined;
+		nightMode 		= undefined;
+		driveMode 		= undefined;
+		audioBlocked	= false;
+		frameBlocked	= false;
 
 
-	/**
-	 * Android callback
-	 * Do not call directly
-	 */
-	this.AndroidSetSessionState = function(status)
-	{
-		this.sessionState = status;
-		if(this.onSessionState != undefined)
+		/**
+		 * Return if the night mode is activate
+		 * @type {Boolean}
+		 */
+		this.isNightMode = window.AndroidMirrorLink.isNightMode();
+
+		/**
+		 * Return if the vehicule is in mouvement
+		 * @type {Boolean}
+		 */
+		this.isDriveMode = window.AndroidMirrorLink.isDriveMode();
+
+		/**
+		 * Return if there is a connection with mirrorlink
+		 * @type {Boolean}
+		 */
+		this.isSessionEstablished = window.AndroidMirrorLink.isSessionEstablished();
+
+
+		/**
+		 * Android callback
+		 * Do not call directly
+		 */
+		this.AndroidSetSessionState = function(status)
 		{
-			this.onSessionState(status);
+			this.sessionState = status;
+			if(this.onSessionState != undefined)
+			{
+				this.onSessionState(status);
+			}
 		}
-	}
 
-	/**
-	 * Android callback
-	 * Do not call directly
-	 */
-	this.AndroidSetNightMode = function(status)
-	{
-		this.nightMode = status;
-		if(this.onNightMode != undefined)
+		/**
+		 * Android callback
+		 * Do not call directly
+		 */
+		this.AndroidSetNightMode = function(status)
 		{
-			this.onNightMode(status);
+			this.nightMode = status;
+			if(this.onNightMode != undefined)
+			{
+				this.onNightMode(status);
+			}
 		}
-	}
 
-	/**
-	 * Android callback
-	 * Do not call directly
-	 */
-	this.AndroidSetDriveMode = function(status)
-	{
-		this.driveMode = status;
-		if(this.onDriveMode != undefined)
+		/**
+		 * Android callback
+		 * Do not call directly
+		 */
+		this.AndroidSetDriveMode = function(status)
 		{
-			this.onDriveMode(status);
+			this.driveMode = status;
+			if(this.onDriveMode != undefined)
+			{
+				this.onDriveMode(status);
+			}
 		}
+
+		/**
+		 * Android callback
+		 * Do not call directly
+		 */
+		this.AndroidSetFramebufferBlocked = function(status, reason)
+		{
+			this.frameBlocked = status;
+			if(this.onFramebufferBlocked != undefined)
+				this.onFramebufferBlocked(status, reason);
+		}
+		/**
+		 * Android callback
+		 * Do not call directly
+		 */
+		this.AndroidSetAudioBlocked = function(status, reason)
+		{
+			this.audioBlocked = status;
+			if(this.onAudioBlocked != undefined)
+				this.onAudioBlocked(status, reason);
+		}
+
 	}
 
-	/**
-	 * Android callback
-	 * Do not call directly
-	 */
-	this.AndroidSetFramebufferBlocked = function(status, reason)
-	{
-		this.frameBlocked = status;
-		if(this.onFramebufferBlocked != undefined)
-			this.onFramebufferBlocked(status, reason);
-	}
-	/**
-	 * Android callback
-	 * Do not call directly
-	 */
-	this.AndroidSetAudioBlocked = function(status, reason)
-	{
-		this.audioBlocked = status;
-		if(this.onAudioBlocked != undefined)
-			this.onAudioBlocked(status, reason);
-	}
+	mirrorLink = new MirrorLink();
 
 }
-
-if(window.AndroidMirrorLink)
-	var MirrorLink = new MirrorLink();
-

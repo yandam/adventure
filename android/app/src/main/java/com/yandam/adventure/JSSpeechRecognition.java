@@ -98,7 +98,7 @@ public class JSSpeechRecognition {
                 activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        webView.loadUrl("javascript:SpeechRecognition.AndroidCallback(" + status + "," + json.toString() + ")");
+                        webView.loadUrl("javascript:androidSpeechRecognition.AndroidCallback(" + status + "," + json.toString() + ")");
                     }
                 });
             }

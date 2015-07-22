@@ -53,7 +53,7 @@ public class JSMirrorLink {
             activity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    webView.loadUrl("javascript:MirrorLink.AndroidSetSessionState(" + isMirrorLinkConnected + ")");
+                    webView.loadUrl("javascript:mirrorLink.AndroidSetSessionState(" + isMirrorLinkConnected + ")");
                 }
             });
         }
@@ -69,7 +69,7 @@ public class JSMirrorLink {
             activity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    webView.loadUrl("javascript:MirrorLink.AndroidSetNightMode(" + nightMode + ")");
+                    webView.loadUrl("javascript:mirrorLink.AndroidSetNightMode(" + nightMode + ")");
                 }
             });
         }
@@ -83,7 +83,7 @@ public class JSMirrorLink {
             activity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    webView.loadUrl("javascript:MirrorLink.AndroidSetDriveMode(" + driveMode + ")");
+                    webView.loadUrl("javascript:mirrorLink.AndroidSetDriveMode(" + driveMode + ")");
                 }
             });
         }
@@ -96,7 +96,7 @@ public class JSMirrorLink {
             activity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    webView.loadUrl("javascript:MirrorLink.AndroidSetFramebufferBlocked(true, " + reason + ")");
+                    webView.loadUrl("javascript:mirrorLink.AndroidSetFramebufferBlocked(true, " + reason + ")");
                 }
             });
         }
@@ -107,7 +107,7 @@ public class JSMirrorLink {
             activity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    webView.loadUrl("javascript:MirrorLink.AndroidSetAudioBlocked(true, " + reason + ")");
+                    webView.loadUrl("javascript:mirrorLink.AndroidSetAudioBlocked(true, " + reason + ")");
                 }
             });
         }
@@ -117,7 +117,7 @@ public class JSMirrorLink {
             activity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    webView.loadUrl("javascript:MirrorLink.AndroidSetFramebufferBlocked(false, 0)");
+                    webView.loadUrl("javascript:mirrorLink.AndroidSetFramebufferBlocked(false, 0)");
                 }
             });
         }
@@ -127,7 +127,7 @@ public class JSMirrorLink {
             activity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    webView.loadUrl("javascript:MirrorLink.AndroidSetAudioBlocked(false, 0)");
+                    webView.loadUrl("javascript:mirrorLink.AndroidSetAudioBlocked(false, 0)");
                 }
             });
         }

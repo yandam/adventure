@@ -39,7 +39,7 @@ public class JSTextToSpeech {
                             activity.runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    webView.loadUrl("javascript:Text2Speech.AndroidCallback(" + id + "," + status + ")");
+                                    webView.loadUrl("javascript:androidText2Speech.AndroidCallback(" + id + "," + status + ")");
                                 }
                             });
                         }
