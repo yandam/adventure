@@ -36,7 +36,7 @@ Text2Speech = function() {
                     this.callback['onEnd']()
             }).bind({callback: callback, stopI: this.stopI})
 
-            if(this.callback != undefined && 'onStart' in this.callback)
+            if(callback != undefined && 'onStart' in callback)
                 utterance.onstart = callback['onStart']
 
             window.speechSynthesis.speak(utterance);
