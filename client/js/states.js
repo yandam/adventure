@@ -352,23 +352,6 @@ function updateMenu(obj, menu) {
 }
 
 
-String.prototype.capitalizeFirstLetter = function() {
-    return this.charAt(0).toUpperCase() + this.slice(1);
-}
-
-function classNameAppend(obj, className) {
-    c = obj.className.split(' ')
-    c.push(className)
-    obj.className = c.join(' ')
-}
-
-function classNameRemove(obj, className) {
-    c = obj.className.split(' ');
-    f = c.indexOf(className)
-    if(f != -1)
-        c.splice(f, 1)
-    obj.className = c.join(' ')
-}
 
 
 window.onhashchange = function(e) {

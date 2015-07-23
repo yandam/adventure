@@ -6,6 +6,24 @@ window.mobileAndTabletcheck = (function() {
 })();
 //console.info("Mobile : "+window.mobileAndTabletcheck);
 
+String.prototype.capitalizeFirstLetter = function() {
+    return this.charAt(0).toUpperCase() + this.slice(1);
+}
+
+function classNameAppend(obj, className) {
+    c = obj.className.split(' ')
+    c.push(className)
+    obj.className = c.join(' ')
+}
+
+function classNameRemove(obj, className) {
+    c = obj.className.split(' ');
+    f = c.indexOf(className)
+    if(f != -1)
+        c.splice(f, 1)
+    obj.className = c.join(' ')
+}
+
 (function() {
 
 
@@ -64,6 +82,18 @@ window.mobileAndTabletcheck = (function() {
         sheet.insertRule("box { float: left; }", 0);
         sheet.insertRule("body > header { position:relative; }", 1);
         
+    }
+
+    if(window.mirrorLink)
+    {
+        mirrorLink.onNightMode = function(status) {
+            if(status)
+                classNameAppend(document.body, 'nightMode')
+            else
+                classNameRemove(document.body, 'nightMode')
+        }
+
+        mirrorLink.onNightMode(mirrorLink.isNightMode())
     }
 
 })();

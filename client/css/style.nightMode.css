@@ -1,0 +1,66 @@
+/*
+Color : http://www.google.fr/design/spec/style/color.html
+*/
+body.nightMode {
+    color: white;
+    background-color: black;
+}
+
+body.nightMode header {
+    background-color: rgb(6, 6, 6);
+}
+
+/*
+body.nightMode box > div > text {
+    color: white;
+}
+*/
+/*
+body.nightMode box.color0 {
+    background-color: #33B5E5;
+}
+
+body.nightMode box.color1 {
+    background-color: #99CC00;
+}
+
+body.nightMode box.color2 {
+    background-color: #FFC107;
+}
+
+body.nightMode box.color3 {
+    background-color: #FF4444;
+}
+*/
+
+body.nightMode book {
+    background-color: rgb(30,30,30);
+}
+
+/*
+body.nightMode box.end {
+    background-color: #3F51B5;
+}
+*/
+
+body.nightMode .all, body.nightMode .tous {
+    background-color: black;
+}
+body.nightMode .aventure {
+    background-color: #FFCA28;
+}
+body.nightMode .sciencefiction, body.nightMode .sf {
+    background-color: #2196F3;
+}
+body.nightMode .fantaisie {
+    background-color: #009688;
+}
+body.nightMode .polar {
+    background-color: #607D8B;
+}
+body.nightMode .enfance {
+    background-color: #E91E63;
+}
+body.nightMode .moyen-age {
+    background-color: #795548;
+}
