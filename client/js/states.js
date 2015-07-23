@@ -4,7 +4,7 @@ __STATES__ = {
 
     librairy: {
         content: "contentLibrairy",
-        title: "Bibliothèque",
+        title: "Adventure - Bibliothèque",
         menu: {},
         render: function(self, content, options) {
 
@@ -46,7 +46,8 @@ __STATES__ = {
                     route("librairy", this.style)
                 }).bind({style: style})
                 classNameAppend(li, "clickable")
-
+                li.style.width = (100 / styles.length) + "%"
+                //li.style.fontSize = Math.min(100, (10 / style.length * 70)) + "%"
                 ul.appendChild(li);
 
                 classNameRemove(content, style);

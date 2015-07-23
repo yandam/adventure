@@ -53,9 +53,9 @@ function classNameRemove(obj, className) {
                     range:      80,
                     reference:  'vmin'
                 },
-                'speak': {
-                    property:   'width',
-                    range:      80,
+                'header > nav > ul': {
+                    property:   'font-size',
+                    range:      4,
                     reference:  'vmin'
                 }
             }
