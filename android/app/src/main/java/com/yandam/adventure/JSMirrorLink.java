@@ -5,6 +5,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
@@ -177,6 +178,11 @@ public class JSMirrorLink {
             }
         }
         return false;
+    }
+
+    @JavascriptInterface
+    public int getAndroidVersion() {
+        return Build.VERSION.SDK_INT;
     }
 
 

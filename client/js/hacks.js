@@ -9,20 +9,35 @@ window.mobileAndTabletcheck = (function() {
 (function() {
 
 
-    if(window.androidApp) 
+    if(window.androidApp != 0 && window.androidApp < 19) // 19 : Kitkat
     {
 
         /* Font size VMIN */
         new vUnit({
             CSSMap: {
-                '.text': {
+                'box.end > div > text': {
                     property:   'font-size',
                     range:      10,
-                    reference:  'vmin'
+                    reference:  'vw'
                 },
-                '.backtext': {
+                'box > background': {
                     property:   'font-size',
                     range:      50,
+                    reference:  'vmin'
+                },
+                'box > div > text': {
+                    property:   'font-size',
+                    range:      6,
+                    reference:  'vmin'
+                },
+                'speak': {
+                    property:   'height',
+                    range:      80,
+                    reference:  'vmin'
+                },
+                'speak': {
+                    property:   'width',
+                    range:      80,
                     reference:  'vmin'
                 }
             }
@@ -46,10 +61,8 @@ window.mobileAndTabletcheck = (function() {
             return style.sheet;
         })();
 
-        sheet.insertRule(".box:hover { opacity: 1; }", 0);
-        sheet.insertRule(".center { display: table; width: 100%;}", 1);
-        sheet.insertRule(".text { display: table-cell; vertical-align: middle; }", 2);
-
+        sheet.insertRule("box { float: left; }", 0);
+        sheet.insertRule("body > header { position:relative; }", 1);
         
     }
 

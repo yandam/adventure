@@ -166,11 +166,11 @@ librairy {
 book {
     position: relative;
     display: inline-block;
-    font-size: 1vw;
+    font-size: 20px;
 
     width: 33%;
     margin: 0.16666665%;
-    padding: 1vw;
+    padding: 10px;
     box-sizing: border-box;
     overflow: hidden;
     cursor: pointer;

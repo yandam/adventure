@@ -109,8 +109,9 @@ public class MainActivity extends Activity {
             }
         });
 
-        if (savedInstanceState == null)
+        if (savedInstanceState == null) {
             webView.loadUrl("file:///android_asset/www/index.html");
+        }
     }
 
     @Override
