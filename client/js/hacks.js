@@ -80,7 +80,7 @@ function classNameRemove(obj, className) {
         })();
 
         sheet.insertRule("box { float: left; }", 0);
-        sheet.insertRule("body > header { position:relative; }", 1);
+        sheet.insertRule("body > header, shadow { position:absolute; }", 1);
         
     }
 

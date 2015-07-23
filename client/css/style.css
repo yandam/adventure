@@ -239,7 +239,7 @@ book {
     box-sizing: border-box;
     overflow: hidden;
     cursor: pointer;
-    vertical-align: middle;
+    vertical-align: top;
     background-color: #FFFFFF;
 
     
