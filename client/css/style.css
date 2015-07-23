@@ -104,12 +104,23 @@ box {
     height: 50%;
     /*float:left;*/
     cursor: pointer;
+}
+
+box > div {
+    position: absolute;
+    display: block;
+    top: 10px;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+    box-shadow: 0 2px 3px rgba(0,0,0,0.26), -2px 0 5px rgba(0,0,0,0.26);
+    border-radius: 4px;
+
     overflow: hidden;
 }
 
-
-box > background {
-
+box > div > background {
+ 
     /* See js/hacks.js for Mobile fontsize when vmin isn't implemented */
     font-size: 50vmin;
     opacity: 0.1;
@@ -124,14 +135,14 @@ box > background {
     user-select: none;
 }
 
-box > div {
+box > div >  div {
     
     display: table;
     height: 100%;
     width: 100%;
 }
 
-box > div > text {
+box > div > div > text {
     position: relative;
     z-index: 1;
     display: table-cell;
@@ -143,19 +154,19 @@ box > div > text {
     word-break: break-word;
 }
 
-box.color0 {
+box.color0 > div {
     background-color: #33B5E5;
 }
 
-box.color1 {
+box.color1 > div {
     background-color: #99CC00;
 }
 
-box.color2 {
+box.color2 > div {
     background-color: #FFBB33;
 }
 
-box.color3 {
+box.color3 > div {
     background-color: #FF4444;
 }
 
@@ -180,7 +191,9 @@ book {
     vertical-align: middle;
     background-color: rgb(230,230,230);
 
-    box-shadow: 0 2px 5px rgba(0,0,0,0.26);
+    
+    box-shadow: 0 2px 3px rgba(0,0,0,0.26), -2px 0 5px rgba(0,0,0,0.26);
+    border-radius: 4px;
 }
 
 book:hover {
@@ -229,11 +242,14 @@ box.end {
     top:0 ;
     cursor: default;
 }
-box.end > div > text {
+box.end > div {
+    box-shadow: none;
+}
+box.end > div > div > text {
     font-size: 10vw;
     font-weight: normal;
 }
-box.end > background {
+box.end > div > background {
     bottom: -15%;
 }
 box.end:hover {

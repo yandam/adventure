@@ -165,6 +165,8 @@ __STATES__ = {
 
             renderBox = function(i) {
                 boxObj = boxes[i];
+
+                boxObj.style.visibility = ""
                 boxObj.getElementsByTagName('text')[0].innerText = ('short' in current.choices[i])?current.choices[i].short:current.choices[i].message
                 boxObj.getElementsByTagName('background')[0].style.visibility = ""
                 classNameAppend(boxObj,"clickable")
@@ -177,7 +179,7 @@ __STATES__ = {
             // Reset all
             for(i=0; i < boxes.length; i++) {
                 boxObj = boxes[i];
-
+                boxObj.style.visibility = "hidden"
                 boxObj.getElementsByTagName('text')[0].innerText = ""
                 boxObj.getElementsByTagName('background')[0].style.visibility = "hidden"
                 classNameRemove(boxObj, "clickable")
