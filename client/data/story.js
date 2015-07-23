@@ -3,10 +3,11 @@ __STORIES__ = {
     _settings: {
       title:"Camille",
       voice:"French Female",
-      icon: "🐙"
+      icon: "🐙",
+      categories: ['aventure', 'sf']
     },
     start: {
-        text:'Salut camille, yo!',
+        text: 'Salut camille, yo!',
         choices: [
           {next:2, message:"Oui?"},
           {next:2, message:"Euuh.."},
@@ -38,7 +39,9 @@ __STORIES__ = {
     _settings: {
       title:"Tea time",
       voice:"UK English Male",
-      icon: "🍵"
+      icon: "🍵",
+      categories: ['enfance'],
+      synopsis: 'Histoire autour du thé.'
     },
     'start':{
         text:'Do you want some tea with your madeleine ?',
@@ -59,7 +62,8 @@ __STORIES__ = {
     _settings: {
       title:"Quizz",
       voice:"UK English Male",
-      icon: "🐼"
+      icon: "🐼",
+      categories: ['polar']
     },
     'start':{
         text:"What's the real name of Woody Allen ?",

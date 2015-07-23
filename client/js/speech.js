@@ -1,10 +1,17 @@
 
 
 Text2Speech = function() {
+    _this = this;
+    this.stopI = 0;
 
     this.stop = function() {
+        this.stopI += 1
+
         if('androidText2Speech' in window) {
             window.androidText2Speech.stop();
+        }
+        else if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel()
         }
     };
 
@@ -23,11 +30,16 @@ Text2Speech = function() {
         }
         else if ('speechSynthesis' in window) {
             var utterance = new SpeechSynthesisUtterance(text);
+
+            utterance.onend = (function() {
+                if(this.stopI == _this.stopI && this.callback != undefined && 'onEnd' in this.callback)
+                    this.callback['onEnd']()
+            }).bind({callback: callback, stopI: this.stopI})
+
+            if(this.callback != undefined && 'onStart' in this.callback)
+                utterance.onstart = callback['onStart']
+
             window.speechSynthesis.speak(utterance);
-            if(callback != undefined) {
-                if(callback['onStart'] != undefined)
-                    setTimeout(callback['onStart'],1000);
-            }
         }
         else {
             console.log('FAKE SPEAK', text);

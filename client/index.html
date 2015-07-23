@@ -8,240 +8,116 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1">
 </head>
 <body>
-    <div id="content" class="full"></div>
     <script type="text/javascript" src="js/vunit.js"></script>
     <script type="text/javascript" src="js/apiAndroid.js"></script>
     <script type="text/javascript" src="js/hacks.js"></script>
-    <script src="react/build/react.min.js"></script>
-    <script src="react/build/JSXTransformer.js"></script>
+    <script type="text/javascript" src="js/speech.js"></script>
     <script src="data/story.js"></script>
     <script src="data/example_story.js"></script>
-    <script type="text/jsx">
 
-if ('speechSynthesis' in window) {
-  text2speech = {
-    cancel:function(){
-      speechSynthesis.cancel();
-    },
-    speak:function(text){
-      var msg = new SpeechSynthesisUtterance(text);
-      speechSynthesis.speak(msg);
-    },
-  };
-} else {
-  text2speech = {
-    cancel:function(){
-
-    },
-    speak:function(text){
-      console.log('FAKE SPEAK',text);
-    },
-  };
-}
-
-changeURL = function(next){
-  text2speech.cancel();
-  window.location.hash = next;
-}
-
-var colors = {
-  blue: "#33b5e5",
-  gray: "rgba(99,99,99,51)",
-  green: "#99cc00",
-  red: "#ff4444",
-  blue_dark: "#0099cc",
-  green_dark: "#669900",
-  red_dark: "#cc0000",
-  purple: "#aa66cc",
-  orange: "#ffbb33",
-  orange_dark: "#ff8800",
-  blue_bright: "#00ddff",
-  gray_bright: "rgba(204,204,204,51)",
-} //=>use this:http://www.google.fr/design/spec/style/color.html
-
-var Box = React.createClass({
-  select:function(e){
-    e.stopPropagation(); e.preventDefault();
-    if(this.props.onClick){
-      this.props.onClick(e)
-    }
-  },
-  render:function(){
-    var style={
-      backgroundColor:colors[this.props.color]
-    }
-    return <div
-      className="box"
-      style={style}
-      onClick={this.select}
-      onTouchStart={this.select}
-      >
-      <div className="center">
-        <span className="text">{this.props.text}</span>
-      </div>
-      <span className="backtext">{this.props.backText}</span>
-      </div>
-  }
-})
-
-var EndScreen = React.createClass({
-  render:function(){
-    var choices = this.props.choices;
-    return (<div className="full">
-        <br/><br/>
-        <center><h1>The End.</h1>
-        {this.props.now.text}
-        </center>
-        </div>);
-  }    
-})
-
-var Grid = React.createClass({
-  render:function(){
-    var choices = this.props.choices;
-    return (<div className="full">
-          {choices.A}
-          {choices.B}
-          {choices.C}
-          {choices.D}
-        </div>);
-  }    
-})
-
-var Story = React.createClass({
-  render: function() {
-    var now = this.props.story[this.props.state];
-    document.title = now.text
-    var voice = this.props.story._settings.voice || 'UK English Female';
-    if(now.voice != undefined){
-      voice = now.voice;
-    }
-    text2speech.speak(now.text, voice);
-
-    if(now.choices == undefined || now.choices.length == 0){
-      return <EndScreen now={now}/>;
-    }
-
-    var box = function(i,color, backtext){
-      if(now.choices.length > i){
-        var choice = now.choices[i];
-        text2speech.speak(backtext, voice);
-        text2speech.speak(choice.message, voice);
-        return (<Box
-          color={color}
-          onClick={changeURL
-            .bind(null, this.props.story_key+"/"+choice.next)}
-          text={choice.short ? choice.short : choice.message}
-          backText={backtext}/>)
-      }
-      return <Box color={color} />
-    }.bind(this)
-    var choices = {
-      A: box(0,"blue","A"),
-      B: box(1,"green","B"),
-      C: box(2,"orange","C"),
-      D: box(3,"red","D"),
-    }
-    return (<div className="full whole">
-          <h1 className="titlebar">
-            <a 
-            style={{float:'right'}}
-            onClick={changeURL
-              .bind(null, this.props.story_key+"/"+this.props.state)}>
-              [repeat]
-            </a>
-            <a onClick={changeURL.bind(null, "")}>[📚]</a>&nbsp;
-            {now.short ? now.short: now.text}
-          </h1>
-          {choices.A}
-          {choices.B}
-          {choices.C}
-          {choices.D}
-        </div>);
-  }
-})
-
-var Library = React.createClass({
-  render: function(){
-    var stories_keys = Object.keys(__STORIES__).sort()
-    var box = function(i,color, backtext){
-      if(stories_keys.length > i){
-        var key = stories_keys[i];
-        var story = __STORIES__[key];
-        return (<Box
-          color={color}
-          onClick={changeURL.bind(null,key)}
-          text={story._settings.title}
-          backText={story._settings.icon}/>)
-      }
-      return <Box color={color} />
-    }.bind(this)
-    choices = {
-      A: box(0,"red_dark",""),
-      B: box(1,"red",""),
-      C: box(2,"red",""),
-      D: box(3,"red_dark",""),
-    };
-    return (<div className="full whole">
-          <h1 className="titlebar">
-            Choose a story
-          </h1>
-          <Grid choices={choices}/>
-        </div>);
-  }
-})
-
-var Message = React.createClass({
-  render: function(){
-    return <pre>  <h1>  {this.props.children}</h1></pre>
-  }
-})
-
-var App = React.createClass({
-  render: function() {
-    var route = this.props.route.split('/');
-    console.log('route parts', route.join('--'))
-    if(route[0] == ''){
-      route[0] = 'library';
-    }
-    if(route[0] == 'library'){
-      return <Library />
-    }
-    if(route[0] == 'json'){
-      return <pre>{JSON.stringify(__STORIES__,null,2)}</pre>
-    }
-    if(route[0] in __STORIES__){
-      var story = __STORIES__[route[0]];
-      console.log('story',story)
-      var state = "start"
-      if(route.length > 1 && route[1] != ''){
-        state = route[1];
-      }
-      if(state in story){
-          return (<div className="full">
-            <Story story={story} story_key={route[0]} state={state} />
-          </div>);
-      }
-      return <Message>state {state} isn't in story!</Message>
-    }
-    return <Message>URL {route} is bad!</Message>
-  }
-});
+    <!-- Header -->
+    <header>
+        <h1 id="title"></h1>
+        <nav id="menuLeft">
+            <ul></ul>
+        </nav>
+        <nav id="menuRight">
+            <ul></ul>
+        </nav>
+    </header>
 
 
-function render () {
-  var route = window.location.hash.substr(1);
-  text2speech.cancel();
-  React.render(
-    <App route={route}/>,
-    document.getElementById('content')
-    );
-}
+    <!-- Boxes -->
+    <content id="contentPlay" class="box" style="display: none;">
+        <box class="color0">
+            <div>
+                <text></text>
+            </div>
+            <background>A</background>
+        </box>
+        <box class="color1">
+            <div>
+                <text></text>
+            </div>
+            <background>B</background>
+        </box>
+        <box class="color2">
+            <div>
+                <text></text>
+            </div>
+            <background>C</background>
+        </box>
+        <box class="color3">
+            <div>
+                <text></text>
+            </div>
+            <background>D</background>
+        </box>
 
-React.initializeTouchEvents(true)
-window.addEventListener('hashchange', render);
-//TODO: 1000ms timeout for the first speech to work
-render();
-  </script>
+
+        <speak id="speaking">
+            <svg src="ripple.svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+                <rect x="0" y="0" width="100" height="100" fill="none" class="bk"></rect>
+                <g>
+                    <animate attributeName="opacity" dur="5s" repeatCount="indefinite" begin="0s" keyTimes="0;0.5;1" values="1;1;0"></animate>
+                    <circle cx="50" cy="50" r="0" stroke="#33B5E5" fill="none" stroke-width="10" stroke-linecap="round">
+                        <animate attributeName="r" dur="5s" repeatCount="indefinite" begin="0s" keyTimes="0;0.5;1" values="0;22;44"></animate>
+                        <animate attributeName="stroke-width" dur="5s" repeatCount="indefinite" begin="0s" keyTimes="0;1" values="1;7"></animate>
+                    </circle>
+                </g>
+                <g>
+                    <animate attributeName="opacity" dur="5s" repeatCount="indefinite" begin="-1.25s" keyTimes="0;0.5;1" values="1;1;0"></animate>
+                        <circle cx="50" cy="50" r="0" stroke="#99CC00" fill="none" stroke-width="10" stroke-linecap="round">
+                        <animate attributeName="r" dur="5s" repeatCount="indefinite" begin="-1.25s" keyTimes="0;0.5;1" values="0;22;44"></animate>
+                        <animate attributeName="stroke-width" dur="5s" repeatCount="indefinite" begin="-1.25s" keyTimes="0;1" values="1;7"></animate>
+                    </circle>
+                </g>
+                <g>
+                    <animate attributeName="opacity" dur="5s" repeatCount="indefinite" begin="-2.5s" keyTimes="0;0.5;1" values="1;1;0"></animate>
+                        <circle cx="50" cy="50" r="0" stroke="#FFBB33" fill="none" stroke-width="10" stroke-linecap="round">
+                        <animate attributeName="r" dur="5s" repeatCount="indefinite" begin="-2.5s" keyTimes="0;0.5;1" values="0;22;44"></animate>
+                        <animate attributeName="stroke-width" dur="5s" repeatCount="indefinite" begin="-2.5s" keyTimes="0;1" values="1;7"></animate>
+                    </circle>
+                </g>
+                <g>
+                    <animate attributeName="opacity" dur="5s" repeatCount="indefinite" begin="-3.75s" keyTimes="0;0.5;1" values="1;1;0"></animate>
+                        <circle cx="50" cy="50" r="0" stroke="#FF4444" fill="none" stroke-width="10" stroke-linecap="round">
+                        <animate attributeName="r" dur="5s" repeatCount="indefinite" begin="-3.75s" keyTimes="0;0.5;1" values="0;22;44"></animate>
+                        <animate attributeName="stroke-width" dur="5s" repeatCount="indefinite" begin="-3.75s" keyTimes="0;1" values="1;7"></animate>
+                    </circle>
+                </g>
+            </svg>
+        </speak>
+
+    </content>
+
+    <!-- Librairy -->
+    <content id="contentLibrairy" style="display: none;">
+        <header>
+            <nav>
+                <ul></ul>
+            </nav>
+        </header>
+
+        <librairy></librairy>
+
+    </content>
+
+    <!-- End -->
+    <content id="contentEnd" style="display: none;">
+        <box class="end">
+            <div>
+                <text>The End</text>
+            </div>
+            <background>The End</background>
+        </box>
+    </content>
+
+
+    <script type="text/javascript" src="js/states.js"></script>
+    <script type="text/javascript">
+        
+
+    </script>    
 </body>
 </html>

@@ -1,54 +1,284 @@
-.box {
-  width: 50%;
-  height: 50%;
-  float: left;
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
-}
-.box:hover {
-  opacity: 0.9;
-}
+/*
+Color : http://www.google.fr/design/spec/style/color.html
+*/
 
-.center {
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  
-  text-align: center;
+body > header, content > header {
+    height: 60px;
+    position: relative;
+    background-color: rgb(249, 249, 249);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.26);
+    z-index: 1;
+}
+body > header {
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: 10;
 }
 
-.text {
-  /* See js/hacks.js for Mobile fontsize when vmin isn't implemented */
-  font-size: 6vmin;
-  font-weight: bold;
-  color: rgba(255, 255, 255, 1);
-  z-index: 1;
-  position: relative; /* Fix for z-index on Android 4.1.2 and browers like it */
+body > header > h1, content > header > h1 {
+    margin: auto 100px;
+    display: inline-block;
+    line-height: 60px;
 }
 
-.backtext {
-  /* See js/hacks.js for Mobile fontsize when vmin isn't implemented */
-  font-size: 50vmin;
-  opacity: 0.1;
-  position: absolute;
-  bottom: -33%;
-  z-index: 0;
-
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+header > nav > ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+header > nav > ul > li {
+    cursor: pointer;
 }
 
-html, body, .full{
-  height: 100%;
+body > header > nav {
+    position: absolute;
+    margin: auto 10px;
+    top: 1px;
+    bottom: 0;
+    /*line-height: 60px;*/
+    font-size: 2em;
 }
 
-a:hover {
-  cursor: pointer;
+body > header > nav:first-child {
+    left: 0;
+}
+
+body > header > nav:last-child {
+    right: 0;
+}
+
+body > header > nav > ul > li {
+    display: inline-block;
+    cursor: pointer;
+    padding: 0 10px;
+}
+
+icon {
+    font-size: 45px;
+    vertical-align: middle;
+}
+
+content > header {
+    height: 40px;
+    /*padding: 0 20px;*/
+}
+
+content > header > nav {
+    font-size: 1.25em;
+    line-height: 40px;
+}
+
+content > header > nav > ul > li {
+    display: inline-block;
+    min-width: 10%;
+    text-align: center;
+    cursor: pointer;
+    padding: 0 5px;
+}
+content > header > nav > ul > li:hover {
+    opacity: 0.9;
+}
+
+content {
+    position: absolute;
+    display: block;
+    
+    top: 60px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+content.box {
+    font-size: 0;
+}
+
+box {
+    position: relative;
+    display: inline-block;
+    width: 50%;
+    height: 50%;
+    /*float:left;*/
+    cursor: pointer;
+    overflow: hidden;
+}
+
+
+box > background {
+
+    /* See js/hacks.js for Mobile fontsize when vmin isn't implemented */
+    font-size: 50vmin;
+    opacity: 0.1;
+    position: absolute;
+    bottom: -33%;
+
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+box > div {
+    
+    display: table;
+    height: 100%;
+    width: 100%;
+}
+
+box > div > text {
+    position: relative;
+    z-index: 1;
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    color: white;
+    font-size: 6vmin;
+    font-weight: bold;
+    word-break: break-word;
+}
+
+box.color0 {
+    background-color: #33B5E5;
+}
+
+box.color1 {
+    background-color: #99CC00;
+}
+
+box.color2 {
+    background-color: #FFBB33;
+}
+
+box.color3 {
+    background-color: #FF4444;
+}
+
+librairy {
+    display: block;
+    /*width: 100%; /*95%*/
+    margin: auto;
+    font-size: 0;
+}
+
+book {
+    position: relative;
+    display: inline-block;
+    font-size: 1vw;
+
+    width: 33%;
+    margin: 0.16666665%;
+    padding: 1vw;
+    box-sizing: border-box;
+    overflow: hidden;
+    cursor: pointer;
+    vertical-align: middle;
+    background-color: rgb(230,230,230);
+
+    box-shadow: 0 2px 5px rgba(0,0,0,0.26);
+}
+
+book:hover {
+    opacity: 0.9;
+}
+
+book > h1 {
+    position: relative;
+    text-align: center;
+}
+
+book > synopsis {
+    position: relative;
+    display: block;
+}
+
+book > categories {
+    position: relative;
+    display: block;
+    margin-top: 20px;
+    text-align: right;
+    z-index: 1;
+}
+
+book > categories > categorie {
+    display: inline-block;
+    padding: 2px;
+    margin:0 2px;
+}
+
+book > background {
+    font-size: 10em;
+    opacity: 0.1;
+    position: absolute;
+    top: 0;
+    right:0;
+    z-index: 0;
+}
+
+box.end {
+    position: absolute;
+    background-color: #3F51B5;
+    width: 100%;
+    height: auto;
+    bottom: 0;
+    top:0 ;
+    cursor: default;
+}
+box.end > div > text {
+    font-size: 10vw;
+    font-weight: normal;
+}
+box.end > background {
+    bottom: -15%;
+}
+box.end:hover {
+    opacity: 1;
+}
+
+speak {
+    position: absolute;
+    z-index: 5;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 80vmin;
+    height: 80vmin;
+    margin: auto;
+    cursor: pointer;
+}
+
+speak:hover {
+    opacity: 0.5;
+}
+
+.clickable {
+    cursor: pointer;
+}
+.clickable:hover {
+    opacity: 0.9;
+}
+
+.all, .tous {
+    background-color: rgb(249, 249, 249);
+}
+.aventure {
+    background-color: #FFD54F;
+}
+.sciencefiction, .sf {
+    background-color: #64B5F6;
+}
+.fantaisie {
+    background-color: #4DB6AC;
+}
+.polar {
+    background-color: #90A4AE;
+}
+.enfance {
+    background-color: #F06292;
+}
+.moyen-age {
+    background-color: #A1887F;
 }

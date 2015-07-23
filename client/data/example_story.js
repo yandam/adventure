@@ -1,7 +1,8 @@
 __STORIES__.example = {
     _settings: {
       title:"Crown of Despesia",
-      icon: "K"
+      icon: "K",
+      categories: ['aventure', 'moyen-age']
     },
     start: {
         short: "What do you do?",
