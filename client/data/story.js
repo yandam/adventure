@@ -4,7 +4,8 @@ __STORIES__ = {
       title:"Camille",
       voice:"French Female",
       icon: "🐙",
-      categories: ['aventure', 'sf']
+      categories: ['aventure', 'sf'],
+      bg: 'camille.jpg'
     },
     start: {
         text: 'Salut camille, yo!',
@@ -41,7 +42,8 @@ __STORIES__ = {
       voice:"UK English Male",
       icon: "🍵",
       categories: ['enfance'],
-      synopsis: 'Histoire autour du thé.'
+      synopsis: 'Histoire autour du thé.',
+      bg: 'tea.jpg'
     },
     'start':{
         text:'Do you want some tea with your madeleine ?',
@@ -63,7 +65,8 @@ __STORIES__ = {
       title:"Quizz",
       voice:"UK English Male",
       icon: "🐼",
-      categories: ['polar']
+      categories: ['polar'],
+      bg: 'quizz.jpg'
     },
     'start':{
         text:"What's the real name of Woody Allen ?",

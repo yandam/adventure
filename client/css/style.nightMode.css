@@ -3,11 +3,11 @@ Color : http://www.google.fr/design/spec/style/color.html
 */
 body.nightMode {
     color: white;
-    background-color: black;
+    background-color: #303030;
 }
 
 body.nightMode header {
-    background-color: rgb(6, 6, 6);
+    background-color: #212121;
 }
 
 /*
@@ -34,7 +34,7 @@ body.nightMode box.color3 {
 */
 
 body.nightMode book {
-    background-color: rgb(30,30,30);
+    background-color: #424242;
 }
 
 /*
@@ -44,7 +44,7 @@ body.nightMode box.end {
 */
 
 body.nightMode .all, body.nightMode .tous {
-    background-color: black;
+    background-color: #303030;
 }
 body.nightMode .aventure {
     background-color: #FFCA28;

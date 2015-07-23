@@ -33,17 +33,17 @@ function classNameRemove(obj, className) {
         /* Font size VMIN */
         new vUnit({
             CSSMap: {
-                'box.end > div > text': {
+                'box.end > div > div > text': {
                     property:   'font-size',
                     range:      10,
                     reference:  'vw'
                 },
-                'box > background': {
+                'box > div > background': {
                     property:   'font-size',
                     range:      50,
                     reference:  'vmin'
                 },
-                'box > div > text': {
+                'box > div > div > text': {
                     property:   'font-size',
                     range:      6,
                     reference:  'vmin'

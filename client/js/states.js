@@ -86,10 +86,14 @@ __STATES__ = {
 
                     book = document.createElement('book')
 
+                    illustration = document.createElement('illustration')
+                    bg = settings.bg || '';
+                    illustration.style.backgroundImage = "url('data/"+bg+"')"
+                    book.appendChild(illustration)
+
                     h1 = document.createElement('h1')
                     h1.innerText = settings.title
                     book.appendChild(h1)
-
 
                     synopsis = document.createElement('synopsis')
                     if(settings.synopsis)
@@ -159,6 +163,10 @@ __STATES__ = {
                 pos = options[1]
 
             current = story[pos]
+
+            // Background
+            bg = current.bg || story._settings.bg || '';
+            content.style.backgroundImage = "url('data/"+bg+"')"
 
             // Render box
             boxes = content.getElementsByTagName('box')

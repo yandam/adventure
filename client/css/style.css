@@ -1,14 +1,45 @@
 /*
 Color : http://www.google.fr/design/spec/style/color.html
 */
+@font-face {
+    font-family: 'robotoregular';
+    src: url('fonts/Roboto-Regular-webfont.eot');
+    src: url('fonts/Roboto-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/Roboto-Regular-webfont.woff') format('woff'),
+         url('fonts/Roboto-Regular-webfont.ttf') format('truetype'),
+         url('fonts/Roboto-Regular-webfont.svg#robotoregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
 
+
+
+
+
+body {
+    background-color: #FAFAFA;
+}
+h1 {
+    font-size: 1.7em;
+}
 body > header, content > header {
     height: 60px;
     position: relative;
-    background-color: rgb(249, 249, 249);
-    box-shadow: 0 2px 5px rgba(0,0,0,0.26);
+    background-color: #F5F5F5;
     z-index: 1;
 }
+shadow {
+    position: fixed;
+    top:59px;
+    left:0 ;
+    right: 0;
+    z-index:5;
+    height: 1px;
+}
+shadow,  content > header {
+    box-shadow: 0 0 3px rgba(0,0,0,0.75);
+}
+
 body > header {
     position: fixed;
     left: 0;
@@ -20,16 +51,23 @@ body > header > h1, content > header > h1 {
     margin: auto 100px;
     display: inline-block;
     line-height: 60px;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 header > nav > ul {
     list-style-type: none;
     padding: 0;
     margin: 0;
-    font-size: 4vmin;
+    /*font-size: 4vmin;*/
 }
 header > nav > ul > li {
     cursor: pointer;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 body > header > nav {
@@ -51,7 +89,6 @@ body > header > nav:last-child {
 
 body > header > nav > ul > li {
     display: inline-block;
-    cursor: pointer;
     padding: 0 10px;
 }
 
@@ -62,7 +99,10 @@ icon {
 
 content > header {
     height: 40px;
+    /*padding-top: 5px;*/
     /*padding: 0 20px;*/
+    margin-bottom: 3px;
+    z-index:9;
 }
 
 content > header > nav {
@@ -74,7 +114,6 @@ content > header > nav > ul > li {
     display: inline-block;
     min-width: 10%;
     text-align: center;
-    cursor: pointer;
     padding: 0 5px;
     box-sizing: border-box;
     vertical-align: top;
@@ -87,10 +126,21 @@ content {
     position: absolute;
     display: block;
     
-    top: 60px;
-    bottom: 0;
     left: 0;
     right: 0;
+
+    padding-top: 60px;
+    height: 100%;
+    box-sizing: border-box;
+
+    background-position: center;
+    background-size: cover;
+
+}
+
+content.heightauto {
+    height: auto;
+    min-height: 100%;
 }
 
 content.box {
@@ -126,6 +176,7 @@ box > div > background {
     opacity: 0.1;
     position: absolute;
     bottom: -33%;
+    color: black;
 
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -182,14 +233,14 @@ book {
     display: inline-block;
     font-size: 20px;
 
-    width: 33%;
-    margin: 0.16666665%;
-    padding: 10px;
+    width: 49%;
+    margin: 0.5%;
+    /*padding: 10px;*/
     box-sizing: border-box;
     overflow: hidden;
     cursor: pointer;
     vertical-align: middle;
-    background-color: rgb(230,230,230);
+    background-color: #FFFFFF;
 
     
     box-shadow: 0 2px 3px rgba(0,0,0,0.26), -2px 0 5px rgba(0,0,0,0.26);
@@ -202,18 +253,38 @@ book:hover {
 
 book > h1 {
     position: relative;
-    text-align: center;
+    text-align: left;
+    padding-left: 2%;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    /*padding-top: 100px;
+    padding-bottom: 20px;*/
+    font-family: 'robotoregular';
+    font-weight: normal;
+}
+
+book > illustration {
+    display: inline-block;
+    width: 100%;
+    height: 200px;
+
+    background-position: center;
+    background-size: cover;
 }
 
 book > synopsis {
     position: relative;
     display: block;
+    padding-left: 2%;
+    font-family: 'robotoregular';
 }
 
 book > categories {
     position: relative;
     display: block;
     margin-top: 20px;
+    margin-bottom: 2%;
+    margin-right: 2%;
     text-align: right;
     z-index: 1;
 }
@@ -228,9 +299,10 @@ book > background {
     font-size: 10em;
     opacity: 0.1;
     position: absolute;
-    top: 0;
+    bottom: 0;
     right:0;
     z-index: 0;
+    visibility: hidden;
 }
 
 box.end {
@@ -281,7 +353,7 @@ speak:hover {
 }
 
 .all, .tous {
-    background-color: rgb(249, 249, 249);
+    background-color: #FAFAFA;
 }
 .aventure {
     background-color: #FFD54F;
