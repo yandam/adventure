@@ -24,6 +24,14 @@ Text2Speech = function() {
     this.speak = function(text, voice, callback)
     {
         console.debug("Voice", text);
+        
+        callback = {
+            'onStart': (callback != undefined)?callback['onStart']:undefined,
+            'onEnd': (function() {
+                if(this.stopI == _this.stopI && this.callback != undefined && 'onEnd' in this.callback)
+                    this.callback['onEnd']()
+            }).bind({callback: callback, stopI: this.stopI})
+        }
 
         if('androidText2Speech' in window) {
             window.androidText2Speech.speak(text, voice, callback);
@@ -31,13 +39,8 @@ Text2Speech = function() {
         else if ('speechSynthesis' in window) {
             var utterance = new SpeechSynthesisUtterance(text);
 
-            utterance.onend = (function() {
-                if(this.stopI == _this.stopI && this.callback != undefined && 'onEnd' in this.callback)
-                    this.callback['onEnd']()
-            }).bind({callback: callback, stopI: this.stopI})
-
-            if(callback != undefined && 'onStart' in callback)
-                utterance.onstart = callback['onStart']
+            utterance.onend = callback['onEnd']
+            utterance.onstart = callback['onStart']
 
             window.speechSynthesis.speak(utterance);
         }
