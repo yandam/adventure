@@ -1,6 +1,8 @@
 
-window.androidApp = (window.AndroidMirrorLink != undefined);
-window.androidApp = window.AndroidMirrorLink.getAndroidVersion();
+if(window.AndroidMirrorLink != undefined)
+	window.androidApp = window.AndroidMirrorLink.getAndroidVersion();
+else
+	window.androidApp = false
 console.info("AndroidApp : " + window.androidApp);
 
 /*************************************************************************************
