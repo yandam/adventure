@@ -23,7 +23,13 @@ Text2Speech = function() {
 
     this.speak = function(text, voice, callback)
     {
-        console.debug("Voice", text);
+        console.debug("Voice", text, voice);
+
+        if(voice == undefined)
+            voice = {lang: 'fr-FR', sex: 'female', pitch: 1.0}
+
+
+
         
         callback = {
             'onStart': (callback != undefined)?callback['onStart']:undefined,
@@ -37,11 +43,50 @@ Text2Speech = function() {
             window.androidText2Speech.speak(text, voice, callback);
         }
         else if ('speechSynthesis' in window) {
-            var utterance = new SpeechSynthesisUtterance(text);
 
-            utterance.onend = callback['onEnd']
-            utterance.onstart = callback['onStart']
+            // Fix, text too long
+            var textSplit = text.split(" ")
+            while(textSplit.length > 50)
+            {
+                text = textSplit.splice(0, 50)
+                textSplit.slice(0)
+                this.speak(text.join(" "), voice)
+            }
 
+            // Text
+            var utterance = new SpeechSynthesisUtterance(textSplit.join(" "));
+
+            // Callbacks
+            utterance.onend = callback['onEnd'];
+            utterance.onstart = callback['onStart'];
+
+            // Language
+            utterance.lang = voice['lang'];
+
+            // Pitch
+            utterance.pitch = voice['pitch'];
+
+            // Choice voice
+            if(voice['lang'] == 'fr-FR')
+                voiceURI = "Google Français"
+            else if(voice['lang'] == 'en-UK') {
+                voiceURI = "Google UK English "
+                if(voice['sex'] == 'male')
+                    voiceURI += "Male"
+                else
+                    voiceURI += "Female"
+            }
+            else if(voice['lang'] == 'en-US')
+                voiceURI = "Google US English"
+            else
+                voiceURI = "Google Français"
+
+            // Set voice
+            utterance.voiceURI = voiceURI;
+
+            console.debug("🔊", voiceURI, ":", textSplit.join(" "))
+
+            // onStart
             window.speechSynthesis.speak(utterance);
         }
         else {

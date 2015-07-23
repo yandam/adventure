@@ -7,7 +7,7 @@ __STATES__ = {
         title: "Adventure - Bibliothèque",
         menu: {},
         render: function(self, content, options) {
-
+            //////////////////////////////////////////////////////////////////////
             // Stop Text2Speech
             Text2Speech.stop()
 
@@ -47,24 +47,20 @@ __STATES__ = {
                 }).bind({style: style})
                 classNameAppend(li, "clickable")
                 li.style.width = (100 / styles.length) + "%"
-                //li.style.fontSize = Math.min(100, (10 / style.length * 70)) + "%"
                 ul.appendChild(li);
 
                 classNameRemove(content, style);
-                //classNameRemove(ul, style);
             }
 
             if(options[0] == "tous" || styles.indexOf(options[0]) == -1)
             {
                 selectedStyle = undefined
                 classNameAppend(content, 'tous')
-                //classNameAppend(ul, 'tous')
             }
             else
             {
                 selectedStyle = options[0]
                 classNameAppend(content, selectedStyle)
-                //classNameAppend(ul, selectedStyle)
             }
 
 
@@ -141,20 +137,19 @@ __STATES__ = {
         },
         render: function(self, content, options) {
 
+            //////////////////////////////////////////////////////////////////////
+            // Stop Text2Speech
+            Text2Speech.stop()
+
+            //////////////////////////////////////////////////////////////////////
+            // Status
             if(options[0] == undefined || !(options[0] in __STORIES__)) {
                 console.error("No Story Id found")
                 route('librairy')
                 return
             }
             storyId = options[0];
-
             story = __STORIES__[storyId]
-
-            // Set title
-            self.title = story._settings.title
-
-            // Stop Text2Speech
-            Text2Speech.stop()
 
             // Find the current position in the story
             if(options[1] == undefined || !(options[1] in story))
@@ -164,96 +159,163 @@ __STATES__ = {
 
             current = story[pos]
 
+            //////////////////////////////////////////////////////////////////////
+            // Set title
+            self.title = story._settings.title
+
             // Background
             bg = current.bg || story._settings.bg || '';
             content.style.backgroundImage = "url('data/"+bg+"')"
 
+            //////////////////////////////////////////////////////////////////////
+            // Load voices
+            voices = story._settings.voices;
+
+            if(voices == undefined)
+                return console.error("Missing voices in _settings")
+
+            if(!('default' in voices))
+                return console.error("Missing 'default' voices in _settings")
+            
+            //////////////////////////////////////////////////////////////////////
             // Render box
             boxes = content.getElementsByTagName('box')
 
             renderBox = function(i) {
                 boxObj = boxes[i];
 
-                boxObj.style.visibility = ""
-                boxObj.getElementsByTagName('text')[0].innerText = ('short' in current.choices[i])?current.choices[i].short:current.choices[i].message
-                boxObj.getElementsByTagName('background')[0].style.visibility = ""
+                txt = current.choices[i].show || current.choices[i].short ||current.choices[i].message
+                boxObj.getElementsByTagName('text')[0].innerText = txt
                 classNameAppend(boxObj,"clickable")
+                boxObj.style.visibility = ""
                 
                 boxObj.onclick = (function() {
                     route('play', this.storyId, this.pos)
                 }).bind({storyId: storyId, pos: current.choices[i].next})
             }
-                
+            
+            sayBox = function(i) {
+                if('choices' in current)
+                {
+                    if(i in current.choices)
+                    {
+                        // Get text and voice from object
+                        if(!('text' in current.choices[i]) && !('message' in current.choices[i]))
+                            return console.error("Missing text in story", current)
+
+                        if(typeof current.choices[i].text == 'string' || typeof current.choices[i].message == 'string') {
+                            text  = current.choices[i].text || current.choices[i].message 
+                            voice = current.choices[i].voice
+                        } else if(typeof current.choices[i].text == 'object') {
+                            text  =  current.choices[i].text[0].t
+                            voice = current.choices[i].text[0].v
+                        } else 
+                            return console.error("Missing text in choices", current)
+
+                        // Voice choice
+                        voice = voice || 'default'
+
+                        if(voice in voices)
+                            voice = voices[voice]
+                        else {
+                            voice = voices['default']
+                            console.warn("Missing voice attributes for ", voice)
+                        }
+
+                        // Say the answer
+                        Text2Speech.speak(__LETTERS__[i], voices['default']);
+                        Text2Speech.speak(text, voice, { 
+
+                            // Show button
+                            onStart: (function() {
+                                renderBox(this.i)
+                            }).bind({i: i}),
+
+                            // Next answer
+                            onEnd: (function() {
+                                sayBox(this.i)
+                            }).bind({i: i+1})
+
+                        });
+
+                    } else
+                        document.getElementById('speaking').style.display = "none"
+                }
+                else if('next' in current)
+                    route('play', storyId, current.next)       // No action, jumping
+                else
+                    route("end", storyId)                      // End Story
+            }
+
             // Reset all
             for(i=0; i < boxes.length; i++) {
                 boxObj = boxes[i];
                 boxObj.style.visibility = "hidden"
-                boxObj.getElementsByTagName('text')[0].innerText = ""
-                boxObj.getElementsByTagName('background')[0].style.visibility = "hidden"
-                classNameRemove(boxObj, "clickable")
-                boxObj.onclick = undefined
+                //boxObj.getElementsByTagName('text')[0].innerText = ""
+                //classNameRemove(boxObj, "clickable")
+                //boxObj.onclick = undefined
             }
 
+            //////////////////////////////////////////////////////////////////////
             // Stop speaking 
             document.getElementById('speaking').onclick = function() {
                 Text2Speech.stop()
 
                 document.getElementById('speaking').style.display = "none"
 
-                if('choices' in current) {
+                if('choices' in current) {                      // Actions
                     for(i=0; i < boxes.length && i < current.choices.length; i++) {
                         renderBox(i);
                     }
-                } else
-                    route("end", storyId)    // End Story
+                }
+                else if('next' in current)
+                    route('play', storyId, current.next)        // No action
+                else
+                    route("end", storyId)                       // End Story
             }
 
             // Show speaking icon
             document.getElementById('speaking').style.display = "";
 
-            // Choice of the voice
-            voice = story._settings.voice || 'UK English Female';
-            if(current.voice != undefined)
-                voice = current.voice;
-            // TODO : Pitch
-            
-            // Say the text
-            Text2Speech.speak(current.text, voice, { onEnd: function() {
+            //////////////////////////////////////////////////////////////////////
+            // Speaking the text
+            sayText = function(i) {
+                if(!('text' in current))
+                    return console.error("Missing text in story", current)
 
-                boxes = content.getElementsByTagName('box')
+                if(typeof current.text == 'string') {
+                    text  = current.text
+                    voice = current.voice
+                    length = 1
+                } else if(typeof current.text == 'object') {
+                    text  =  current.text[i].t
+                    voice = current.text[i].v
+                    length = current.text.length
+                } else 
+                    return console.error("Missing text in choices", current)
 
-                showBox = function(i)
-                {
-                    if(i in current.choices)
-                    {
-                        // Say text for the answer
-                        Text2Speech.speak(__LETTERS__[i]+'. '+current.choices[i].message, voice, { 
-
-                            onStart: (function() {
-                                // Show button
-                                renderBox(this.i)
-                            }).bind({i: i}),
-
-                            onEnd: (function() {
-                                // Next answer
-                                showBox(this.i)
-                            }).bind({i: i+1})
-
-                        })
-                    }
-                    else
-                    {
-                        document.getElementById('speaking').style.display = "none"
-                    }
-                }
-
-                if('choices' in current)
-                    showBox(0)
+                if(voice == undefined || !(voice in voices))
+                    voice = voices['default']
                 else
-                    route("end", storyId)   // End Story
+                    voice = voices[voice]
 
-            }});
-            
+                if(i == (length - 1))  // Last text
+                    Text2Speech.speak(text, voice, {
+                        // Show answers
+                        onEnd: function() {
+                            sayBox(0)
+                        }
+                    });
+                else
+                    Text2Speech.speak(text, voice, {
+                        onEnd: (function() {
+                            sayText(this.React.PropTypes.instanceOf())
+                        }).bind({i: i+1})
+                    });
+            }
+
+            // Start speaking
+            sayText(0)
 
         }
     },
@@ -288,7 +350,7 @@ __STATES__ = {
             self.title = story._settings.title
 
             // Say the end
-            Text2Speech.speak('Fin !', 'France Female')
+            Text2Speech.speak('Fin !')
         }
     }
 }

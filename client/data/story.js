@@ -2,10 +2,12 @@ __STORIES__ = {
   'camille':{
     _settings: {
       title:"Camille",
-      voice:"French Female",
       icon: "🐙",
       categories: ['aventure', 'sf'],
-      bg: 'camille.jpg'
+      bg: 'camille.jpg',
+      voices: {
+        default: {lang: 'fr-FR', sex: 'female', pitch: 1.0 },    // Narateur
+      }
     },
     start: {
         text: 'Salut camille, yo!',
@@ -39,11 +41,13 @@ __STORIES__ = {
   'tea':{
     _settings: {
       title:"Tea time",
-      voice:"UK English Male",
       icon: "🍵",
       categories: ['enfance'],
       synopsis: 'Histoire autour du thé.',
-      bg: 'tea.jpg'
+      bg: 'tea.jpg',
+      voices: {
+        default: {lang: 'en-US', sex: 'female', pitch: 1.0 },    // Narateur
+      }
     },
     'start':{
         text:'Do you want some tea with your madeleine ?',
@@ -63,10 +67,12 @@ __STORIES__ = {
   'quizz':{
     _settings: {
       title:"Quizz",
-      voice:"UK English Male",
       icon: "🐼",
       categories: ['polar'],
-      bg: 'quizz.jpg'
+      bg: 'quizz.jpg',
+      voices: {
+        default: {lang: 'en-UK', sex: 'male', pitch: 1.0 },    // Narateur
+      }
     },
     'start':{
         text:"What's the real name of Woody Allen ?",
