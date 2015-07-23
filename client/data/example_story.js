@@ -3,7 +3,10 @@ __STORIES__.example = {
       title:"Crown of Despesia",
       icon: "K",
       categories: ['aventure', 'moyen-age'],
-      bg: 'crown.jpg'
+      bg: 'crown.jpg',
+      voices: {
+        default: {lang: 'en-UK', sex: 'male', pitch: 1.0 },    // Narateur
+      }
     },
     start: {
         short: "What do you do?",
