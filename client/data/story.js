@@ -77,7 +77,6 @@ __STORIES__ = {
     'wrong':{
       text:"wooops, wrong answer!",
       voice:"UK English Female",
-      choices: [],
     },
     2:{
       text:
@@ -86,8 +85,7 @@ __STORIES__ = {
       +" attention to detail.  It requires intelligence, dedication, and an"
       +" enormous amount of hard work.  But, a certain amount of unpredictable"
       +" and often unrepeatable inspiration is what usually makes the difference"
-      +" between adequacy and excellence.",
-      choices: [],
+      +" between adequacy and excellence."
     }
   },
 }
