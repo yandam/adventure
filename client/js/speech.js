@@ -57,8 +57,8 @@ Text2Speech = function() {
             var utterance = new SpeechSynthesisUtterance(textSplit.join(" "));
 
             // Callbacks
-            utterance.onend = callback['onEnd'];
-            utterance.onstart = callback['onStart'];
+            utterance.addEventListener('start', callback['onEnd'])
+            utterance.addEventListener('end', callback['onStart'])
 
             // Language
             utterance.lang = voice['lang'];

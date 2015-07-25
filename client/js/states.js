@@ -2,8 +2,8 @@ __LETTERS__ = [ 'A', 'B', 'C', 'D' ];
 
 __STATES__ = {
 
-    librairy: {
-        content: "contentLibrairy",
+    library: {
+        content: "contentLibrary",
         title: "Adventure - Bibliothèque",
         menu: {},
         render: function(self, content, options) {
@@ -43,7 +43,7 @@ __STATES__ = {
                 li.innerHTML = style.capitalizeFirstLetter()
                 classNameAppend(li, style)
                 li.onclick = (function() {
-                    route("librairy", this.style)
+                    route("library", this.style)
                 }).bind({style: style})
                 classNameAppend(li, "clickable")
                 li.style.width = (100 / styles.length) + "%"
@@ -65,12 +65,12 @@ __STATES__ = {
 
 
             //////////////////////////////////////////////////////////////////////
-            // Librairy
-            librairy = content.getElementsByTagName('librairy')[0]
+            // Library
+            library = content.getElementsByTagName('library')[0]
 
             // Remove children
-            while (librairy.firstChild) {
-                librairy.removeChild(librairy.firstChild);
+            while (library.firstChild) {
+                library.removeChild(library.firstChild);
             }
 
             // Create all books
@@ -115,7 +115,7 @@ __STATES__ = {
                         route('play', this.story)
                     }).bind({story: story})
 
-                    librairy.appendChild(book)
+                    library.appendChild(book)
                 }
             }
 
@@ -128,11 +128,11 @@ __STATES__ = {
         title: "Jouer",
         menu: {
             left: [
-                { name: "<icon>📚</icon>", call: function() { route('librairy'); } }
+                { name: "<icon>📚</icon>", call: function() { route('library'); } }
             ],
             right: [
                 { name: "<icon>🔊</icon> Répéter", call: function() { window.onhashchange() }},
-                { name: "<icon>💢</icon> Annuler", call: function() { window.history.go(-1) }}
+                //{ name: "<icon>💢</icon> Annuler", call: function() { window.history.go(-1) }}
             ]
         },
         render: function(self, content, options) {
@@ -145,7 +145,7 @@ __STATES__ = {
             // Status
             if(options[0] == undefined || !(options[0] in __STORIES__)) {
                 console.error("No Story Id found")
-                route('librairy')
+                route('library')
                 return
             }
             storyId = options[0];
@@ -325,7 +325,7 @@ __STATES__ = {
         title: "Fin de l'histoire",
         menu: {
             left: [
-                { name: "<icon>📚</icon>", call: function() { route('librairy'); } }
+                { name: "<icon>📚</icon>", call: function() { route('library'); } }
             ],
             right: [
                 { name: "<icon>🔊</icon> Répéter", call: function() { window.history.go(-1) }},
@@ -336,7 +336,7 @@ __STATES__ = {
 
             if(options[0] == undefined || !(options[0] in __STORIES__)) {
                 console.error("No Story Id found")
-                route('librairy')
+                route('library')
                 return
             }
             storyId = options[0];
@@ -431,7 +431,7 @@ window.onhashchange = function(e) {
     states = document.location.hash.split("#").slice(1)
 
     if(states.length == 0)
-        states = ['librairy']
+        states = ['library']
 
     switchState(states[0], states.slice(1)) 
 }
