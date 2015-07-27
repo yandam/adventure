@@ -276,6 +276,35 @@ start: {
     {             t: "Vous commencez à chercher les lunettes. Et, vous les trouvez enfin, posé sous la balançoire.  Jena a du les prendre et les oublier ici. Soulagé, Patrick peut retourner faire son sac."}
   ]
 }
+,
+"garage1": {
+  title: 'Dans le garage',
+  text: [
+    {             t: "Dans le garage, il fait tout noir. Papa et Maman ont déjà sorti la voiture devant la maison. Il n’y a rien du tout ici."},
+  ],
+  show: 'Quelle direction ?',
+  choices: [
+    {
+      next: "chambreSoeur1",
+      text: [
+        {t: "Continuer vers la chambre de la petite soeur"}
+      ],
+      show: "Chambre de la soeur"
+    },{
+      next: "jardin1",
+      text: [
+        {t: "Aller vers le jardin"}
+      ],
+      show: "Jardin"
+    },{
+      next: "salon1",
+      text: [
+        {t: "Aller en direction du salon"}
+      ],
+      show: "Salon"
+    }
+  ]
+}
 
 
 }
