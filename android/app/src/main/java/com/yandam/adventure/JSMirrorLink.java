@@ -240,6 +240,7 @@ public class JSMirrorLink {
      */
     protected void mirrorlinkConnect() {
         Intent bindIntent = new Intent(Defs.Intents.BIND_MIRRORLINK_API);
+        bindIntent.setPackage("com.mirrorlink.android.service");
         activity.bindService(bindIntent, serviceConnection, Context.BIND_AUTO_CREATE);
     }
 

@@ -69,9 +69,21 @@ public class JSTextToSpeech {
     }
 
     @JavascriptInterface
-    public int speak(final String text) {
+    public int speak(final String text, String pitchS, String rateS) {
         if (text != null && !text.isEmpty()) {
             if (voice != null) {
+
+                float pitch = 1;
+                if(pitchS != null && !pitchS.isEmpty())
+                    pitch = Float.valueOf(pitchS);
+
+                float rate = 1;
+                if(rateS != null && !rateS.isEmpty())
+                    rate = Float.valueOf(rateS);
+
+                voice.setPitch(pitch);
+                voice.setSpeechRate(rate);
+
                 if (Build.VERSION.SDK_INT < 21) {
                     HashMap<String, String> param = new HashMap<>();
                     param.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "" + utterranceLastId);
