@@ -132,7 +132,7 @@ __STATES__ = {
             ],
             right: [
                 { name: "<icon>🔊</icon> Répéter", call: function() { window.onhashchange() }},
-                //{ name: "<icon>💢</icon> Annuler", call: function() { window.history.go(-1) }}
+                { name: "<icon>💢</icon> Annuler", call: function() { window.history.go(-1) }}
             ]
         },
         render: function(self, content, options) {
