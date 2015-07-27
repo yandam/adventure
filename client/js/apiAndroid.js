@@ -23,7 +23,18 @@ if(window.AndroidTextToSpeech)
 		 */
 		this.speak = function(text, voice, callback)
 		{
-			id = window.AndroidTextToSpeech.speak(text);
+			if(voice != undefined && 'pitch' in voice)
+				pitch = voice.pitch;
+			else
+				pitch = 1;
+
+			if(voice != undefined && 'rate' in voice)
+				rate = voice.rate;
+			else
+				rate = 1;
+
+			id = window.AndroidTextToSpeech.speak(text, pitch, rate);
+
 			// TODO Voice
 			callbackMap[id] = callback;
 		}
@@ -84,7 +95,7 @@ if(window.AndroidTextToSpeech)
  *************************************************************************************/
 if(window.AndroidSpeechRecognition) {
 
-	AndroidSpeechRecognition = function() {
+	AndroidSpeechRecognitionClient = function() {
 
 		callback = undefined;
 
@@ -99,21 +110,25 @@ if(window.AndroidSpeechRecognition) {
 
 		}
 
+		this.stop = function() {
+			window.AndroidSpeechRecognition.stop();
+		}
+
 		/**
 		 * Android callback
 		 * Do not call directly
 		 */
 		this.AndroidCallback = function(status, answerText)
 		{
-			if(callback != undefined)
+			if(this.callback != undefined)
 			{
-				callback(status, answerText);
+				this.callback(status, answerText);
 			}
 		}
 
 	}
 
-	SpeechRecognition = new AndroidSpeechRecognition();
+	androidSpeechRecognition = new AndroidSpeechRecognitionClient();
 }
 
 
