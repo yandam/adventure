@@ -13,7 +13,7 @@ __STORIES__ = {
         text: 'Salut camille, yo!',
         choices: [
           {next:2, message:"Oui?"},
-          {next:2, message:"Euuh.."},
+          {next:2, message:"Euh",short:"Euuh..."},
           {next:2, message:"C'est moi!"}
         ]
     },
@@ -22,7 +22,7 @@ __STORIES__ = {
       choices: [
           {next:4, message:'Melon, ce pianotateur'},
           {next:3, message:'Carotte, cette pianiste'},
-          {next:3, message:'AHAHAHAHAHAH'}
+          {next:3, message:'AH AH AH AH AH',short:"AHAHAHAHAHAH"}
         ]
     },
     3: {

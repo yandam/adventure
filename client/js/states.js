@@ -95,7 +95,7 @@ __STATES__ = {
                     if(settings.synopsis)
                         synopsis.innerText = settings.synopsis
                     else
-                        synopsis.innerText = "(Synopsis indisponible)"
+                        synopsis.innerHTML = "&nbsp;"
                     book.appendChild(synopsis)
                     
                     categories = document.createElement('categories')
@@ -223,14 +223,13 @@ __STATES__ = {
                         }
 
                         // Say the answer
-                        Text2Speech.speak(__LETTERS__[i], voices['default']);
-                        Text2Speech.speak(text, voice, { 
-
+                        Text2Speech.speak(__LETTERS__[i], voices['default'],{
                             // Show button
                             onStart: (function() {
                                 renderBox(this.i)
                             }).bind({i: i}),
-
+                        });
+                        Text2Speech.speak(text, voice, { 
                             // Next answer
                             onEnd: (function() {
                                 sayBox(this.i)
