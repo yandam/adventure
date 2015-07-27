@@ -165,7 +165,7 @@ __STATES__ = {
 
             // Background
             bg = current.bg || story._settings.bg || '';
-            content.style.backgroundImage = "url('data/"+bg+"')"
+            content.getElementsByTagName('background')[0].style.backgroundImage = "url('data/"+bg+"')"
 
             //////////////////////////////////////////////////////////////////////
             // Load voices

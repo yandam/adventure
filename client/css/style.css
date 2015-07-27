@@ -132,10 +132,6 @@ content {
     padding-top: 60px;
     height: 100%;
     box-sizing: border-box;
-
-    background-position: center;
-    background-size: cover;
-
 }
 
 content.heightauto {
@@ -145,6 +141,18 @@ content.heightauto {
 
 content.box {
     font-size: 0;
+}
+
+content > background {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    opacity: 0.5;
+
+    background-position: center;
+    background-size: cover;
 }
 
 box {
