@@ -237,8 +237,14 @@ __STATES__ = {
 
                         });
 
-                    } else
+                    } else {
                         document.getElementById('speaking').style.display = "none"
+                        SpeechRecognition.start(function(value) {
+                            console.debug('SpeechRecognition', value)
+                            if(value != undefined && value in current.choices)
+                                boxes[value].onclick()
+                        })
+                    }
                 }
                 else if('next' in current)
                     route('play', storyId, current.next)       // No action, jumping
