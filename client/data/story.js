@@ -9,6 +9,9 @@ __STORIES__ = {
         default: {lang: 'fr-FR', sex: 'female', pitch: 1.0 },    // Narateur
       }
     },
+    _state: {
+      downloaded: false
+    },
     start: {
         text: 'Salut camille, yo!',
         choices: [
@@ -49,6 +52,9 @@ __STORIES__ = {
         default: {lang: 'en-US', sex: 'female', pitch: 1.0 },    // Narateur
       }
     },
+    _state: {
+      downloaded: true
+    },
     'start':{
         text:'Do you want some tea with your madeleine ?',
         choices: [
@@ -70,9 +76,13 @@ __STORIES__ = {
       icon: "🐼",
       categories: ['polar'],
       bg: 'quizz.jpg',
+      price: 2,
       voices: {
         default: {lang: 'en-UK', sex: 'male', pitch: 1.0 },    // Narateur
       }
+    },
+    _state: {
+      downloaded: false
     },
     'start':{
         text:"What's the real name of Woody Allen ?",

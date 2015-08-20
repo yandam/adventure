@@ -1,0 +1,530 @@
+@font-face {
+  font-family: 'droid_sansbold';
+  src: url("fonts/DroidSans-Bold-webfont.eot");
+  src: url("fonts/DroidSans-Bold-webfont.eot?#iefix") format('embedded-opentype'), url("fonts/DroidSans-Bold-webfont.woff") format('woff'), url("fonts/DroidSans-Bold-webfont.ttf") format('truetype'), url("fonts/DroidSans-Bold-webfont.svg#droid_sansbold") format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'droid_sans';
+  src: url("fonts/DroidSans-webfont.eot");
+  src: url("fonts/DroidSans-webfont.eot?#iefix") format('embedded-opentype'), url("fonts/DroidSans-webfont.woff") format('woff'), url("fonts/DroidSans-webfont.ttf") format('truetype'), url("fonts/DroidSans-webfont.svg#droid_sansbold") format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+.fa-angle-up {
+  transform: translate(0, -3px) !important;
+}
+body {
+  background: #373b47;
+  font-family: droid_sans;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+content {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 700px;
+  height: 350px;
+  margin: auto;
+  box-shadow: 0 0 20px #2c2d2b;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "droid_sansbold";
+  font-weight: normal;
+}
+tile {
+  display: inline-block;
+  box-sizing: border-box;
+  vertical-align: middle;
+  cursor: pointer;
+  height: 140px;
+  width: 140px;
+}
+#contentHome tile {
+  padding: 1%;
+  height: 175px;
+  font-size: 1.2em;
+}
+#contentHome tile.tile1x2 {
+  width: 350px;
+}
+#contentHome tile.tile1x1 {
+  width: 175px;
+}
+tile > div {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  font-family: "droid_sansbold";
+  font-size: 1.1em;
+  text-transform: uppercase;
+  color: #e9f4df;
+  border: 1px solid #e9f4df;
+  box-sizing: border-box;
+  text-align: center;
+}
+tile > div i {
+  position: absolute;
+  top: 40%;
+  left: 0;
+  right: 0;
+  font-size: 4em !important;
+  line-height: 0 !important;
+}
+tile > div > div {
+  position: absolute;
+  top: 70%;
+  left: 0;
+  right: 0;
+}
+tile.bibliotheque > div {
+  color: #373b47;
+  background: #ffaf8f;
+  border: none;
+}
+tile.histoiresEnCours > div {
+  color: #373b47;
+  background: #c2b3ff;
+  border: none;
+}
+tile.profil2 > div {
+  color: #373b47;
+  background: #b6e800;
+  border: none;
+}
+tile.options2 > div {
+  color: #373b47;
+  background: #fdf330;
+  border: none;
+}
+tile.shopping2 > div {
+  color: #373b47;
+  background: #ff97cd;
+  border: none;
+}
+tile.filters2 > div {
+  color: #373b47;
+  background: #50d2ff;
+  border: none;
+}
+content > left {
+  display: inline-block;
+  position: relative;
+  width: 140px;
+  height: 100%;
+  vertical-align: top;
+}
+content > left scroll {
+  display: block;
+  position: relative;
+  width: 100%;
+  padding-top: 10px;
+  height: 210px;
+}
+content > left scroll > div {
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 95px;
+  text-align: center;
+  border: 1px solid #e9f4df;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+content > left scroll > div:hover {
+  background: #2c2d2b;
+}
+content > left scroll > div > i {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  font-size: 4em !important;
+  line-height: 0 !important;
+  color: #e9f4df;
+}
+content > right {
+  display: inline-block;
+  position: relative;
+  width: 540px;
+  height: 100%;
+  margin-left: 20px;
+  vertical-align: top;
+  overflow: hidden;
+}
+fullscreen {
+  display: block;
+  position: absolute;
+  top: 10px;
+  bottom: 10px;
+  left: 10px;
+  right: 10px;
+  overflow: hidden;
+  box-sizing: border-box;
+  vertical-align: top;
+}
+button {
+  background: transparent;
+  border: 1px solid #2c2d2b;
+  border-radius: 4px;
+  color: #2c2d2b;
+  padding: 8px;
+}
+button:hover {
+  background: #e9f4df;
+}
+label {
+  display: block;
+  color: #e9f4df;
+  border-top: 1px solid #5e635a;
+  padding: 20px;
+  font-size: 1.1em;
+}
+label input {
+  float: right;
+  width: 25px;
+  height: 25px;
+  line-height: 0;
+  vertical-align: middle;
+}
+label input:checked {
+  background-color: #f00;
+}
+label h1 {
+  font-size: 1em;
+  margin: 0;
+}
+label description {
+  display: inline-block;
+  font-size: 0.9em;
+}
+entry,
+filters,
+book {
+  display: inline-block;
+  vertical-align: top;
+  position: relative;
+  background: #fff;
+  width: 100%;
+  height: 113.33333333333334px;
+  margin-top: 5px;
+}
+filters {
+  margin-top: 0px;
+  margin-bottom: 5px;
+}
+filters > div {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  height: 0;
+  line-height: 0;
+  margin: auto 10px;
+  color: #2c2d2b;
+}
+filters > div h1 {
+  display: inline;
+  text-transform: uppercase;
+  padding-right: 15px;
+  border-right: 1px solid #2c2d2b;
+  margin-right: 10px;
+  vertical-align: middle;
+  font-size: 1.5em;
+}
+filters > div > h2 {
+  display: inline;
+  vertical-align: middle;
+  font-family: "droid_sans";
+}
+filters > button {
+  height: 80%;
+  width: 100px;
+  font-size: 2em;
+  position: absolute;
+  right: 10px;
+  top: 10%;
+  bottom: 10%;
+}
+book {
+  color: #373b47;
+}
+book:first-child {
+  margin-top: 0;
+}
+#contentDetails book {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  box-sizing: border-box;
+}
+#contentDetails book illustration {
+  width: 40%;
+  margin-right: 20px;
+}
+#contentDetails book > div {
+  padding: 10px;
+}
+#contentDetails book h1 {
+  margin-bottom: 10px;
+}
+#contentDetails book synopsis {
+  display: block;
+  margin-top: 10px;
+}
+#contentDetails book buttons {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+#contentDetails book price {
+  position: absolute;
+  left: 42%;
+  bottom: 10px;
+  font-size: 1.5em;
+}
+book illustration {
+  float: left;
+  height: 100%;
+  width: 106.66666666666667px;
+  background-position: center;
+  background-size: cover;
+  margin-right: 10px;
+}
+book h1 {
+  font-size: 1.5em;
+  margin-top: 3px;
+  margin-bottom: 0px;
+}
+book h2 {
+  margin: 0;
+}
+book categories {
+  display: block;
+}
+book categories:before {
+  content: "Genres";
+  font-family: "droid_sansbold";
+}
+book categories categorie {
+  margin-left: 5px;
+}
+book buttons {
+  display: block;
+  position: absolute;
+  text-align: right;
+  bottom: 10px;
+  right: 0;
+}
+book buttons button {
+  margin-right: 10px;
+  vertical-align: middle;
+}
+book buttons button left {
+  float: left;
+  clear: auto;
+  border-right: 1px solid #5e635a;
+  padding-right: 10px;
+  margin-right: 10px;
+}
+book buttons button left.big {
+  line-height: 2.9em;
+}
+book buttons button right {
+  float: right;
+}
+book buttons button h1 {
+  display: block;
+  font-size: 1em;
+}
+book author {
+  display: block;
+}
+book author:before {
+  content: "Auteur";
+  font-family: "droid_sansbold";
+  margin-right: 5px;
+}
+header {
+  display: inline-block;
+  position: relative;
+  height: 70px;
+  width: 100%;
+  background: #373b47;
+  color: #e9f4df;
+  margin: 0;
+}
+header illustration {
+  float: left;
+  height: 60px;
+  width: 60px;
+  background-position: center;
+  background-size: cover;
+  margin-right: 10px;
+}
+header div {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 10px;
+  margin: auto;
+  margin-left: 80px;
+  height: 60px;
+}
+header div h1 {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 100px;
+  font-size: 2em;
+  margin: 0;
+  vertical-align: middle;
+  font-family: "droid_sans";
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: 100%;
+  line-height: 60px;
+}
+header div progressDigit {
+  display: inline-block;
+  position: absolute;
+  right: 10px;
+  font-family: "droid_sans";
+  font-size: 2em;
+  height: 100%;
+  line-height: 60px;
+}
+header progress {
+  position: absolute;
+  top: 60px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: auto;
+  height: 10px;
+  -webkit-appearance: none;
+  appearance: none;
+}
+header progress::-webkit-progress-bar {
+  background: #5e635a;
+  border: none;
+}
+header progress::-webkit-progress-value {
+  background: #e9f4df;
+  border: none;
+}
+boxes {
+  display: inline-block;
+  position: absolute;
+  top: 70px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+boxes box {
+  display: inline-block;
+  position: relative;
+  width: 50%;
+  height: 50%;
+  vertical-align: middle;
+  color: #373b47;
+  cursor: pointer;
+}
+boxes box.color0 {
+  background: #50d2ff;
+}
+boxes box.color1 {
+  background: #b6e800;
+}
+boxes box.color2 {
+  background: #fdf330;
+}
+boxes box.color3 {
+  background: #ff97cd;
+}
+boxes box > div {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+boxes box > div > div {
+  display: table;
+  height: 100%;
+  width: 100%;
+}
+boxes box > div > div > text {
+  position: relative;
+  z-index: 1;
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  font-size: 2.5em;
+  font-family: "droid_sansbold";
+  word-break: break-word;
+  padding: 10px;
+}
+boxes speak {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  height: 350px;
+  width: 350px;
+}
+boxes speak svg {
+  position: absolute;
+}
+boxes speak svg#centerButton {
+  z-index: 1;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100px;
+  width: 100px;
+  margin: auto;
+}
+end {
+  color: #e9f4df;
+  position: absolute;
+  top: 70px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+end h1 {
+  text-transform: uppercase;
+}
+end button {
+  color: #e9f4df;
+  border-color: #e9f4df;
+  font-size: 1.2em;
+  padding: 20px;
+  margin: 10px;
+}
+end button:hover {
+  background: transparent;
+}

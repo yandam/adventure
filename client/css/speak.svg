@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"  preserveAspectRatio="xMidYMid" >
+                <g>
+                    <circle cx="50" cy="50" r="15" fill="gray" strocke-width="0"></circle>
+                    
+                </g>
+                <text      x="16.949152"
+     y="55.508476" fill="red">I love SVG!</text>
+            </svg>

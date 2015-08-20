@@ -30,7 +30,7 @@ SpeechRecognition = function() {
                 i = 0;
                 answer = undefined;
 
-                while(answer == undefined && i < values.length) {
+                while(answer == undefined && values != undefined && i < values.length) {
                     words = values[i].toLowerCase().split(' ')
                     j = 0;
                     while(answer == undefined && j < __WORDS__.length) {

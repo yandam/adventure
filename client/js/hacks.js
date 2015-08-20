@@ -24,6 +24,15 @@ function classNameRemove(obj, className) {
     obj.className = c.join(' ')
 }
 
+function getDate(date) {
+    d = date.getDate()
+    m = date.getMonth()
+    y = date.getFullYear()
+    if(d < 10)  d = "0"+d
+    if(m < 10)  m = "0"+m
+    return d+"/"+m+"/"+y
+}
+
 (function() {
 
 
@@ -31,8 +40,8 @@ function classNameRemove(obj, className) {
     {
 
         /* Font size VMIN */
-        new vUnit({
-            CSSMap: {
+        /*new vUnit({
+           CSSMap: {
                 'box.end > div > div > text': {
                     property:   'font-size',
                     range:      10,
@@ -59,7 +68,7 @@ function classNameRemove(obj, className) {
                     reference:  'vmin'
                 }
             }
-        }).init();
+        }).init();*/
 
         /* Disable Hover */
         var sheet = (function() {
@@ -79,8 +88,8 @@ function classNameRemove(obj, className) {
             return style.sheet;
         })();
 
-        sheet.insertRule("box { float: left; }", 0);
-        sheet.insertRule("body > header, shadow { position:absolute; }", 1);
+        //sheet.insertRule("box { float: left; }", 0);
+        //sheet.insertRule("body > header, shadow { position:absolute; }", 1);
         
     }
 

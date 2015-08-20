@@ -1,0 +1,583 @@
+
+$bg     = #373b47
+$orange = #FFAF8F
+$purple = #C2B3FF
+$blue   = #50D2FF
+$yellow = #FDF330
+$green  = #B6E800
+$pink   = #FF97CD
+$pwhite = #E9F4DF
+$black  = #2C2D2B
+//$gray75 = #373b47 //#3C3F3A
+$gray   = #5E635A
+
+$VW = 700px
+$VH = 350px
+$LW = ($VW/5)
+
+
+@font-face
+    font-family 'droid_sansbold'
+    src url('fonts/DroidSans-Bold-webfont.eot')
+    src url('fonts/DroidSans-Bold-webfont.eot?#iefix') format('embedded-opentype'),
+        url('fonts/DroidSans-Bold-webfont.woff') format('woff'),
+        url('fonts/DroidSans-Bold-webfont.ttf') format('truetype'),
+        url('fonts/DroidSans-Bold-webfont.svg#droid_sansbold') format('svg')
+    font-weight normal
+    font-style normal
+
+@font-face
+    font-family 'droid_sans'
+    src url('fonts/DroidSans-webfont.eot')
+    src url('fonts/DroidSans-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/DroidSans-webfont.woff') format('woff'),
+         url('fonts/DroidSans-webfont.ttf') format('truetype'),
+         url('fonts/DroidSans-webfont.svg#droid_sansbold') format('svg')
+    font-weight normal
+    font-style normal
+
+
+.fa-angle-up
+    transform: translate(0, -3px) !important;
+
+
+body
+    background $bg
+    font-family droid_sans
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    
+    
+content 
+    position absolute
+    top 0
+    right 0
+    bottom 0
+    left 0
+    width $VW 
+    height $VH
+    margin auto
+    //border 1px solid black
+    box-shadow 0 0 20px $black
+
+h1, h2, h3, h4, h5, h6
+    font-family "droid_sansbold"
+    font-weight normal
+
+
+        
+tile
+    display inline-block
+    box-sizing border-box
+    vertical-align middle
+    cursor pointer
+    
+    /#contentHome &
+        padding 1%
+        height ($VH/2)
+        font-size 1.2em;
+
+        &.tile1x2
+            width  ($VW/2)
+        
+        &.tile1x1
+            width  ($VW/4)
+            
+    height $LW
+    width  $LW
+        
+    & > div
+        position relative
+        width 100%
+        height 100%
+        font-family "droid_sansbold"
+        font-size 1.1em
+        text-transform uppercase
+        
+
+        color $pwhite
+        border 1px solid $pwhite
+        box-sizing border-box
+        text-align center
+        
+        i
+            position absolute
+            top 40%
+            left 0
+            right 0
+            font-size  4em !important
+            line-height 0 !important
+        
+        & > div
+            position absolute
+            top 70%
+            left 0
+            right 0
+
+
+    &.bibliotheque
+        & > div
+            color $bg
+            background $orange
+            border none
+                            
+    &.histoiresEnCours
+        & > div
+            color $bg
+            background $purple
+            border none
+            
+    &.profil2
+        & > div
+            color $bg
+            background $green
+            border none
+                      
+    &.options2
+        & > div
+            color $bg
+            background $yellow
+            border none 
+                       
+    &.shopping2
+        & > div
+            color $bg
+            background $pink
+            border none
+                                   
+    &.filters2
+        & > div
+            color $bg
+            background $blue
+            border none
+                    
+content > left
+    display inline-block
+    position relative
+    width $LW
+    height 100%
+    vertical-align top
+
+
+    scroll
+        display block
+        position relative
+        width 100%;
+        padding-top 10px
+        height ($VH - $LW)
+
+        & > div
+            display block
+            position relative
+            width 100%
+            height (($VH - $LW) / 2 - 10px)
+            text-align center
+            border 1px solid $pwhite
+            box-sizing border-box
+            margin-bottom 10px
+            cursor pointer
+                
+            &:hover
+                background $black
+
+
+            & > i
+                position absolute
+                top 50%
+                left 0
+                right 0
+                font-size  4em !important
+                line-height 0 !important
+                color $pwhite
+                
+               
+                
+        
+    
+content > right
+    display inline-block
+    position relative
+    width ($VW - $LW - 20px)
+    height 100%
+    margin-left 20px
+    vertical-align top
+    overflow hidden;
+
+
+fullscreen
+    display block
+    position absolute
+    top 10px
+    bottom 10px
+    left 10px
+    right 10px
+    overflow hidden
+    box-sizing border-box
+    vertical-align top
+    
+
+
+        
+    
+
+button 
+    background transparent
+    border 1px solid $black
+    border-radius 4px
+    color $black
+    padding 8px
+
+    &:hover
+        background  $pwhite
+
+label
+    display block
+    color $pwhite
+    border-top 1px solid $gray
+    padding 20px
+    font-size 1.1em
+    
+    & input
+        float right
+        width 25px
+        height 25px
+        line-height 0
+        vertical-align middle
+        
+        &:checked
+            background-color red
+            
+    & h1
+        font-size 1em
+        margin 0
+    
+    & description
+        display inline-block
+        font-size 0.9em
+
+
+entry 
+    display inline-block
+    vertical-align top
+    position relative
+    background white
+    width 100%
+    height ($VH/3 - 10px/3)
+    margin-top 5px
+    
+
+filters
+    @extend entry
+    margin-top 0px
+    margin-bottom 5px
+    
+    & > div
+        display inline-block
+        position absolute
+        top 0
+        bottom 0
+        height 0
+        line-height 0
+        margin auto 10px
+        color $black
+            
+        h1
+            display inline
+            text-transform uppercase
+            padding-right 15px
+            border-right 1px solid $black
+            margin-right 10px
+            vertical-align middle
+            font-size 1.5em
+            
+        & > h2
+            display inline
+            vertical-align middle
+            font-family "droid_sans"
+
+    & > button
+        height 80%
+        width 100px
+        font-size 2em
+        position absolute
+        right 10px
+        top 10%
+        bottom 10%
+    
+book
+    @extend entry
+    color $bg
+
+    &:first-child
+        margin-top 0
+    
+    /#contentDetails &
+        width 100%
+        height 100%
+        margin 0
+        box-sizing border-box
+
+        illustration
+            width 40%
+            margin-right 20px
+
+        & > div
+            padding 10px
+
+        h1
+            margin-bottom 10px
+            
+        synopsis
+            display block
+            margin-top 10px
+            
+            
+        buttons
+            position absolute
+            bottom 10px
+            right 10px
+        
+        price
+            position absolute
+            left 42%
+            bottom 10px
+            font-size 1.5em
+            
+
+    illustration
+        float left
+        height 100%
+        width ($VH/3 - 10px)
+        background-position center
+        background-size cover
+        margin-right 10px
+        
+    h1
+        font-size 1.5em
+        margin-top 3px
+        margin-bottom 0px
+        
+    h2
+        margin 0
+        
+
+    categories
+        display block
+        
+        &:before
+            content "Genres"
+            font-family "droid_sansbold"
+            //margin-right 5px
+
+        categorie
+            margin-left 5px
+            
+    buttons
+        display block
+        position absolute
+        text-align right
+        bottom 10px
+        right 0
+        
+        button
+            margin-right 10px
+            vertical-align middle
+            
+            left
+                float left
+                clear auto
+                border-right 1px solid $gray
+                padding-right 10px
+                margin-right 10px
+
+                &.big
+                    line-height 2.9em
+                
+            right
+                float right
+                
+            h1 
+                display block
+                font-size 1.0em
+                
+            
+    author
+        display block
+        
+        &:before
+            content "Auteur"
+            font-family "droid_sansbold"
+            margin-right 5px
+            
+
+header 
+    display inline-block
+    position relative
+    height ($VH / 5)
+    width 100%
+    background $bg
+    color $pwhite
+    margin 0
+
+    illustration
+        float left
+        height ($VH / 5) - 10px
+        width  ($VH / 5) - 10px
+        background-position center
+        background-size cover
+        margin-right 10px
+    
+    div
+        position absolute
+        left 0
+        right 0
+        top 0
+        bottom 10px
+        margin auto
+        margin-left (($VH / 5) + 10px)
+        //line-height 0
+        height ($VH / 5) - 10px
+        
+        h1
+            display inline-block
+            position absolute
+            top 0
+            bottom 0
+            left 0
+            right 100px
+            font-size 2em
+            margin 0
+            vertical-align middle
+            font-family "droid_sans"
+            white-space nowrap
+            overflow hidden
+            text-overflow ellipsis
+            height 100%
+            line-height ($VH / 5) - 10px
+
+             
+        progressDigit
+            display inline-block
+            position absolute
+            right 10px
+            font-family "droid_sans"
+            font-size 2em
+            height 100%
+            line-height ($VH / 5) - 10px
+            
+    progress
+        position absolute
+        top ($VH / 5) - 10px
+        bottom 0
+        left 0
+        right 0
+        width auto
+        height 10px
+        -webkit-appearance none
+        appearance none
+
+        &::-webkit-progress-bar
+            background $gray
+            border none
+            
+        &::-webkit-progress-value
+            background $pwhite
+            border none
+      
+boxes
+    display inline-block
+    position absolute
+    top ($VH / 5)
+    bottom 0
+    left 0
+    right 0
+
+    box
+        display inline-block
+        position relative
+        width 50%
+        height 50%
+        vertical-align middle
+        color $bg
+        cursor pointer
+        
+        &.color0   
+            background $blue
+        &.color1   
+            background $green
+        &.color2   
+            background $yellow
+        &.color3   
+            background $pink
+
+        & > div
+            position absolute
+            top 0
+            bottom 0
+            left 0
+            right 0
+
+            & > div 
+                display table
+                height 100%
+                width  100%
+            
+                & > text 
+                    position relative
+                    z-index 1;
+                    display table-cell
+                    vertical-align middle
+                    text-align center
+                    font-size 2.5em
+                    font-family "droid_sansbold"
+                    word-break break-word
+                    padding 10px
+
+    speak 
+        position absolute
+        top 0
+        bottom 0
+        left 0
+        right 0
+        margin auto
+        height 350px
+        width 350px
+        
+        & svg
+            position absolute
+            
+            &#centerButton
+                z-index 1
+                top 0
+                bottom 0
+                left 0
+                right 0
+                height 100px
+                width 100px
+                margin auto
+
+end 
+    color $pwhite
+    position absolute
+    top ($VH / 5)
+    bottom 0
+    left 0
+    right 0
+    text-align center
+    
+    h1
+        text-transform uppercase
+
+    button
+        color $pwhite
+        border-color $pwhite
+        font-size 1.2em
+        padding 20px
+        margin 10px
+        
+        &:hover
+            background transparent

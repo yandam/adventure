@@ -8,6 +8,10 @@ __STORIES__.example = {
         default: {lang: 'en-UK', sex: 'male', pitch: 1.0 },    // Narateur
       }
     },
+    _state: {
+      downloaded: true
+
+    },
     start: {
         short: "What do you do?",
         text:'Your majesty, your people are starving in the streets, '

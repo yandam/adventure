@@ -11,13 +11,35 @@ Color : http://www.google.fr/design/spec/style/color.html
     font-weight: normal;
     font-style: normal;
 }
+@font-face {
+    font-family: 'droid_sansbold';
+    src: url('fonts/DroidSans-Bold-webfont.eot');
+    src: url('fonts/DroidSans-Bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/DroidSans-Bold-webfont.woff') format('woff'),
+         url('fonts/DroidSans-Bold-webfont.ttf') format('truetype'),
+         url('fonts/DroidSans-Bold-webfont.svg#droid_sansbold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'droid_sans';
+    src: url('fonts/DroidSans-webfont.eot');
+    src: url('fonts/DroidSans-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/DroidSans-webfont.woff') format('woff'),
+         url('fonts/DroidSans-webfont.ttf') format('truetype'),
+         url('fonts/DroidSans-webfont.svg#droid_sansbold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
 
 
 
 
 
 body {
-    background-color: #FAFAFA;
+    background-color: #373b47; /*#41443e*//*#FAFAFA;*/
+    font-family: 'droid_sans';
 }
 h1 {
     font-size: 1.7em;
@@ -129,9 +151,12 @@ content {
     left: 0;
     right: 0;
 
-    padding-top: 60px;
     height: 100%;
-    box-sizing: border-box;
+
+    width: 700px;
+    height: 350px;
+
+    border: 1px solid gray;
 }
 
 content.heightauto {
@@ -211,52 +236,48 @@ box > div > div > text {
     font-size: 6vmin;
     font-weight: bold;
     word-break: break-word;
+    color: #2C2D2B;
 }
 
 box.color0 > div {
-    background-color: #33B5E5;
+    background-color: #FDF330;
 }
 
 box.color1 > div {
-    background-color: #99CC00;
+    background-color: #50D2FF;
 }
 
 box.color2 > div {
-    background-color: #FFBB33;
+    background-color: #B6E800;
 }
 
 box.color3 > div {
-    background-color: #FF4444;
+    background-color: #FF97CD;
 }
 
 library {
     display: block;
     /*width: 100%; /*95%*/
     margin: auto;
-    font-size: 0;
+    /*font-size: 0;*/
 }
 
 book {
     position: relative;
     display: inline-block;
-    font-size: 20px;
+    /*font-size: 20px;*/
 
-    width: 49%;
-    margin: 0.5%;
+    width: 100%;
+    height: 30%;
+    margin-bottom: 3%;
+
     /*padding: 10px;*/
     box-sizing: border-box;
-    overflow: hidden;
-    cursor: pointer;
+   /* overflow: hidden;*/
     vertical-align: top;
     background-color: #FFFFFF;
 
-    
-    box-shadow: 0 2px 3px rgba(0,0,0,0.26), -2px 0 5px rgba(0,0,0,0.26);
-    border-radius: 4px;
-}
-
-book:hover {
-    opacity: 0.9;
+    /*box-shadow: 0 2px 3px rgba(0,0,0,0.26), -2px 0 5px rgba(0,0,0,0.26);*/
 }
 
 book > h1 {
@@ -273,9 +294,9 @@ book > h1 {
 
 book > illustration {
     display: inline-block;
-    width: 100%;
-    height: 200px;
-
+    float: left;
+    height: 100px;
+    width: 100px;
     background-position: center;
     background-size: cover;
 }
@@ -339,7 +360,7 @@ box.end:hover {
 speak {
     position: absolute;
     z-index: 5;
-    top: 0;
+    top: 60px;
     left: 0;
     right: 0;
     bottom: 0;
@@ -349,8 +370,8 @@ speak {
     cursor: pointer;
 }
 
-speak:hover {
-    opacity: 0.5;
+#centerButton:hover {
+    opacity: 0.7;
 }
 
 .clickable {
@@ -380,4 +401,187 @@ speak:hover {
 }
 .moyen-age {
     background-color: #A1887F;
+}
+
+
+content#contentHome, content#contentLibrary2 {
+    /*top: 5%;
+    right: 5%;
+    left: 5%;
+    bottom: 5%;*/
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+content#contentLibrary2 {
+    top: 2%;
+    bottom: 2%;
+    left: 2%;
+    right: 2%;
+}
+content#contentHome > tile {
+    padding: 1%;
+}
+
+tile {
+    display: inline-block;
+
+    /*padding: 1%;*/
+    box-sizing: border-box;
+    vertical-align: middle;
+    color: #2C2D2B;
+}
+
+tile.tile1x2 {
+    /*width:  50%;
+    height: 50%;*/
+    width:  350px;
+    height: 175px;
+    /*box-sizing: ;*/
+}
+
+tile.tile1x1 {
+    /*width:  50%;
+    height: 50%;*/
+    width:  175px;
+    height: 175px;
+}
+
+tile > div {
+    display: inline-block;
+    width:100%;
+    height: 100%;
+    position: relative;
+    font-family: 'droid_sansbold';
+    text-transform: uppercase;
+    font-size: 1.1em;
+    box-sizing: border-box;
+}
+
+tile > div > div {
+    position: absolute;
+    bottom: 15%;
+    left: 5%;
+    right: 5%;
+    text-align: center;
+}
+
+tile > div > i, scroll > div > i {
+    /*font-size: 23vmin !important;*/
+    font-size: 4em !important;
+    text-align: center;
+    display: inline-block;
+    width: 100%;
+    position: absolute;
+    top: 18%;
+}
+
+.bibliotheque  > div {
+    background-color: #FFAF8F;
+}
+/*.filtres > div  {
+    background-color: #878c81;
+}*/
+
+.histoiresEnCours > div  {
+    background-color: #C2B3FF;
+}
+.options > div, .achats > div, .profil  > div {
+    background-color: transparent;
+    color: #E9F4DF;
+    border: 1px solid #E9F4DF;
+}
+
+scroll {
+    width: 100%;
+    top: 150px;
+    bottom: 0;
+    color: #E9F4DF;
+    position: absolute;
+    display: inline-block;
+}
+scroll > div {
+    width: 100%;
+    height: 40%;
+    box-sizing: border-box;
+    border: 1px solid #E9F4DF;
+    position: relative;
+    margin-top: 10%;
+}
+scroll > div > i {
+    top: 50%;
+    line-height: 0px !important;
+}
+
+left, right {
+    display: inline-block;
+    position: relative;
+    box-sizing: border-box;
+    vertical-align: top;
+}
+
+left {
+    width: 150px;
+    height: 100%;
+    /*border: 1px solid green;*/
+}
+left > tile {
+    width: 150px !important; 
+    height: 150px !important;
+
+}
+right {
+    height: 100%;
+    width: 550px;
+    /*border: 1px solid red;*/
+    padding-left: 20px;
+    overflow: hidden;
+}
+
+filters {
+    display: inline-block;
+    width: 100%;
+    height: 30%;
+    background-color: white;
+    padding: 3%;
+    box-sizing: border-box;
+    position: relative;
+    margin-bottom: 3%;
+}
+filters > div {
+    display: inline-block;
+    margin: auto;
+    height: 37px;
+    top: 0;
+    bottom: 0;
+    position: absolute;
+}
+filters > div > h1 {
+    display: inline;
+    color: #2C2D2B;
+    text-transform: uppercase;
+    padding-right: 15px;
+    border-right: 1px solid #2C2D2B;
+    margin-right: 10px;
+}
+filters > div > h2 {
+    display: inline;
+    color: #2C2D2B;
+    font-weight: normal;
+}
+filters > button {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: 3%;
+    width: 20%;
+    border: 1px solid #2C2D2B;
+    border-radius: 4px;
+    background: transparent;
+}
+filters > button > i {
+    font-size: 3em !important;
 }

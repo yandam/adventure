@@ -1,10 +1,12 @@
 __STORIES__.valise = {
 _settings: {
   title:"Faire sa valise, c'est compliqué...",
+  author: "BeMyApp",
   synopsis: "Patrick est heureux. L’école est finie et, avec Papa et Maman, les vacances se préparent. La petite famille va prendre la voiture de maman et direction la mer.",
   icon: "",
   categories: ['enfance', 'aventure'],
-  bg: 'valise.png',
+  bg: 'valise2.JPG',
+  price: 5.00,
   voices: {
     default: {lang: 'fr-FR', sex: 'female', pitch: 1.0 },    // Narateur
     mamie:   {lang: 'fr-FR', sex: 'female', pitch: 1.25},    // Mamie
@@ -12,6 +14,10 @@ _settings: {
     garçon:  {lang: 'fr-FR', sex: 'male',   pitch: 1.5 },    // Jeune garçon
     peluche: {lang: 'fr-FR', sex: 'male',   pitch: 1.25},    // Peluche
   }
+},
+_state: {
+  downloaded: true
+
 },
 start: {
   title: 'Dans la chambre de Patrick',
