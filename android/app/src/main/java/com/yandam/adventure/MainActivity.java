@@ -13,6 +13,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.ConsoleMessage;
 import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
@@ -54,15 +55,20 @@ public class MainActivity extends Activity {
                     //Log.d(TAG, "onTouch " + d + " | " + dt);
                     return d < 10 && dt < 200;
                 }
+
+                Log.d(TAG, "onTouch" + event.getAction());
                 return false;
             }
         });
-        
+
         // Scroll
         webView.setHorizontalScrollBarEnabled(false);
 
         // Enable Javascript
         webView.getSettings().setJavaScriptEnabled(true);
+        webView.getSettings().setDomStorageEnabled(true);
+        webView.getSettings().setDatabasePath("/data/data/" + webView.getContext().getPackageName() + "/databases/");
+
         jsTextToSpeech = new JSTextToSpeech(this, webView);
         webView.addJavascriptInterface(jsTextToSpeech, "AndroidTextToSpeech");
         jsSpeechRecognition = new JSSpeechRecognition(this, webView);
@@ -74,6 +80,17 @@ public class MainActivity extends Activity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             WebView.setWebContentsDebuggingEnabled(true);
         }
+
+        // Viewport
+        webView.getSettings().setUseWideViewPort(true);
+        //webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        /*webView.getSettings().setLoadWithOverviewMode(true);
+        webView.getSettings().setBuiltInZoomControls(false);
+        webView.getSettings().setDisplayZoomControls(false);
+        webView.getSettings().setSupportZoom(false);*/
+        //
+
+
 
         // Set a client
         webView.setWebChromeClient(new WebChromeClient() {
@@ -107,6 +124,15 @@ public class MainActivity extends Activity {
 
             public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
                 Toast.makeText(getApplicationContext(), "Oh no! " + description, Toast.LENGTH_SHORT).show();
+            }
+
+            public void onPageFinished(WebView view, String url) {
+                //webView.getSettings().setUseWideViewPort(true);
+                float defaultScale = view.getHeight() / view.getContentHeight();
+                Log.d(TAG, "SCALE" + defaultScale+" "+view.getHeight()+" "+view.getContentHeight());
+
+               // webView.setInitialScale((int) (defaultScale * 100));
+
             }
         });
 
