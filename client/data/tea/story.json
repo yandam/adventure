@@ -1,0 +1,21 @@
+{
+  "_settings": {
+    "voices": {
+      "default": {"lang": "en-US", "sex": "female", "pitch": 1.0 }
+    }
+  },
+  "start":{
+    "text":"Do you want some tea with your madeleine ?",
+    "choices": [
+      {"next":2, "message":"Yes, sir!"},
+      {"next":2, "message":"Do you have coffee ?"}
+    ]
+  },
+  "2":{
+    "text":"And what else ?",
+    "choices": [
+      {"next":"start", "message":"Some cookies"},
+      {"next":"start", "message":"Biscuits!"}
+    ]
+  }
+}
