@@ -1,4 +1,4 @@
-package com.yandam.adventure;
+package com.yandam.adventurz;
 
 import android.app.Activity;
 import android.os.Build;

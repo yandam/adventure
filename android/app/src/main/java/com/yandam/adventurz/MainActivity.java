@@ -1,4 +1,4 @@
-package com.yandam.adventure;
+package com.yandam.adventurz;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -7,13 +7,10 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.ConsoleMessage;
 import android.webkit.WebChromeClient;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
@@ -38,6 +35,7 @@ public class MainActivity extends Activity {
         Log.i(TAG, "onCreate");
 
         webView = (WebView) findViewById(R.id.webView);
+        webView.setVisibility(View.GONE);
 
         // Helping clicking on the screen
         webView.setOnTouchListener(new View.OnTouchListener() {
@@ -55,8 +53,6 @@ public class MainActivity extends Activity {
                     //Log.d(TAG, "onTouch " + d + " | " + dt);
                     return d < 10 && dt < 200;
                 }
-
-                Log.d(TAG, "onTouch" + event.getAction());
                 return false;
             }
         });
@@ -67,7 +63,10 @@ public class MainActivity extends Activity {
         // Enable Javascript
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setDomStorageEnabled(true);
-        webView.getSettings().setDatabasePath("/data/data/" + webView.getContext().getPackageName() + "/databases/");
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT)
+            //noinspection deprecation
+            webView.getSettings().setDatabasePath(this.getFilesDir().getPath() + this.getPackageName() + "/databases/");
 
         jsTextToSpeech = new JSTextToSpeech(this, webView);
         webView.addJavascriptInterface(jsTextToSpeech, "AndroidTextToSpeech");
@@ -80,16 +79,6 @@ public class MainActivity extends Activity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             WebView.setWebContentsDebuggingEnabled(true);
         }
-
-        // Viewport
-        webView.getSettings().setUseWideViewPort(true);
-        //webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-        /*webView.getSettings().setLoadWithOverviewMode(true);
-        webView.getSettings().setBuiltInZoomControls(false);
-        webView.getSettings().setDisplayZoomControls(false);
-        webView.getSettings().setSupportZoom(false);*/
-        //
-
 
 
         // Set a client
@@ -127,12 +116,7 @@ public class MainActivity extends Activity {
             }
 
             public void onPageFinished(WebView view, String url) {
-                //webView.getSettings().setUseWideViewPort(true);
-                float defaultScale = view.getHeight() / view.getContentHeight();
-                Log.d(TAG, "SCALE" + defaultScale+" "+view.getHeight()+" "+view.getContentHeight());
-
-               // webView.setInitialScale((int) (defaultScale * 100));
-
+                webView.setVisibility(View.VISIBLE);
             }
         });
 
@@ -143,7 +127,7 @@ public class MainActivity extends Activity {
 
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
+    public boolean onKeyDown(int keyCode, @NonNull KeyEvent event) {
         if(event.getAction() == KeyEvent.ACTION_DOWN){
             switch(keyCode)
             {

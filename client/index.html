@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="css/style2.css">
     <!-- <link rel="stylesheet" href="css/style.nightMode.css"> -->
     <link rel="stylesheet" href="css/font-awesome/css/font-awesome.css">
-    <meta name="viewport" content="width=700,height=350,initial-scale=1">
+    <!-- <meta name="viewport" content="width=device-width"> -->
 </head>
 <body>
     <!-- <script type="text/javascript" src="js/vunit.js"></script> -->
@@ -39,10 +39,10 @@
                     </div>
                 </div>
             </tile><!--
-        --><tile class="tile1x2 histoiresEnCours clickable" onClick="route('histories')">
+        --><tile class="tile1x2 histoiresEnCours clickable" id="btnHistoires">
                 <div>
                     <i class="fa fa-clock-o"></i>
-                    <div>
+                    <div id="btnHistoires_text">
                         Histoires en cours
                     </div>
                 </div>
@@ -78,10 +78,14 @@
             </tile>
             <scroll>
                 <div>
-                    <i class="fa fa-angle-up"></i>
+                    <div>
+                        <i class="fa fa-angle-up"></i>
+                    </div>
                 </div>
                 <div>
-                    <i class="fa fa-angle-down"></i>
+                    <div>
+                        <i class="fa fa-angle-down"></i>
+                    </div>
                 </div>
             </scroll>
         </left><!--
@@ -103,10 +107,14 @@
             </tile>
             <scroll>
                 <div>
-                    <i class="fa fa-angle-up"></i>
+                    <div>
+                        <i class="fa fa-angle-up"></i>
+                    </div>
                 </div>
                 <div>
-                    <i class="fa fa-angle-down"></i>
+                    <div>
+                        <i class="fa fa-angle-down"></i>
+                    </div>
                 </div>
             </scroll>
         </left><!--
@@ -128,10 +136,14 @@
             </tile>
             <scroll>
                 <div>
-                    <i class="fa fa-angle-up"></i>
+                    <div>
+                        <i class="fa fa-angle-up"></i>
+                    </div>
                 </div>
                 <div>
-                    <i class="fa fa-angle-down"></i>
+                    <div>
+                        <i class="fa fa-angle-down"></i>
+                    </div>
                 </div>
             </scroll>
         </left><!--
@@ -170,10 +182,14 @@
             </tile>
             <scroll>
                 <div>
-                    <i class="fa fa-angle-up"></i>
+                    <div>
+                        <i class="fa fa-angle-up"></i>
+                    </div>
                 </div>
                 <div>
-                    <i class="fa fa-angle-down"></i>
+                    <div>
+                        <i class="fa fa-angle-down"></i>
+                    </div>
                 </div>
             </scroll>
         </left><!--
@@ -201,10 +217,14 @@
             </tile>
             <scroll>
                 <div>
-                    <i class="fa fa-angle-up"></i>
+                    <div>
+                        <i class="fa fa-angle-up"></i>
+                    </div>
                 </div>
                 <div>
-                    <i class="fa fa-angle-down"></i>
+                    <div>
+                        <i class="fa fa-angle-down"></i>
+                    </div>
                 </div>
             </scroll>
         </left><!--
@@ -226,10 +246,14 @@
             </tile>
             <scroll>
                 <div>
-                    <i class="fa fa-angle-up"></i>
+                    <div>
+                        <i class="fa fa-angle-up"></i>
+                    </div>
                 </div>
                 <div>
-                    <i class="fa fa-angle-down"></i>
+                    <div>
+                        <i class="fa fa-angle-down"></i>
+                    </div>
                 </div>
             </scroll>
         </left><!--
@@ -247,7 +271,7 @@
                 <h1>Bla</h1>
                 <progressDigit>70%</progressDigit>
             </div>
-            <progress value="70" max="100" min="0"></progress>
+            <progress value="70" max="100" min="0"><fallback></fallback></progress>
         </header><!--
         --><boxes>
             <box class="color0">
@@ -287,28 +311,29 @@
             <speak>
                 <svg id="centerButton" xmlns="http://www.w3.org/2000/svg" viewBox="-15 -15 30 30"  preserveAspectRatio="xMidYMid">
                     <g>
-                        <circle cx="0" cy="0" r="15" fill="#E9F4DF" strocke-width="0" style="box-shadow:0 0 5px black"></circle>
-                        <text x="0" y="0"  text-anchor="middle" alignment-baseline="middle" fill="#373b47" style="font-size:20px; font-family: 'FontAwesome';  transform: translate(0, 7px)">&#xf028;</text>
+                        <circle cx="0" cy="0" r="15" fill="#E9F4DF"></circle>
+                        <text x="0" y="0"  text-anchor="middle" alignment-baseline="central" fill="#373b47" font-family="FontAwesome" font-size="20">&#xf028;</text>
+
                     </g>
                 </svg>
-                <svg id="speaking" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"  preserveAspectRatio="xMidYMid">
+                <svg id="speaking" xmlns="http://www.w3.org/2000/svg" viewBox="-40 -40 80 80"  preserveAspectRatio="xMidYMid">
                     <g>
                         <animate attributeName="opacity" dur="5s" repeatCount="indefinite" begin="0s" keyTimes="0;0.5;1" values="1;1;0"></animate>
-                        <circle cx="50" cy="50" r="0" stroke="#E9F4DF" fill="none" stroke-width="10" stroke-linecap="round">
+                        <circle cx="0" cy="0" r="0" stroke="#E9F4DF" fill="none" stroke-width="10" stroke-linecap="round">
                             <animate attributeName="r" dur="5s" repeatCount="indefinite" begin="0s" keyTimes="0;1" values="14;30"></animate>
                             <animate attributeName="stroke-width" dur="5s" repeatCount="indefinite" begin="0s" keyTimes="0;1" values="1;2"></animate>
                         </circle>
                     </g>
                     <g>
                         <animate attributeName="opacity" dur="5s" repeatCount="indefinite" begin="-1.25s" keyTimes="0;0.5;1" values="1;1;0"></animate>
-                            <circle cx="50" cy="50" r="0" stroke="#E9F4DF" fill="none" stroke-width="10" stroke-linecap="round">
+                            <circle cx="0" cy="0" r="0" stroke="#E9F4DF" fill="none" stroke-width="10" stroke-linecap="round">
                             <animate attributeName="r" dur="5s" repeatCount="indefinite" begin="-1.25s" keyTimes="0;1" values="14;30"></animate>
                             <animate attributeName="stroke-width" dur="5s" repeatCount="indefinite" begin="-1.25s" keyTimes="0;1" values="1;2"></animate>
                         </circle>
                     </g>
                     <g>
                         <animate attributeName="opacity" dur="5s" repeatCount="indefinite" begin="-2.5s" keyTimes="0;0.5;1" values="1;1;0"></animate>
-                            <circle cx="50" cy="50" r="0" stroke="#E9F4DF" fill="none" stroke-width="10" stroke-linecap="round">
+                            <circle cx="0" cy="0" r="0" stroke="#E9F4DF" fill="none" stroke-width="10" stroke-linecap="round">
                             <animate attributeName="r" dur="5s" repeatCount="indefinite" begin="-2.5s" keyTimes="0;1" values="14;30"></animate>
                             <animate attributeName="stroke-width" dur="5s" repeatCount="indefinite" begin="-2.5s" keyTimes="0;1" values="1;2"></animate>
                         </circle>

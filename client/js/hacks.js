@@ -40,35 +40,20 @@ function getDate(date) {
     {
 
         /* Font size VMIN */
-        /*new vUnit({
+        new vUnit({
            CSSMap: {
-                'box.end > div > div > text': {
-                    property:   'font-size',
-                    range:      10,
-                    reference:  'vw'
-                },
-                'box > div > background': {
-                    property:   'font-size',
+                'content#contentHome': {
+                    property:   'height',
                     range:      50,
                     reference:  'vmin'
                 },
-                'box > div > div > text': {
-                    property:   'font-size',
-                    range:      6,
+                'content#contentHome': {
+                    property:   'width',
+                    range:      100,
                     reference:  'vmin'
                 },
-                'speak': {
-                    property:   'height',
-                    range:      80,
-                    reference:  'vmin'
-                },
-                'header > nav > ul': {
-                    property:   'font-size',
-                    range:      4,
-                    reference:  'vmin'
-                }
             }
-        }).init();*/
+        }).init();
 
         /* Disable Hover */
         var sheet = (function() {

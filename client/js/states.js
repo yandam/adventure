@@ -9,6 +9,25 @@ __STATES__ = {
             // Stop Voice
             Text2Speech.stop()
             SpeechRecognition.stop();
+
+            stories = Storage.get('stories')
+            el = document.getElementById('btnHistoires')
+
+            if(Object.keys(stories).length == 0) {
+                el.onclick = function() {
+                    return false;
+                }
+                classNameAppend(el, "disable")
+                document.getElementById('btnHistoires_text').innerHTML = "Aucune histoire en cours"
+            }
+            else
+            {   
+                el.onclick = function() {
+                    route('histories')
+                }
+                classNameRemove(el, "disable")
+                document.getElementById('btnHistoires_text').innerHTML = "Histoires en cours"
+            }
         }
     },
     profile: {
@@ -423,6 +442,7 @@ __STATES__ = {
             p = progression(story, historyKey) * 100
             content.getElementsByTagName("progressDigit")[0].innerText = Math.round(p) + "%"
             content.getElementsByTagName("progress")[0].value = p
+            content.getElementsByTagName("progress")[0].children[0].style.right = Math.max((100 - p), 100)+"%"
 
 
             end = content.getElementsByTagName("end")[0]
@@ -684,15 +704,15 @@ function switchState(newState, options) {
         right = document.getElementById(newState.content).getElementsByTagName("right")[0];
         scroll = function(direction) {
 
-            right.scrollTop += direction * (right.offsetHeight + 5)
+            right.scrollTop += direction * (right.offsetHeight) * 0.5
 
         }
 
         scrollDiv = document.getElementById(newState.content).getElementsByTagName("scroll")[0].children;
-        scrollDiv[0].onclick = function() {
+        scrollDiv[0].children[0].onclick = function() {
             scroll(-1);
         }
-        scrollDiv[1].onclick = function() {
+        scrollDiv[1].children[0].onclick = function() {
             scroll(+1);
         }
     }

@@ -1,5 +1,5 @@
 
-$bg     = #373b47
+$bg     = #2C2D2B//#373b47
 $orange = #FFAF8F
 $purple = #C2B3FF
 $blue   = #50D2FF
@@ -11,10 +11,12 @@ $black  = #2C2D2B
 //$gray75 = #373b47 //#3C3F3A
 $gray   = #5E635A
 
-$VW = 700px
-$VH = 350px
-$LW = ($VW/5)
-
+//$VW = 100vw //700px
+//$VH = 100vh //400px
+//$LW = ($VW/5)
+$LEFT = 120px
+$ELEM = 120px
+$HEAD = 70px
 
 @font-face
     font-family 'droid_sansbold'
@@ -58,11 +60,17 @@ content
     right 0
     bottom 0
     left 0
-    width $VW 
-    height $VH
+    // width $VW 
+    // height $VH
+    vertical-align top
+
+    &#contentHome
+        height 50vmin
+        width  100vmin
+
     margin auto
     //border 1px solid black
-    box-shadow 0 0 20px $black
+    //box-shadow 0 0 20px $black
 
 h1, h2, h3, h4, h5, h6
     font-family "droid_sansbold"
@@ -78,18 +86,15 @@ tile
     
     /#contentHome &
         padding 1%
-        height ($VH/2)
+        height 50% //($VW/4)
         font-size 1.2em;
 
         &.tile1x2
-            width  ($VW/2)
+            width  50% //($VW/2)
         
         &.tile1x1
-            width  ($VW/4)
-            
-    height $LW
-    width  $LW
-        
+            width  25% //($VW/4)
+
     & > div
         position relative
         width 100%
@@ -158,41 +163,51 @@ tile
 content > left
     display inline-block
     position relative
-    width $LW
+    width $LEFT
     height 100%
     vertical-align top
 
+    .tile1x1
+        width $LEFT
+        height $LEFT
 
     scroll
         display block
-        position relative
-        width 100%;
-        padding-top 10px
-        height ($VH - $LW)
+        position absolute
+        width 100% 
+        top $LEFT
+        bottom 0
 
         & > div
             display block
             position relative
             width 100%
-            height (($VH - $LW) / 2 - 10px)
-            text-align center
-            border 1px solid $pwhite
+            height 50%
+            padding-top 10px
             box-sizing border-box
-            margin-bottom 10px
-            cursor pointer
-                
-            &:hover
-                background $black
+            
+            & > div
+                display block
+                position relative
+                width 100%
+                height 100%
+                text-align center
+                border 1px solid $pwhite
+                box-sizing border-box
+                cursor pointer
+                    
+                &:hover
+                    background $black
 
 
-            & > i
-                position absolute
-                top 50%
-                left 0
-                right 0
-                font-size  4em !important
-                line-height 0 !important
-                color $pwhite
+                & > i
+                    position absolute
+                    top 50%
+                    left 0
+                    right 0
+                    font-size  4em !important
+                    line-height 0 !important
+                    color $pwhite
                 
                
                 
@@ -200,12 +215,14 @@ content > left
     
 content > right
     display inline-block
-    position relative
-    width ($VW - $LW - 20px)
+    position absolute
+    left $LEFT
+    right 0
     height 100%
-    margin-left 20px
+    padding-left 20px
     vertical-align top
-    overflow hidden;
+    overflow hidden
+    box-sizing border-box
 
 
 fullscreen
@@ -218,10 +235,6 @@ fullscreen
     overflow hidden
     box-sizing border-box
     vertical-align top
-    
-
-
-        
     
 
 button 
@@ -266,14 +279,14 @@ entry
     position relative
     background white
     width 100%
-    height ($VH/3 - 10px/3)
-    margin-top 5px
+    height $ELEM //($VH/3 - 2vh*2/3)
+    margin-top 10px
     
 
 filters
     @extend entry
-    margin-top 0px
-    margin-bottom 5px
+    margin-top 0
+    margin-bottom 10px
     
     & > div
         display inline-block
@@ -300,8 +313,8 @@ filters
             font-family "droid_sans"
 
     & > button
-        height 80%
-        width 100px
+        height ($ELEM*0.8)
+        width  ($ELEM*0.8)
         font-size 2em
         position absolute
         right 10px
@@ -323,10 +336,12 @@ book
 
         illustration
             width 40%
+            height 100%
             margin-right 20px
 
         & > div
             padding 10px
+            
 
         h1
             margin-bottom 10px
@@ -350,8 +365,8 @@ book
 
     illustration
         float left
-        height 100%
-        width ($VH/3 - 10px)
+        height $ELEM
+        width  $ELEM //($VH/3 - 10px)
         background-position center
         background-size cover
         margin-right 10px
@@ -417,7 +432,7 @@ book
 header 
     display inline-block
     position relative
-    height ($VH / 5)
+    height $HEAD
     width 100%
     background $bg
     color $pwhite
@@ -425,11 +440,10 @@ header
 
     illustration
         float left
-        height ($VH / 5) - 10px
-        width  ($VH / 5) - 10px
+        height $HEAD - 10px
+        width  $HEAD - 10px
         background-position center
         background-size cover
-        margin-right 10px
     
     div
         position absolute
@@ -438,9 +452,8 @@ header
         top 0
         bottom 10px
         margin auto
-        margin-left (($VH / 5) + 10px)
-        //line-height 0
-        height ($VH / 5) - 10px
+        margin-left ($HEAD + 10px)
+        height ($HEAD - 10px)
         
         h1
             display inline-block
@@ -457,7 +470,7 @@ header
             overflow hidden
             text-overflow ellipsis
             height 100%
-            line-height ($VH / 5) - 10px
+            line-height $HEAD - 10px
 
              
         progressDigit
@@ -467,11 +480,11 @@ header
             font-family "droid_sans"
             font-size 2em
             height 100%
-            line-height ($VH / 5) - 10px
+            line-height $HEAD - 10px
             
     progress
         position absolute
-        top ($VH / 5) - 10px
+        top $HEAD - 10px
         bottom 0
         left 0
         right 0
@@ -479,6 +492,7 @@ header
         height 10px
         -webkit-appearance none
         appearance none
+        background $gray
 
         &::-webkit-progress-bar
             background $gray
@@ -487,11 +501,20 @@ header
         &::-webkit-progress-value
             background $pwhite
             border none
+            
+        & > fallback
+            position absolute
+            top 0
+            bottom 0
+            right 0
+            left 0
+            background $pwhite
+
       
 boxes
     display inline-block
     position absolute
-    top ($VH / 5)
+    top $HEAD
     bottom 0
     left 0
     right 0
@@ -544,26 +567,26 @@ boxes
         left 0
         right 0
         margin auto
-        height 350px
-        width 350px
         
         & svg
             position absolute
+            height 70%
+            width 70%
+            top 0
+            bottom 0
+            left 0
+            right 0
+            margin auto
             
             &#centerButton
                 z-index 1
-                top 0
-                bottom 0
-                left 0
-                right 0
-                height 100px
-                width 100px
-                margin auto
+                height 30%
+                width 30%
 
 end 
     color $pwhite
     position absolute
-    top ($VH / 5)
+    top $HEAD
     bottom 0
     left 0
     right 0
