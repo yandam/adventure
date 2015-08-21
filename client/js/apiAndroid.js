@@ -151,19 +151,25 @@ if(window.AndroidMirrorLink)
 		 * Return if the night mode is activate
 		 * @type {Boolean}
 		 */
-		this.isNightMode = window.AndroidMirrorLink.isNightMode;
+		this.isNightMode = function() {
+			return window.AndroidMirrorLink.isNightMode();
+		}
 
 		/**
 		 * Return if the vehicule is in mouvement
 		 * @type {Boolean}
 		 */
-		this.isDriveMode = window.AndroidMirrorLink.isDriveMode;
+		this.isDriveMode = function() {
+			return window.AndroidMirrorLink.isDriveMode;
+		}
 
 		/**
 		 * Return if there is a connection with mirrorlink
 		 * @type {Boolean}
 		 */
-		this.isSessionEstablished = window.AndroidMirrorLink.isSessionEstablished;
+		this.isSessionEstablished = function() {
+			return window.AndroidMirrorLink.isSessionEstablished;
+		}
 
 
 		/**
