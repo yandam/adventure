@@ -291,6 +291,7 @@ book:first-child {
 }
 #contentDetails book h1 {
   margin-bottom: 10px;
+  white-space: normal;
 }
 #contentDetails book synopsis {
   display: block;
@@ -319,6 +320,9 @@ book h1 {
   font-size: 1.5em;
   margin-top: 3px;
   margin-bottom: 0px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 book h2 {
   margin: 0;
