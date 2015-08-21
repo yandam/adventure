@@ -145,8 +145,9 @@
         var createCSSRules = function() {
             var computedHeight = (vunit.viewportSize.height / 100);
             var computedWidth = (vunit.viewportSize.width / 100);
-            var vmin = Math.min(computedWidth, computedHeight);
-            var vmax = Math.max(computedWidth, computedHeight);
+            var vmin  = Math.min(computedWidth, computedHeight);
+            var vmin2 = Math.min(computedWidth, computedHeight * 2);
+            var vmax  = Math.max(computedWidth, computedHeight);
             var map = vunit.options.CSSMap;
             var CSSRules = '';
             var value = 0;
@@ -168,6 +169,9 @@
                         break;
                     case 'vmin':
                         value = vmin * range;
+                        break;
+                    case 'vmin2':
+                        value = vmin2 * range;
                         break;
                     case 'vmax':
                         value = vmax * range;

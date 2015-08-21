@@ -35,25 +35,27 @@ function getDate(date) {
 
 (function() {
 
+    /* Font size VMIN */
+    new vUnit({
+       CSSMap: {
+            'content#contentHome': {
+                property:   'height',
+                range:      50,
+                reference:  'vmin2'
+            },
+            'content#contentHome ': {
+                property:   'width',
+                range:      100,
+                reference:  'vmin2'
+            },
+        }
+    }).init();
+
 
     if(window.androidApp != 0 && window.androidApp < 19) // 19 : Kitkat
     {
 
-        /* Font size VMIN */
-        new vUnit({
-           CSSMap: {
-                'content#contentHome': {
-                    property:   'height',
-                    range:      50,
-                    reference:  'vmin'
-                },
-                'content#contentHome': {
-                    property:   'width',
-                    range:      100,
-                    reference:  'vmin'
-                },
-            }
-        }).init();
+        
 
         /* Disable Hover */
         var sheet = (function() {

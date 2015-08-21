@@ -34,10 +34,6 @@ content {
   vertical-align: top;
   margin: auto;
 }
-content#contentHome {
-  height: 50vmin;
-  width: 100vmin;
-}
 h1,
 h2,
 h3,
