@@ -85,7 +85,6 @@ function removeStory(id) {
 }
 
 buyStory("valise")
-buyStory("valise.audio")
 buyStory("crown")
 loadStory("quizz", false)
 loadStory("tea", false)
