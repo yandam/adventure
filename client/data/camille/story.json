@@ -1,0 +1,35 @@
+{
+  "_settings": {
+    "voices": {
+      "default": {"lang": "fr-FR", "sex": "female", "pitch": 1.0 }
+    }
+  },
+  "start": {
+      "text": "Salut camille, yo!",
+      "choices": [
+        {"next":2, "message":"Oui?"},
+        {"next":2, "message":"Euh", "short":"Euuh..."},
+        {"next":2, "message":"C'est moi!"}
+      ]
+  },
+  "2": {
+    "text":"Mais attend, c'est qui ton ennemi juré ?",
+    "choices": [
+        {"next":4, "message":"Melon, ce pianotateur"},
+        {"next":3, "message":"Carotte, cette pianiste"},
+        {"next":3, "message":"AH AH AH AH AH","short":"AHAHAHAHAHAH"}
+      ]
+  },
+  "3": {
+    "text":"Et ben c'est fini! Voila!",
+    "choices": [
+        {"next":"start", "message":"Je veux re-essayer!"}
+      ]
+  },
+  "4": {
+    "text":"Mwahahahahahah!",
+    "choices": [
+        {"next":3, "message":"Quoi ? Que va tu faire ?"}
+      ]
+  }
+}

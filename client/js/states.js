@@ -79,6 +79,43 @@ __STATES__ = {
     shopping: {
         content: "contentShopping",
         render: function(self, content, options) {
+            form = content.getElementsByTagName('form')[0]
+            // Remove children
+            while (form.firstChild) {
+                form.removeChild(form.firstChild);
+            }
+
+            for(story in __STORIES__) {
+                storyData = __STORIES__[story];
+
+                if(storyData.state.downloaded || storyData.state.bought) {
+
+
+                    // Recognition
+                    label = document.createElement('label')
+                    h1 = document.createElement('h1')
+                    h1.innerHTML = storyData.header.title
+                    label.appendChild(h1)
+
+                    input = document.createElement('input')
+                    input.type = "checkbox"
+                    input.name = story
+
+                    if(storyData.state.downloaded)
+                        input.checked = "checked"
+
+                    input.onchange = function(e) {
+                        if(!this.checked)
+                            removeStory(this.name)
+                        else
+                            loadStory(this.name, true)
+                    }
+
+                    label.appendChild(input);
+                    form.appendChild(label);
+                }
+            }
+
         }
     },
     filters: {
@@ -91,9 +128,9 @@ __STATES__ = {
             for(story in __STORIES__) {
                 story = __STORIES__[story];
 
-                if('categories' in story._settings) {
-                    for(categorie in story._settings.categories) {
-                        categorie = story._settings.categories[categorie];
+                if('categories' in story.header) {
+                    for(categorie in story.header.categories) {
+                        categorie = story.header.categories[categorie];
                         if(categories.indexOf(categorie) == -1)
                             categories.push(categorie);
                     }
@@ -154,36 +191,36 @@ __STATES__ = {
             }
             storyId  = options[0]
             story    = __STORIES__[storyId]
-            settings = story._settings
-            state    = story._state
+            header   = story.header
+            state    = story.state
 
             illustration = content.getElementsByTagName('illustration')[0]
-            bg = settings.bg || '';
-            illustration.style.backgroundImage = "url('data/"+bg+"')"
+            bg = header.bg || '';
+            illustration.style.backgroundImage = "url('data/"+storyId+"/"+bg+"')"
 
             h1 = content.getElementsByTagName('h1')[0]
-            h1.innerText = settings.title
+            h1.innerText = header.title
 
             author = content.getElementsByTagName('author')[0]
-            author.innerText = settings.author
+            author.innerText = header.author
 
             price = content.getElementsByTagName('price')[0]
-            if(settings.price == undefined || settings.price == 0)
+            if(header.price == undefined || header.price == 0)
                 price.innerText = "Gratuit"
             else
-                price.innerText = settings.price+"€"
+                price.innerText = header.price+"€"
 
             synopsis = content.getElementsByTagName('synopsis')[0]
-            synopsis.innerText = settings.synopsis
+            synopsis.innerText = header.synopsis
             
             categories = content.getElementsByTagName('categories')[0]
             // Remove children
             while (categories.firstChild) {
                 categories.removeChild(categories.firstChild);
             }
-            for(categorie in settings.categories) {
+            for(categorie in header.categories) {
                 cat = document.createElement('categorie')
-                cat.innerHTML = settings.categories[categorie];
+                cat.innerHTML = header.categories[categorie];
                 categories.appendChild(cat);
             }
 
@@ -195,10 +232,16 @@ __STATES__ = {
 
             if(!state.downloaded) {
                 btn_download = document.createElement('button')
-                if(settings.price == undefined || settings.price == 0)
+                if(header.price == undefined || header.price == 0 || state.bought)
                     btn_download.innerHTML = "Télécharger";
                 else
                     btn_download.innerHTML = "Acheter";
+
+                btn_download.onclick = (function() {
+                    buyStory(this.story);
+                    reRender()
+                }).bind({story: storyId})
+
                 btns.appendChild(btn_download);
             } else  {
                 btn_play = document.createElement('button')
@@ -214,25 +257,25 @@ __STATES__ = {
     library: {
         content: "contentLibrary",
         render_book: function(story, modePlay) {
-            settings = __STORIES__[story]._settings
-            state   = __STORIES__[story]._state
+            header = __STORIES__[story].header
+            state  = __STORIES__[story].state
 
             book = document.createElement('book')
 
             illustration = document.createElement('illustration')
-            bg = settings.bg || '';
-            illustration.style.backgroundImage = "url('data/"+bg+"')"
+            bg = header.bg || '';
+            illustration.style.backgroundImage = "url('data/"+story+"/"+bg+"')"
             book.appendChild(illustration)
 
             h1 = document.createElement('h1')
-            h1.innerText = settings.title
+            h1.innerText = header.title
             book.appendChild(h1)
             
             if(!modePlay) {
                 categories = document.createElement('categories')
-                for(categorie in settings.categories) {
+                for(categorie in header.categories) {
                     cat = document.createElement('categorie')
-                    cat.innerHTML = settings.categories[categorie].capitalizeFirstLetter();
+                    cat.innerHTML = header.categories[categorie].capitalizeFirstLetter();
                     categories.appendChild(cat);
                 }
                 book.appendChild(categories);
@@ -242,10 +285,16 @@ __STATES__ = {
 
             if(!state.downloaded) {
                 btn_download = document.createElement('button')
-                if(settings.price == undefined || settings.price == 0)
+                if(header.price == undefined || header.price == 0 || state.bought)
                     btn_download.innerHTML = "Télécharger";
                 else
-                    btn_download.innerHTML = "Acheter "+settings.price+"€";
+                    btn_download.innerHTML = "Acheter "+header.price+"€";
+
+                btn_download.onclick = (function() {
+                    buyStory(this.story);
+                    reRender()
+                }).bind({story: story})
+
                 btns.appendChild(btn_download);
             } else  {
                 btn_play = document.createElement('button')
@@ -333,16 +382,16 @@ __STATES__ = {
 
             // Create all books
             for(story in __STORIES__) {
-                settings = __STORIES__[story]._settings
-                state   = __STORIES__[story]._state
+                header = __STORIES__[story].header
+                state   = __STORIES__[story].state
 
                 show = false
-                if(selectedStyle.length == 0 || !('categories' in settings))
+                if(selectedStyle.length == 0 || !('categories' in header))
                     show = true
 
                 l = selectedStyle.length
                 while(!show && l >= 0) {
-                    if(settings.categories.indexOf(selectedStyle[l]) != -1)
+                    if(header.categories.indexOf(selectedStyle[l]) != -1)
                         show = true
                     else
                         l -= 1
@@ -415,7 +464,7 @@ __STATES__ = {
             // Find the current position in the story
             if(options[1] == "__end__")
                 pos = "__end__"
-            else if(options[1] == undefined || !(options[1] in story))
+            else if(options[1] == undefined || !(options[1] in story.story))
                 pos = 'start'
             else
                 pos = options[1]
@@ -467,30 +516,30 @@ __STATES__ = {
                 end.style.display = "none"
                 speak.style.display = "block"
                 boxes.style.display = "block"
-                current = story[pos]
+                current = story.story[pos]
            
                 self.makingChoice = false;
 
                 //////////////////////////////////////////////////////////////////////
                 // Set title
-                self.title = story._settings.title
+                self.title = story.header.title
                 content.getElementsByTagName("h1")[0].innerText = current.title || self.title
 
                 // Illustration
-                bg = current.bg || story._settings.bg || '';
-                content.getElementsByTagName('illustration')[0].style.backgroundImage = "url('data/"+bg+"')"
+                bg = current.bg || story.header.bg || '';
+                content.getElementsByTagName('illustration')[0].style.backgroundImage = "url('data/"+storyId+"/"+bg+"')"
 
             
 
                 //////////////////////////////////////////////////////////////////////
                 // Load voices
-                voices = story._settings.voices;
+                voices = story.story._settings.voices;
 
                 if(voices == undefined)
-                    return console.error("Missing voices in _settings")
+                    return console.error("Missing voices in story")
 
                 if(!('default' in voices))
-                    return console.error("Missing 'default' voices in _settings")
+                    return console.error("Missing 'default' voices in story")
                 
                 //////////////////////////////////////////////////////////////////////
                 // Render box
@@ -597,7 +646,7 @@ __STATES__ = {
                     {
                         self.makingChoice = true;
                         document.getElementById('speaking').style.display = "none"
-                        content.getElementsByTagName("h1")[0].innerText = current.show || current.short || current.title ||  story._settings.title
+                        content.getElementsByTagName("h1")[0].innerText = current.show || current.short || current.title ||  story.header.title
                            
                         if('choices' in current) {                      // Actions
                             for(i=0; i < boxes.length && i < current.choices.length; i++) {
@@ -673,7 +722,10 @@ function route(state) {
 }
 
 
-
+function reRender() {
+    hash = document.location.hash.split("#").slice(1)
+    switchState(hash[0], hash.slice(1))
+}
 
 function switchState(newState, options) {
 

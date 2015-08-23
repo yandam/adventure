@@ -197,6 +197,7 @@ button:hover {
   background: #e9f4df;
 }
 label {
+  position: relative;
   display: block;
   color: #e9f4df;
   border-top: 1px solid #5e635a;
@@ -204,22 +205,25 @@ label {
   font-size: 1.1em;
 }
 label input {
-  float: right;
-  width: 25px;
-  height: 25px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 20px;
+  width: 40px;
+  height: 40px;
   line-height: 0;
   vertical-align: middle;
-}
-label input:checked {
-  background-color: #f00;
+  margin: auto;
 }
 label h1 {
   font-size: 1em;
   margin: 0;
+  margin-right: 50px;
 }
 label description {
   display: inline-block;
   font-size: 0.9em;
+  margin-right: 50px;
 }
 entry,
 filters,
@@ -549,4 +553,35 @@ end button {
 }
 end button:hover {
   background: transparent;
+}
+#contentShopping [type="checkbox"] {
+  color: #ff97cd;
+}
+[type="checkbox"] {
+  -webkit-appearance: initial;
+  color: #ff97cd;
+  background: transparent;
+  border: none;
+  font: normal normal normal 2.2em/1 FontAwesome;
+}
+[type="checkbox"]:not(:checked):before {
+  content: "\f204";
+}
+[type="checkbox"]:checked:before {
+  content: "\f205";
+}
+#contentShopping [type="checkbox"] {
+  color: #ff97cd;
+}
+#contentShopping [type="checkbox"]:not(:checked):before {
+  content: "\f0ed";
+}
+#contentShopping [type="checkbox"]:checked:before {
+  content: "\f00d";
+}
+#contentOptions [type="checkbox"] {
+  color: #fdf330;
+}
+#contentFilters [type="checkbox"] {
+  color: #50d2ff;
 }

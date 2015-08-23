@@ -248,6 +248,7 @@ button
         background  $pwhite
 
 label
+    position relative
     display block
     color $pwhite
     border-top 1px solid $gray
@@ -255,22 +256,26 @@ label
     font-size 1.1em
     
     & input
-        float right
-        width 25px
-        height 25px
+        position absolute
+        top 0
+        bottom 0
+        right 20px
+        width 40px
+        height 40px
         line-height 0
         vertical-align middle
-        
-        &:checked
-            background-color red
+        margin auto
             
     & h1
         font-size 1em
         margin 0
+        margin-right 50px
+        
     
     & description
         display inline-block
         font-size 0.9em
+        margin-right 50px
 
 
 entry 
@@ -610,3 +615,43 @@ end
         
         &:hover
             background transparent
+            
+#contentShopping
+    
+    [type="checkbox"]
+        color $pink
+        
+       
+                
+[type="checkbox"]
+    -webkit-appearance initial
+    color $pink
+    background transparent
+    border none
+    font normal normal normal 2.2em/1 FontAwesome
+    
+    &:not(:checked)
+        &:before
+            content "\f204"
+        
+    &:checked
+        &:before
+            content "\f205"
+            
+    /#contentShopping &
+        color $pink
+        
+        &:not(:checked)
+            &:before
+                content "\f0ed"
+            
+        &:checked
+            &:before
+                content "\f00d"
+            
+    /#contentOptions &
+        color $yellow
+        
+    /#contentFilters &
+        color $blue
+

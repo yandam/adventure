@@ -80,6 +80,8 @@ public class MainActivity extends Activity {
             WebView.setWebContentsDebuggingEnabled(true);
         }
 
+        webView.getSettings().setAllowFileAccessFromFileURLs(true);
+        webView.getSettings().setAllowUniversalAccessFromFileURLs(true);
 
         // Set a client
         webView.setWebChromeClient(new WebChromeClient() {
