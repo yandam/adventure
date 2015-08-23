@@ -1,9 +1,9 @@
 
 __WORDS__ = [
-    ['a', 'à', 'ah', 'bleu', 'bleue'],
+    ['a', 'à', 'ah', 'bleu', 'bleue','cyan'],
     ['b', 'bé', 'baie', 'vert', 'vers', 'ver', 'verte'],
     ['c', 'c\'est', 'sais', 'jaune', 'orange'],
-    ['d', 'dé', 'des', 'rouge']
+    ['d', 'dé', 'des', 'rouge', 'rose']
 ]
 
 SpeechRecognition = function() {
