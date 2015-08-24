@@ -32,7 +32,7 @@ public class JSTextToSpeech {
             @Override
             public void onInit(int status) {
                 if (status != TextToSpeech.ERROR) {
-                    voice.setLanguage(Locale.FRENCH);
+                    //voice.setLanguage(Locale.FRENCH);
                     voice.setOnUtteranceProgressListener(new UtteranceProgressListener() {
                         private void callbackStatus(String utterId, final Integer status) {
                             final int id = Integer.valueOf(utterId);
@@ -69,9 +69,14 @@ public class JSTextToSpeech {
     }
 
     @JavascriptInterface
-    public int speak(final String text, String pitchS, String rateS) {
+    public int speak(final String text, String voice_l, String pitchS, String rateS) {
         if (text != null && !text.isEmpty()) {
             if (voice != null) {
+
+                if(voice_l.equals("FR"))
+                    voice.setLanguage(Locale.FRENCH);
+                else
+                    voice.setLanguage(Locale.ENGLISH);
 
                 float pitch = 1;
                 if(pitchS != null && !pitchS.isEmpty())

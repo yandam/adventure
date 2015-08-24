@@ -25,6 +25,7 @@ public class MainActivity extends Activity {
     private JSTextToSpeech jsTextToSpeech;
     private JSSpeechRecognition jsSpeechRecognition;
     private JSMirrorLink jsMirrorLink;
+    private JSAudioToSpeech jsAudioToSpeech;
 
     @SuppressLint({"SetJavaScriptEnabled", "AddJavascriptInterface"})
     @Override
@@ -70,6 +71,8 @@ public class MainActivity extends Activity {
 
         jsTextToSpeech = new JSTextToSpeech(this, webView);
         webView.addJavascriptInterface(jsTextToSpeech, "AndroidTextToSpeech");
+        jsAudioToSpeech = new JSAudioToSpeech(this, webView);
+        webView.addJavascriptInterface(jsAudioToSpeech, "AndroidAudioToSpeech");
         jsSpeechRecognition = new JSSpeechRecognition(this, webView);
         webView.addJavascriptInterface(jsSpeechRecognition, "AndroidSpeechRecognition");
         jsMirrorLink = new JSMirrorLink(this, webView);
@@ -152,6 +155,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onDestroy() {
         jsTextToSpeech.destroy();
+        jsAudioToSpeech.destroy();
         jsSpeechRecognition.destroy();
         jsMirrorLink.destroy();
 

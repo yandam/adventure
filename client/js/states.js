@@ -8,6 +8,7 @@ __STATES__ = {
             //////////////////////////////////////////////////////////////////////
             // Stop Voice
             Text2Speech.stop()
+            Audio2Speech.stop()
             SpeechRecognition.stop();
 
             stories = Storage.get('stories')
@@ -180,6 +181,7 @@ __STATES__ = {
             //////////////////////////////////////////////////////////////////////
             // Stop Voice
             Text2Speech.stop()
+            Audio2Speech.stop()
             SpeechRecognition.stop();
 
             //////////////////////////////////////////////////////////////////////
@@ -354,6 +356,7 @@ __STATES__ = {
             //////////////////////////////////////////////////////////////////////
             // Stop Voice
             Text2Speech.stop()
+            Audio2Speech.stop()
             SpeechRecognition.stop();
 
             //////////////////////////////////////////////////////////////////////
@@ -414,6 +417,7 @@ __STATES__ = {
             //////////////////////////////////////////////////////////////////////
             // Stop Voice
             Text2Speech.stop()
+            Audio2Speech.stop()
             SpeechRecognition.stop();
 
             //////////////////////////////////////////////////////////////////////
@@ -446,6 +450,7 @@ __STATES__ = {
             //////////////////////////////////////////////////////////////////////
             // Stop Text2Speech
             Text2Speech.stop()
+            Audio2Speech.stop()
             SpeechRecognition.stop()
 
             //////////////////////////////////////////////////////////////////////
@@ -460,17 +465,20 @@ __STATES__ = {
 
             ///////////////////////////////////////////////////////////////////////
             // Recover story
+            stories = Storage.get('stories')
             
             // Find the current position in the story
-            if(options[1] == "__end__")
-                pos = "__end__"
-            else if(options[1] == undefined || !(options[1] in story.story))
+            pos = options[1]
+            // if(options[1] == "__end__")
+            //    pos = "__end__"
+            if(pos == undefined && storyId in stories)
+                pos = stories[storyId].historyKey[stories[storyId].historyKey.length - 1];
+            
+            if(!(pos in story.story) && pos != "__end__")
                 pos = 'start'
-            else
-                pos = options[1]
 
             // History
-            stories = Storage.get('stories')
+            
             if(storyId in stories) {
                 historyKey = stories[storyId].historyKey
                 if(historyKey[historyKey.length - 1] != pos)
@@ -567,28 +575,32 @@ __STATES__ = {
                             if(!('text' in current.choices[i]) && !('message' in current.choices[i]))
                                 return console.error("Missing text in story", current)
 
-                            if(typeof current.choices[i].text == 'string' || typeof current.choices[i].message == 'string') {
-                                text  = current.choices[i].text || current.choices[i].message 
-                                voice = current.choices[i].voice
-                            } else if(typeof current.choices[i].text == 'object') {
-                                text  =  current.choices[i].text[0].t
-                                voice = current.choices[i].text[0].v
-                            } else 
-                                return console.error("Missing text in choices", current)
+                            if(!story.story._settings.recordedVoices) {
 
-                            // Voice choice
-                            voice = voice || 'default'
+                                if(typeof current.choices[i].text == 'string' || typeof current.choices[i].message == 'string') {
+                                    text  = current.choices[i].text || current.choices[i].message 
+                                    voice = current.choices[i].voice
+                                } else if(typeof current.choices[i].text == 'object') {
+                                    text  =  current.choices[i].text[0].t
+                                    voice = current.choices[i].text[0].v
+                                } else 
+                                    return console.error("Missing text in choices", current)
 
-                            if(voice in voices)
-                                voice = voices[voice]
-                            else {
-                                voice = voices['default']
-                                console.warn("Missing voice attributes for ", voice)
+                                // Voice choice
+                                voice = voice || 'default'
+
+                                if(voice in voices)
+                                    voice = voices[voice]
+                                else {
+                                    voice = voices['default']
+                                    console.warn("Missing voice attributes for ", voice)
+                                }
+
                             }
 
                             // Show question
                             if(i == 0) {
-                                content.getElementsByTagName("h1")[0].innerText = current.show || current.short || current.title ||  story._settings.title
+                                content.getElementsByTagName("h1")[0].innerText = current.show || current.short || current.title ||  story.header.title
                             }
 
 
@@ -598,13 +610,21 @@ __STATES__ = {
                                 onStart: (function() {
                                     renderBox(this.i)
                                 }).bind({i: i}),
-                            });
-                            Text2Speech.speak(text, voice, { 
-                                // Next answer
-                                onEnd: (function() {
-                                    sayBox(this.i)
-                                }).bind({i: i+1})
 
+                                onEnd: (function() {
+
+                                    end = { 
+                                        // Next answer
+                                        onEnd: (function() {
+                                            sayBox(this.i)
+                                        }).bind({i: i+1})
+                                    }
+                                    if(story.story._settings.recordedVoices)
+                                        setTimeout(function () { Audio2Speech.speak(storyId, pos, "c"+i, end) }, 1000);
+                                    else
+                                        Text2Speech.speak(text, voice, end)
+
+                                }).bind({storyId: storyId, pos: pos, i: i})
                             });
 
                         } else {
@@ -638,6 +658,7 @@ __STATES__ = {
                 // Stop speaking 
                 document.getElementById('centerButton').onclick = function() {
                     Text2Speech.stop()
+                    Audio2Speech.stop()
                     SpeechRecognition.stop()
 
                     if(self.makingChoice)
@@ -669,6 +690,7 @@ __STATES__ = {
                     if(!('text' in current))
                         return console.error("Missing text in story", current)
 
+
                     if(typeof current.text == 'string') {
                         text  = current.text
                         voice = current.voice
@@ -686,18 +708,25 @@ __STATES__ = {
                         voice = voices[voice]
 
                     if(i == (length - 1))  // Last text
-                        Text2Speech.speak(text, voice, {
+                    {
+                        end = {
                             // Show answers
                             onEnd: function() {
                                 sayBox(0)
                             }
-                        });
-                    else
-                        Text2Speech.speak(text, voice, {
+                        }
+                    } else {
+                        end = {
                             onEnd: (function() {
                                 sayText(this.i)
                             }).bind({i: i+1})
-                        });
+                        }
+                    }
+                       
+                   if(story.story._settings.recordedVoices)
+                        Audio2Speech.speak(storyId, pos, i, end)
+                    else
+                        Text2Speech.speak(text, voice, end);
                 }
 
                 // Start speaking

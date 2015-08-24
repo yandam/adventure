@@ -33,7 +33,12 @@ if(window.AndroidTextToSpeech)
 			else
 				rate = 1;
 
-			id = window.AndroidTextToSpeech.speak(text, pitch, rate);
+			if(voice.lang == "fr-FR")
+				voice = "FR"
+			else
+				voice = "EN"
+
+			id = window.AndroidTextToSpeech.speak(text, voice, pitch, rate);
 
 			// TODO Voice
 			callbackMap[id] = callback;
@@ -86,6 +91,63 @@ if(window.AndroidTextToSpeech)
 	}
 
 	androidText2Speech = new AndroidText2Speech();
+}
+
+/*************************************************************************************
+ * Audio2Speech
+ * Audio -> Voice
+ * JS - Android interface
+ *************************************************************************************/
+if(window.AndroidAudioToSpeech)
+{
+	AndroidAudio2Speech = function()  {
+
+		callbackMap = {};
+
+		/**
+		 * Speak a sentence
+		 * @param  {String}   text     The sentence to spell
+		 * @param  {Function} callback Callback function to return status. callback(status). status = 0 when started, 1 when error occured, 2 when the sentence is finished
+		 */
+		this.speak = function(url, callback)
+		{
+			
+			id = window.AndroidAudioToSpeech.play(url);
+
+			if(id == -1) {
+				if(callback != undefined && 'onEnd' in callback)
+					callback['onEnd']();
+			} else {
+				callbackMap[id] = callback;
+				if('onStart' in callback && callback['onStart'] != undefined)
+					callback['onStart']();
+			}
+
+		}
+
+		/**
+		 * Stop the voice
+		 */
+		this.stop = function()
+		{
+			window.AndroidAudioToSpeech.stop()
+		}
+
+		/**
+		 * Android callback
+		 * Do not call directly
+		 */
+		this.AndroidCallback = function(id, status)
+		{
+			if(callbackMap[id] != undefined && 'onEnd' in callbackMap[id])
+			{
+				callbackMap[id]['onEnd']();
+			}
+		}
+
+	}
+
+	androidAudio2Speech = new AndroidAudio2Speech();
 }
 
 /*************************************************************************************

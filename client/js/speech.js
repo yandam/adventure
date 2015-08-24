@@ -96,3 +96,51 @@ Text2Speech = function() {
 };
 
 var Text2Speech = new Text2Speech();
+
+
+Audio2Speech  = function() {
+    _this = this;
+    this.stopI = 0;
+    this.last = null;
+
+    this.stop = function() {
+        this.stopI += 1
+
+        if('androidAudio2Speech' in window) {
+            window.androidAudio2Speech.stop();
+        }
+        else
+        {
+            if(this.last)
+                this.last.pause()
+        }
+    };
+
+    this.speak = function(storyId, pos, i, callback)
+    {
+        console.debug("🔊", storyId, pos, i);
+
+        callback = {
+            'onStart': (callback != undefined)?callback['onStart']:undefined,
+            'onEnd': (function() {
+                if(this.stopI == _this.stopI && this.callback != undefined && 'onEnd' in this.callback)
+                    this.callback['onEnd']()
+            }).bind({callback: callback, stopI: this.stopI})
+        }
+
+        url = "data/"+storyId+"/sound/"+pos+"_"+i+".ogg"
+
+        if('androidAudio2Speech' in window) {  
+            window.androidAudio2Speech.speak(url, callback);
+        } else {
+            a = new Audio(url);
+            this.last = a
+            a.onplaying = callback.onStart
+            a.onended = callback.onEnd
+            a.onerror = callback.onEnd
+            a.play()
+        }
+    };
+};
+
+var Audio2Speech = new Audio2Speech();

@@ -24,8 +24,7 @@
         ]
     },
     "abdicate":{
-        "text":"The kingdom descends into chaos, but you manage to escape with your own hide. Perhaps in time you can return to restore order to this fair land.",
-        "choices": []
+        "text":"The kingdom descends into chaos, but you manage to escape with your own hide. Perhaps in time you can return to restore order to this fair land."
     },
     "war":{
         "short":"How will you win the war?",

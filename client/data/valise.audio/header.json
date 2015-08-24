@@ -1,0 +1,9 @@
+{
+  "title":"(Voix) Faire sa valise, c'est compliqué...",
+  "author": "BeMyApp",
+  "synopsis": "Version avec voix enregistrées. Patrick est heureux. L’école est finie et, avec Papa et Maman, les vacances se préparent. La petite famille va prendre la voiture de maman et direction la mer.",
+  "categories": ["enfance", "aventure"],
+  "bg": "illustration.jpg",
+  "price": 5.00,
+  "recordedVoices": true
+}
